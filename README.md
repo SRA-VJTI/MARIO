@@ -2,6 +2,4 @@
 
 ESP32 Codes for **M**anipulator on **R**OS **B**ased **I**nput **O**utput
 
-# Instructions
 
-Clone in home 
