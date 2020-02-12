@@ -932,11 +932,6 @@ CONFIG_ROSSERVER_PASS="coeavitra"
 CONFIG_ROSSERVER_IP="192.168.1.121"
 CONFIG_ROSSERVER_PORT=11411
 # end of rosserial
-
-#
-# rosserial
-#
-# end of rosserial
 # end of Component config
 
 #

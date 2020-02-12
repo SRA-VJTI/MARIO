@@ -66,8 +66,8 @@ SOFTWARE.
 
 
 
-int theta1, theta2, theta3;
-int PWM1 , PWM2 , PWM3;
+int theta1,theta2,theta3;
+int PWM1 ,PWM2 ,PWM3;
 
 
 void mcpwm_example_gpio_initialize();
@@ -76,6 +76,6 @@ uint32_t micro_servo_per_degree_init(uint32_t degree_of_rotation);
 
 uint32_t servo_per_degree_init(uint32_t degree_of_rotation);
 
-void mcpwm_example_servo_control(int theta1, int theta2, int theta3);
+void mcpwm_example_servo_control(int theta1,int theta2,int theta3);
 
 #endif
