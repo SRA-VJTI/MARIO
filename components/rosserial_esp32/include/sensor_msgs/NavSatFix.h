@@ -50,44 +50,60 @@ namespace sensor_msgs
       offset += this->status.serialize(outbuffer + offset);
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_latitude;
       u_latitude.real = this->latitude;
       *(outbuffer + offset + 0) = (u_latitude.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_latitude.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_latitude.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_latitude.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_latitude.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_latitude.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_latitude.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_latitude.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->latitude);
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_longitude;
       u_longitude.real = this->longitude;
       *(outbuffer + offset + 0) = (u_longitude.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_longitude.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_longitude.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_longitude.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_longitude.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_longitude.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_longitude.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_longitude.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->longitude);
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_altitude;
       u_altitude.real = this->altitude;
       *(outbuffer + offset + 0) = (u_altitude.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_altitude.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_altitude.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_altitude.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_altitude.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_altitude.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_altitude.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_altitude.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->altitude);
       for( uint32_t i = 0; i < 9; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_position_covariancei;
       u_position_covariancei.real = this->position_covariance[i];
       *(outbuffer + offset + 0) = (u_position_covariancei.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_position_covariancei.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_position_covariancei.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_position_covariancei.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_position_covariancei.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_position_covariancei.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_position_covariancei.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_position_covariancei.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->position_covariance[i]);
       }
       *(outbuffer + offset + 0) = (this->position_covariance_type >> (8 * 0)) & 0xFF;
@@ -102,47 +118,63 @@ namespace sensor_msgs
       offset += this->status.deserialize(inbuffer + offset);
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_latitude;
       u_latitude.base = 0;
-      u_latitude.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_latitude.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_latitude.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_latitude.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_latitude.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->latitude = u_latitude.real;
       offset += sizeof(this->latitude);
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_longitude;
       u_longitude.base = 0;
-      u_longitude.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_longitude.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_longitude.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_longitude.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_longitude.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->longitude = u_longitude.real;
       offset += sizeof(this->longitude);
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_altitude;
       u_altitude.base = 0;
-      u_altitude.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_altitude.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_altitude.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_altitude.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_altitude.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->altitude = u_altitude.real;
       offset += sizeof(this->altitude);
       for( uint32_t i = 0; i < 9; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_position_covariancei;
       u_position_covariancei.base = 0;
-      u_position_covariancei.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_position_covariancei.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_position_covariancei.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_position_covariancei.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_position_covariancei.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->position_covariance[i] = u_position_covariancei.real;
       offset += sizeof(this->position_covariance[i]);
       }

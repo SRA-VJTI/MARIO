@@ -1,5 +1,4 @@
 #include "ros.h"
-#include "std_msgs/String.h"
 #include "geometry_msgs/Vector3.h"
 #include "esp_serial.h"
 #include "esp_system.h"
@@ -10,40 +9,6 @@
 #define led_pin GPIO_NUM_2  // ledp pin for debugging
 
 ros::NodeHandle nh;
-
-// using vector3
-struct angles{
-  int theta[3];
-};
-
-angles parseData(const char* data){
-
-    char theta[3][20];
-    int counter_1 = 0;
-    int counter_2 = 0;
-    angles ret;
-
-    for(int i=0; i < strlen(data); i++)
-    {
-      if(data[i] == ' ')
-      {
-        theta[counter_1][counter_2+1] = '\0';
-        counter_1++;
-        counter_2 = 0;
-      }
-      else
-      {
-        theta[counter_1][counter_2] = data[i];
-        counter_2++;
-      }
-    }
-
-    ret.theta[0] = atoi(theta[0]);
-    ret.theta[1] = atoi(theta[1]);
-    ret.theta[2] = atoi(theta[2]);
-
-    return ret;
-}
 
 void blinkDebugLed(){
 
@@ -56,26 +21,24 @@ void blinkDebugLed(){
   vTaskDelay(50);
 }
 
-void messageCb(const std_msgs::String& msg){    
+void messageCb(const geometry_msgs::Vector3& msg){    
 
     ESP_LOGD("info", "%s", "new message from publisher");
 
     blinkDebugLed();
+    
+    ESP_LOGD("angle 0", "%f", msg.x);
+    ESP_LOGD("angle 1", "%f", msg.y);
+    ESP_LOGD("angle 2", "%f", msg.z);
 
-    angles servoAngles = parseData(msg.data);
-
-    ESP_LOGD("angle 0", "%d", servoAngles.theta[0]);
-    ESP_LOGD("angle 1", "%d", servoAngles.theta[1]);
-    ESP_LOGD("angle 2", "%d", servoAngles.theta[2]);
-
-    mcpwm_example_servo_control(servoAngles.theta[0], servoAngles.theta[1], servoAngles.theta[2]);    
+    mcpwm_example_servo_control(msg.x, msg.y, msg.z);    
 }
 
-ros::Subscriber<std_msgs::String> arm("ros_arm_control", &messageCb);
+ros::Subscriber<geometry_msgs::Vector3> arm("ros_arm_control", &messageCb);
 
 void rosserial_setup()
 {
-  nh.initNode();                   // Initialize ROS
+  nh.initNode();                  // Initialize ROS
   nh.subscribe(arm);              // subscribe to topic
 }
 

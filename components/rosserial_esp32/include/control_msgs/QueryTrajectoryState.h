@@ -110,13 +110,17 @@ static const char QUERYTRAJECTORYSTATE[] = "control_msgs/QueryTrajectoryState";
       for( uint32_t i = 0; i < position_length; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_positioni;
       u_positioni.real = this->position[i];
       *(outbuffer + offset + 0) = (u_positioni.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_positioni.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_positioni.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_positioni.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_positioni.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_positioni.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_positioni.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_positioni.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->position[i]);
       }
       *(outbuffer + offset + 0) = (this->velocity_length >> (8 * 0)) & 0xFF;
@@ -127,13 +131,17 @@ static const char QUERYTRAJECTORYSTATE[] = "control_msgs/QueryTrajectoryState";
       for( uint32_t i = 0; i < velocity_length; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_velocityi;
       u_velocityi.real = this->velocity[i];
       *(outbuffer + offset + 0) = (u_velocityi.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_velocityi.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_velocityi.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_velocityi.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_velocityi.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_velocityi.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_velocityi.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_velocityi.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->velocity[i]);
       }
       *(outbuffer + offset + 0) = (this->acceleration_length >> (8 * 0)) & 0xFF;
@@ -144,13 +152,17 @@ static const char QUERYTRAJECTORYSTATE[] = "control_msgs/QueryTrajectoryState";
       for( uint32_t i = 0; i < acceleration_length; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_accelerationi;
       u_accelerationi.real = this->acceleration[i];
       *(outbuffer + offset + 0) = (u_accelerationi.base >> (8 * 0)) & 0xFF;
       *(outbuffer + offset + 1) = (u_accelerationi.base >> (8 * 1)) & 0xFF;
       *(outbuffer + offset + 2) = (u_accelerationi.base >> (8 * 2)) & 0xFF;
       *(outbuffer + offset + 3) = (u_accelerationi.base >> (8 * 3)) & 0xFF;
+      *(outbuffer + offset + 4) = (u_accelerationi.base >> (8 * 4)) & 0xFF;
+      *(outbuffer + offset + 5) = (u_accelerationi.base >> (8 * 5)) & 0xFF;
+      *(outbuffer + offset + 6) = (u_accelerationi.base >> (8 * 6)) & 0xFF;
+      *(outbuffer + offset + 7) = (u_accelerationi.base >> (8 * 7)) & 0xFF;
       offset += sizeof(this->acceleration[i]);
       }
       return offset;
@@ -190,13 +202,17 @@ static const char QUERYTRAJECTORYSTATE[] = "control_msgs/QueryTrajectoryState";
       for( uint32_t i = 0; i < position_length; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_st_position;
       u_st_position.base = 0;
-      u_st_position.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_st_position.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_st_position.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_st_position.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_st_position.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->st_position = u_st_position.real;
       offset += sizeof(this->st_position);
         memcpy( &(this->position[i]), &(this->st_position), sizeof(double));
@@ -212,13 +228,17 @@ static const char QUERYTRAJECTORYSTATE[] = "control_msgs/QueryTrajectoryState";
       for( uint32_t i = 0; i < velocity_length; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_st_velocity;
       u_st_velocity.base = 0;
-      u_st_velocity.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_st_velocity.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_st_velocity.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_st_velocity.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_st_velocity.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->st_velocity = u_st_velocity.real;
       offset += sizeof(this->st_velocity);
         memcpy( &(this->velocity[i]), &(this->st_velocity), sizeof(double));
@@ -234,13 +254,17 @@ static const char QUERYTRAJECTORYSTATE[] = "control_msgs/QueryTrajectoryState";
       for( uint32_t i = 0; i < acceleration_length; i++){
       union {
         double real;
-        uint32_t base;
+        uint64_t base;
       } u_st_acceleration;
       u_st_acceleration.base = 0;
-      u_st_acceleration.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_st_acceleration.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_st_acceleration.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_st_acceleration.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
+      u_st_acceleration.base |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
       this->st_acceleration = u_st_acceleration.real;
       offset += sizeof(this->st_acceleration);
         memcpy( &(this->acceleration[i]), &(this->st_acceleration), sizeof(double));
