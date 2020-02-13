@@ -1,5 +1,6 @@
 #include "ros.h"
 #include "geometry_msgs/Vector3.h"
+#include "sensor_msgs/JointState.h"
 #include "esp_serial.h"
 #include "esp_system.h"
 #include "esp_err.h"
@@ -10,8 +11,10 @@
 
 //////////////////////////////////////////////////////////////////////////////
 void messageCb(const geometry_msgs::Vector3 &msg);
+void messageCb_rviz(const sensor_msgs::JointState &msg);
 ros::NodeHandle nh;
 ros::Subscriber<geometry_msgs::Vector3> arm("ros_arm_control", &messageCb);
+ros::Subscriber<sensor_msgs::JointState> arm_rviz("joint_states", &messageCb_rviz);
 //////////////////////////////////////////////////////////////////////////////
 
 void blinkDebugLed()
@@ -45,6 +48,33 @@ void rosserial_setup()
 }
 
 void rosserial_spinonce()
+{
+    nh.spinOnce();
+}
+
+void messageCb_rviz(const sensor_msgs::JointState &msg)
+{
+    ESP_LOGD("info", "%s", "new message from publisher");
+
+    blinkDebugLed();
+
+    ESP_LOGD("timestamp", "%d", msg.header.seq);
+    ESP_LOGD("angle 0", "%f", msg.position[0]);
+    ESP_LOGD("angle 1", "%f", msg.position[1]);
+    ESP_LOGD("angle 2", "%f", msg.position[2]);
+
+    mcpwm_example_servo_control(msg.position[0], msg.position[1], msg.position[2]);
+}
+
+void rosserial_setup_rviz()
+{
+    ESP_LOGD("init moveit", "%f", 20.0);
+    nh.initNode();                  // Initialize ROS
+    nh.subscribe(arm_rviz);              // subscribe to topic
+    ESP_LOGD("init moveit", "%f", 23.0);
+}
+
+void rosserial_spinonce_rviz()
 {
     nh.spinOnce();
 }
