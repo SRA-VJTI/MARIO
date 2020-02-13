@@ -3,7 +3,7 @@ import rospy
 from std_msgs.msg import String
 import numpy as np
 import math 
-
+from geometry_msgs.msg import Point32
 # Variables
 d0 = 2.5
 a1 = 12.0
@@ -40,10 +40,10 @@ def compute_angles(x, y, z):
 	return result
 
 def talker():
-		pub_array = rospy.Publisher('ros_arm_control', String, queue_size=10) 
+		pub_array = rospy.Publisher('ros_arm_control', Point32, queue_size=10) 
 		rospy.init_node('talker', anonymous=True)
 		rate = rospy.Rate(10)	#10hz
-		msg = String()
+		msg = Point32()
 
 		while not rospy.is_shutdown():
 			x = float(input("Enter x "))
@@ -56,17 +56,17 @@ def talker():
 			print("\tOR")	
 			print(angles[1][0], angles[1][1], angles[1][2])
 
-			angle_str = ""
+			# angle_str = ""
 
-			for i in angles[0]:
-				angle_str = angle_str + str(i) + " "
+			# for i in angles[0]:
+			# 	angle_str = angle_str + str(i) + " "
 
-			msg.data = angle_str
-			print(msg.data)
+			msg.x = float(angles[0][0])
+			msg.y = float(angles[0][1])
+			msg.z = float(angles[0][2])
 			
 			rospy.loginfo(msg)
 			pub_array.publish(msg)
-			msg.data = ""
 			rate.sleep()
 
 if __name__ == '__main__':

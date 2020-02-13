@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from std_msgs.msg import String
+from geometry_msgs.msg import Vector3
 import sys
 import math
 import numpy as np
@@ -30,25 +30,26 @@ def compute_co_ordinates(theta,d=[d0,0,0,d3],alpha=[math.pi/2,0,math.pi/2,0],a=[
 
 def talker():
 
-    pub_array = rospy.Publisher('ros_arm_control', String, queue_size=10) 
+    pub_array = rospy.Publisher('ros_arm_control', Vector3, queue_size=10) 
     rospy.init_node('talker', anonymous=True)
     rate = rospy.Rate(10)	#10hz
-    msg = String()
+    msg = Vector3()
 
     while not rospy.is_shutdown():
-        t0 = int(input("Enter theta0 "))
-        t1 = int(input("Enter theta1 "))
-        t2 = int(input("Enter theta2 "))
+        t0 = float(input("Enter theta0 "))
+        t1 = float(input("Enter theta1 "))
+        t2 = float(input("Enter theta2 "))
 
         transformationMatrix = compute_co_ordinates([t0,t1,t2,0])
         print (transformationMatrix[0,3],transformationMatrix[1,3],transformationMatrix[2,3]) 
 
-        coordinate_str = str(t0) + " " + str(t1) + " " + str(t2) + " "
-        msg.data = coordinate_str
+        # coordinate_str = str(t0) + " " + str(t1) + " " + str(t2) + " "
+        msg.x = t0
+        msg.y = t1
+        msg.z = t2
 
         rospy.loginfo(msg)
         pub_array.publish(msg)
-        msg.data = ""
         rate.sleep()
 
 if __name__ == '__main__':
