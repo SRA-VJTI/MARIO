@@ -9,7 +9,7 @@
 #define led_pin GPIO_NUM_2  // ledp pin for debugging
 
 //////////////////////////////////////////////////////////////////////////////
-void messageCb(const geometry_msgs::Vector3 &msg);
+void messageCb(const sensor_msgs::JointState &msg);
 ros::NodeHandle nh;
 ros::Subscriber<sensor_msgs::JointState> arm("joint_states", &messageCb);
 //////////////////////////////////////////////////////////////////////////////
