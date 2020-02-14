@@ -56,7 +56,7 @@ void messageCb_rviz(const sensor_msgs::JointState &msg)
 {
     ESP_LOGD("info", "%s", "new message from publisher");
 
-    blinkDebugLed();
+    // add some kind of indication outside like turn on led
 
     ESP_LOGD("timestamp", "%d", msg.header.seq);
     ESP_LOGD("angle 0", "%f", msg.position[0]);
