@@ -4,20 +4,18 @@
 #include "esp_serial.h"
 #include "esp_system.h"
 #include "esp_err.h"
-#define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE
-#include "esp_log.h"
-
-#define led_pin GPIO_NUM_2  // ledp pin for debugging
 
 //////////////////////////////////////////////////////////////////////////////
-void messageCb(const geometry_msgs::Vector3 &msg);
-void messageCb_rviz(const sensor_msgs::JointState &msg);
+static const char* TAG_C = "ros_control";
+static const char* TAG_RVIZ = "ros_control_rviz";
+void message_callback(const geometry_msgs::Vector3 &msg);
+void message_callback_rviz(const sensor_msgs::JointState &msg);
 ros::NodeHandle nh;
-ros::Subscriber<geometry_msgs::Vector3> arm("ros_arm_control", &messageCb);
-ros::Subscriber<sensor_msgs::JointState> arm_rviz("joint_states", &messageCb_rviz);
+ros::Subscriber<geometry_msgs::Vector3> arm("ros_arm_control", &message_callback);
+ros::Subscriber<sensor_msgs::JointState> arm_rviz("joint_states", &message_callback_rviz);
 //////////////////////////////////////////////////////////////////////////////
 
-void blinkDebugLed()
+void debug_blink_led()
 {
     gpio_set_direction(led_pin, GPIO_MODE_OUTPUT);
 
@@ -28,21 +26,23 @@ void blinkDebugLed()
     vTaskDelay(50);
 }
 
-void messageCb(const geometry_msgs::Vector3 &msg)
+void message_callback(const geometry_msgs::Vector3 &msg)
 {
-    ESP_LOGD("info", "%s", "new message from publisher");
+    logD(TAG_C, "%s", "new message from publisher");
 
-    blinkDebugLed();
+    debug_blink_led();
 
-    ESP_LOGD("angle 0", "%f", msg.x);
-    ESP_LOGD("angle 1", "%f", msg.y);
-    ESP_LOGD("angle 2", "%f", msg.z);
+    logD(TAG_C, "angle [BASE]:     %f", msg.x);
+    logD(TAG_C, "angle [SHOUDLER]: %f", msg.y);
+    logD(TAG_C, "angle [ELBOW]:    %f", msg.z);
 
-    mcpwm_example_servo_control(msg.x, msg.y, msg.z);
+    servo_control(msg.x, msg.y, msg.z);
 }
 
 void rosserial_setup()
 {
+    logD(TAG_C, "%s", "ros controlled arm through custom publisher\n\n");
+    
     nh.initNode();                  // Initialize ROS
     nh.subscribe(arm);              // subscribe to topic
 }
@@ -52,26 +52,24 @@ void rosserial_spinonce()
     nh.spinOnce();
 }
 
-void messageCb_rviz(const sensor_msgs::JointState &msg)
+void message_callback_rviz(const sensor_msgs::JointState &msg)
 {
-    ESP_LOGD("info", "%s", "new message from publisher");
+    logD(TAG_RVIZ, "%s", "new message from publisher");
 
-    // add some kind of indication outside like turn on led
+    logD(TAG_RVIZ, "timestamp:        %d", msg.header.seq);
+    logD(TAG_RVIZ, "angle [BASE}:     %f", msg.position[0]);
+    logD(TAG_RVIZ, "angle [SHOUDLER]: %f", msg.position[1]);
+    logD(TAG_RVIZ, "angle [ELBOW]:    %f", msg.position[2]);
 
-    ESP_LOGD("timestamp", "%d", msg.header.seq);
-    ESP_LOGD("angle 0", "%f", msg.position[0]);
-    ESP_LOGD("angle 1", "%f", msg.position[1]);
-    ESP_LOGD("angle 2", "%f", msg.position[2]);
-
-    mcpwm_example_servo_control(msg.position[0], msg.position[1], msg.position[2]);
+    servo_control(msg.position[0], msg.position[1], msg.position[2]);
 }
 
 void rosserial_setup_rviz()
 {
-    ESP_LOGD("init moveit", "%f", 20.0);
-    nh.initNode();                  // Initialize ROS
-    nh.subscribe(arm_rviz);              // subscribe to topic
-    ESP_LOGD("init moveit", "%f", 23.0);
+    logD(TAG_RVIZ, "%s", "ros controlled arm through rviz\n\n");
+    
+    nh.initNode();
+    nh.subscribe(arm_rviz);
 }
 
 void rosserial_spinonce_rviz()

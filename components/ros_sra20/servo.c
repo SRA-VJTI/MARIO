@@ -1,7 +1,5 @@
-
 /*
-
-Copyright (c) 2019, Society of Robotics and Automation, VJTI
+Copyright (c) 2020, Society of Robotics and Automation, VJTI
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,36 +18,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
 */
 
 
 #include "servo.h"
 
-void mcpwm_example_gpio_initialize()
+static const char *TAG_S = "servo_control";
+
+void servo_gpio_initialize()
 {
-    printf("initializing mcpwm servo control gpio......\n");
+    logD(TAG_S, "%s", "initializing servo control gpio\n");
+    
+    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, SERVO_BASE);
+    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0B, SERVO_SHOULDER);
+    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM1A, SERVO_ELBOW);
 
-    //Set GPIO PINS as PWM0A, to which servo is connected
-    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, SERVO_PIN_1);
-    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0B, SERVO_PIN_2);
-    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM1A, SERVO_PIN_3);
-    printf("Configuring Initial Parameters of mcpwm......\n");
+    logD(TAG_S, "%s", "configuring initial parameterrs of servo\n");
 
-    //Configure pwm
     mcpwm_config_t pwm_config;
-    pwm_config.frequency = 50;    //frequency = 50Hz, i.e. for every servo motor time period should be 20ms
-    pwm_config.cmpr_a = 0;    //duty cycle of PWMxA = 0
-    pwm_config.cmpr_b = 0;    //duty cycle of PWMxb = 0
+    pwm_config.frequency = 50;
+    pwm_config.cmpr_a = 0;
+    pwm_config.cmpr_b = 0;
     pwm_config.counter_mode = MCPWM_UP_COUNTER;
     pwm_config.duty_mode = MCPWM_DUTY_MODE_0;
 
-    //Assign the configurations to MCPWM_UNIT
     mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);
     mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_1, &pwm_config);
 }
 
-//Convert angles in degrees to angles in PWM for micro servo
 uint32_t micro_servo_per_degree_init(uint32_t degree_of_rotation)
 {
     uint32_t cal_pulsewidth_micro = 0;
@@ -57,7 +53,6 @@ uint32_t micro_servo_per_degree_init(uint32_t degree_of_rotation)
     return cal_pulsewidth_micro;
 }
 
-//Convert angles in degrees to angles in PWM for servo
 uint32_t servo_per_degree_init(uint32_t degree_of_rotation)
 {
     uint32_t cal_pulsewidth = 0;
@@ -65,8 +60,7 @@ uint32_t servo_per_degree_init(uint32_t degree_of_rotation)
     return cal_pulsewidth;
 }
 
-//Write PWM values to all the Servos
-void mcpwm_example_servo_control(int theta1, int theta2, int theta3)
+void servo_control(int theta1, int theta2, int theta3)
 {
     PWM1 = servo_per_degree_init(theta1);
     PWM2 = micro_servo_per_degree_init(theta2);

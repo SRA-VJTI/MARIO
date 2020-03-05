@@ -5,8 +5,8 @@
 
 void app_main(void)
 {
-    mcpwm_example_gpio_initialize();  // init gpio pwm
-    rosserial_setup(); // run rosserial setup
+    servo_gpio_initialize();  // init gpio pwm
+    rosserial_setup();        // run rosserial setup
 
     while (1)
     {
