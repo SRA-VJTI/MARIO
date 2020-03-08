@@ -59,6 +59,11 @@ cp -r $HOME/ros20_ws/src/sra20/requirements_catkin_ws/CMakeLists.txt $HOME/catki
 cp -r $HOME/ros20_ws/src/sra20/requirements_catkin_ws/package.xml $HOME/catkin_ws/src/sra/
 #############################################################################
 
+#### catkin make ############################################################
+cd ~/catkin_ws
+catkin_make
+#############################################################################
+
 #### Success message ########################################################
 clear
 if [ -d $HOME/catkin_ws/src/sra/scripts ] && [ -e $HOME/catkin_ws/src/sra/package.xml ]
