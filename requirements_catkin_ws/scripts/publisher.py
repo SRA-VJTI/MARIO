@@ -6,10 +6,10 @@ from sra.msg import custom_array ##custom message
 
 def publisher():
 
-    pub_array = rospy.Publisher('array', custom_array, queue_size=10) 
+    publisher = rospy.Publisher('array', custom_array, queue_size=10) 
     rospy.init_node('talker', anonymous=True)
     rate = rospy.Rate(10)	#10hz
-    msg = custom_array()
+    custom_msg = custom_array()
 
     while not rospy.is_shutdown():
         
@@ -17,13 +17,13 @@ def publisher():
         theta_shoulder = int(input("{:22s}".format("Enter theta_shoulder: ")))
         theta_elbow = int(input("{:22s}".format("Enter theta_elbow: ")))
 
-        msg.array1.append(theta_base)
-        msg.array1.append(theta_shoulder)
-        msg.array1.append(theta_elbow)
+        custom_msg.array1.append(theta_base)
+        custom_msg.array1.append(theta_shoulder)
+        custom_msg.array1.append(theta_elbow)
 
-        rospy.loginfo(msg)
-        pub_array.publish(msg)
-        msg.array1 = []
+        rospy.loginfo(custom_msg)
+        publisher.publish(custom_msg)
+        custom_msg.array1 = []
         rate.sleep()
         
 

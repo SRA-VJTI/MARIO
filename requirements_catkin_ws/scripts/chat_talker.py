@@ -7,22 +7,22 @@ import sys
 
 def talker():
     #Assign topic to the publisher
-    pub = rospy.Publisher('chatter', String, queue_size=10)
+    publisher_chat = rospy.Publisher('chatter', String, queue_size=10)
     
     #Initialise node for publisher
     rospy.init_node('talker', anonymous=True)
     rate = rospy.Rate(10)	#10hz
 
     while not rospy.is_shutdown():
-        msg = raw_input("")
+        message = raw_input("")
         
-        if msg == "exit" or msg == "Exit" or msg == "EXIT" :
+        if message == "exit" or message == "Exit" or message == "EXIT" :
             print "exiting..."
             sys.exit()
-        else :
 
+        else :
             #Publish message to the Topic
-            pub.publish(msg)
+            publisher_chat.publish(message)
             rate.sleep()
 
 if __name__ == '__main__':

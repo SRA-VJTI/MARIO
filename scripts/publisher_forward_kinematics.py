@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import rospy
 from geometry_msgs.msg import Vector3
 import math
@@ -35,10 +34,10 @@ a = [0, 12, 0, 0]
 
 def forward_kinematics_publisher():
 
-    pub_array = rospy.Publisher('ros_arm_control', Vector3, queue_size=10) 
+    publisher_fk = rospy.Publisher('ros_arm_control', Vector3, queue_size=10) 
     rospy.init_node('forward_kinematics_publisher', anonymous=True)
     rate = rospy.Rate(10)   #10hz
-    msg = Vector3()         #ROS message type
+    angles = Vector3()         #ROS message type
 
     while not rospy.is_shutdown():
         #Input angles
@@ -55,12 +54,13 @@ def forward_kinematics_publisher():
         print "{:21s}".format("y-coordinate"), "{0:.5f}".format(final_transformation_matrix[1,3])
         print "{:21s}".format("z-coordinate"), "{0:.5f}".format(final_transformation_matrix[2,3])
 
-        msg.x = theta_base
-        msg.y = theta_shoulder
-        msg.z = theta_elbow
+        angles.x = theta_base
+        angles.y = theta_shoulder
+        angles.z = theta_elbow
 
-        rospy.loginfo(msg)
-        pub_array.publish(msg)
+        rospy.loginfo(angles)
+        publisher_fk.publish(angles)
+        print "*************************"
         rate.sleep()
 
 if __name__ == '__main__':

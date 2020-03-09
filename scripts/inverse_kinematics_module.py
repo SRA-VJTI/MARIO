@@ -19,18 +19,18 @@ def compute_angles(x, y, z):
 		denominator = x * x + y * y + (z - d0) * (z - d0)
 
 		if theta_base != 90:
-
+			# Calculate x / cos(theta_base)
 			numerator_theta_shoulder = (z - d0) * (a1 + d3 * math.sin(theta_elbow)) \
 										+ d3 * math.cos(theta_elbow) * x / math.cos(theta_base)
 
 			numerator_theta_shoulder_possible = (z - d0) * (a1 + d3 * math.sin(theta_elbow_possible)) + \
-										d3 * math.cos(theta_elbow_possible) * x / math.cos(theta_base)
+												d3 * math.cos(theta_elbow_possible) * x / math.cos(theta_base)
 
 			theta_shoulder = math.asin(numerator_theta_shoulder / denominator)
 			theta_shoulder_possible = math.asin(numerator_theta_shoulder_possible / denominator)
 			
 		elif theta_base != 0:
-
+			# Calculate y / sin(theta_base)
 			numerator_theta_shoulder = (z - d0) * (a1 + d3 * math.sin(theta_elbow)) \
 										+ d3 * math.cos(theta_elbow) * y / math.sin(theta_base)
 			numerator_theta_shoulder_possible = (z - d0) * (a1 + d3 * math.sin(theta_elbow_possible)) \
@@ -47,4 +47,5 @@ def compute_angles(x, y, z):
 	result = [[math.degrees(theta_base), math.degrees(theta_shoulder), math.degrees(theta_elbow)], \
 			[math.degrees(theta_base), math.degrees(theta_shoulder_possible), math.degrees(theta_elbow_possible)]]
 
+	# Return set of possible angles in degrees
 	return result
