@@ -28,16 +28,21 @@ def inverse_kinematics_publisher():
 		# To handle redundancy
 		# Always sending those angles having approach vector as (0, 0, 1)
 		# Condition for that is theta_shoulder + theta_elbow should be odd multiple of 180
-		index = 0
-		if (angle[0][1] + angle[0][2]) % (2 * 180) != 0:
-			index = 0
-		elif (angle[1][1] + angle[1][2]) % (2 * 180) != 0:
-			index = 1
+		# index = 0
+		# if (angle[0][1] + angle[0][2]) % (2 * 180) != 0:
+		# 	index = 0
+		# elif (angle[1][1] + angle[1][2]) % (2 * 180) != 0:
+		# 	index = 1
 
 		# Sending, if angles are in range of servos i.e -90 to 90
 		angles_found = False
-		if -90.0 <= angle[index][0] <= 90.0 and -90.0 <= angle[index][1] <= 90.0 and -90.0 <= angle[index][2] <= 90.0:
+		if 0.0 <= angle[0][0] <= 180.0 and 0.0 <= angle[0][1] <= 180.0 and 0.0 <= angle[0][2] <= 180.0:
 			angles_found = True
+			index = 0
+
+		elif 0.0 <= angle[1][0] <= 180.0 and 0.0 <= angle[1][1] <= 180.0 and 0.0 <= angle[1][2] <= 180.0:
+			angles_found = True
+			index = 1
 
 		if angles_found == True:
 			# Send angles
