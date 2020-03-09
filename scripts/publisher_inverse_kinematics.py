@@ -53,8 +53,9 @@ def inverse_kinematics_publisher():
 			calculated_angle.x = int(angle[index][0])
 			calculated_angle.y = int(angle[index][1])
 			calculated_angle.z = int(angle[index][2])
-			rospy.loginfo(calculated_angle)
+			rospy.loginfo("\ntheta_base = %f\ntheta_shoulder = %f\ntheta_elbow = %f", calculated_angle.x, calculated_angle.y, calculated_angle.z)
 			publisher_ik.publish(calculated_angle)
+			print "=========================\n"
 
 		else:
 			# Print error message

@@ -2,7 +2,7 @@
 
 import rospy
 import sys
-from sra.msg import custom_array ##custom message
+from sra20.msg import custom_array ##custom message
 
 def publisher():
 

@@ -59,9 +59,9 @@ def forward_kinematics_publisher():
             angles.y = theta_shoulder
             angles.z = theta_elbow
 
-            rospy.loginfo(angles)
+            rospy.loginfo("\ntheta_base = %f\ntheta_shoulder = %f\ntheta_elbow = %f", angles.x, angles.y, angles.z)
             publisher_fk.publish(angles)
-            print "========================="
+            print "=========================\n"
 
         else:
             print "Enter angles in range 0 to 180"
