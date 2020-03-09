@@ -60,7 +60,7 @@ def forward_kinematics_publisher():
 
         rospy.loginfo(angles)
         publisher_fk.publish(angles)
-        print "*************************"
+        print "=========================="
         rate.sleep()
 
 if __name__ == '__main__':

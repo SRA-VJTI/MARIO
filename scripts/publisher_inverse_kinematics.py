@@ -35,11 +35,11 @@ def inverse_kinematics_publisher():
 			index = 1
 
 		# Sending, if angles are in range of servos i.e -90 to 90
-		angles_found = False
+		angles_found == False
 		if -90.0 <= angle[index][0] <= 90.0 and -90.0 <= angle[index][1] <= 90.0 and -90.0 <= angle[index][2] <= 90.0:
 			angles_found = True
 
-		if angles_found = True:
+		if angles_found == True:
 			# Send angles
 			calculated_angle.x = float(angle[index][0])
 			calculated_angle.y = float(angle[index][1])
@@ -51,7 +51,7 @@ def inverse_kinematics_publisher():
 			# Print error message
 			print "Angles not sent due to constrains"
 			print "Please enter points in range"
-		
+
 		rate.sleep()
 
 if __name__ == '__main__':
