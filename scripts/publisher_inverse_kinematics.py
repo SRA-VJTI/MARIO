@@ -25,31 +25,36 @@ def inverse_kinematics_publisher():
 		print "{:<15f}{:<15f}{:<15f}".format(angle[0][0], angle[0][1], angle[0][2])
 		print "{:<15f}{:<15f}{:<15f}".format(angle[1][0], angle[1][1], angle[1][2])
 
-		# To handle redundancy
-		# Always sending those angles having approach vector as (0, 0, 1)
-		# Condition for that is theta_shoulder + theta_elbow should be odd multiple of 180
-		# index = 0
-		# if (angle[0][1] + angle[0][2]) % (2 * 180) != 0:
-		# 	index = 0
-		# elif (angle[1][1] + angle[1][2]) % (2 * 180) != 0:
-		# 	index = 1
-
-		# Sending, if angles are in range of servos i.e -90 to 90
-		angles_found = False
-		if 0.0 <= angle[0][0] <= 180.0 and 0.0 <= angle[0][1] <= 180.0 and 0.0 <= angle[0][2] <= 180.0:
-			angles_found = True
+		# Sending, if angles are in range of servos i.e 0 to 180
+		index = -1
+		count = 0
+		if 0.0 <= int(angle[0][0]) <= 180.0 and 0.0 <= int(angle[0][1]) <= 180.0 and 0.0 <= int(angle[0][2]) <= 180.0:
+			# angles_found = True
 			index = 0
+			count += 1
 
-		elif 0.0 <= angle[1][0] <= 180.0 and 0.0 <= angle[1][1] <= 180.0 and 0.0 <= angle[1][2] <= 180.0:
-			angles_found = True
+		if 0.0 <= int(angle[1][0]) <= 180.0 and 0.0 <= int(angle[1][1]) <= 180.0 and 0.0 <= int(angle[1][2]) <= 180.0:
+			# angles_found = True
 			index = 1
+			count += 1
 
-		if angles_found == True:
+		if index != -1:
 			# Send angles
-			calculated_angle.x = float(angle[index][0])
-			calculated_angle.y = float(angle[index][1])
-			calculated_angle.z = float(angle[index][2])
-			
+			print count
+
+			if(count == 2):
+				# To handle redundancy
+				# Always sending those angles having approach vector as (0, 0, 1)
+				# Condition for that is theta_shoulder + theta_elbow should be odd multiple of 180
+				if (int(angle[0][1]) + int(angle[0][2])) % (2 * 180) != 0 and (int(angle[0][1]) + int(angle[0][2])) % 180 == 0:
+					index = 0
+
+				elif (int(angle[1][1]) + int(angle[1][2])) % (2 * 180) != 0 and (int(angle[1][1]) + int(angle[1	][2])) % 180 == 0:
+					index = 1
+		
+			calculated_angle.x = int(angle[index][0])
+			calculated_angle.y = int(angle[index][1])
+			calculated_angle.z = int(angle[index][2])
 			rospy.loginfo(calculated_angle)
 			publisher_ik.publish(calculated_angle)
 		else:
