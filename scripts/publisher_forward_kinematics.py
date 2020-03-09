@@ -50,17 +50,21 @@ def forward_kinematics_publisher():
         
         #Print End-effector's Coordinates
         print "*************************"
-        print "{:21s}".format("x-coordinate"), "{0:.5f}".format(final_transformation_matrix[0,3])
-        print "{:21s}".format("y-coordinate"), "{0:.5f}".format(final_transformation_matrix[1,3])
-        print "{:21s}".format("z-coordinate"), "{0:.5f}".format(final_transformation_matrix[2,3])
+        print "{:21s}".format("x-coordinate"), "{0:.5f}".format(final_transformation_matrix[0, 3])
+        print "{:21s}".format("y-coordinate"), "{0:.5f}".format(final_transformation_matrix[1, 3])
+        print "{:21s}".format("z-coordinate"), "{0:.5f}".format(final_transformation_matrix[2, 3])
 
-        angles.x = theta_base
-        angles.y = theta_shoulder
-        angles.z = theta_elbow
+        if 0.0 <= theta_base <= 180.0 and 0.0 <= theta_shoulder <= 180.0 and 0.0 <= theta_elbow <= 180.0: 
+            angles.x = theta_base
+            angles.y = theta_shoulder
+            angles.z = theta_elbow
 
-        rospy.loginfo(angles)
-        publisher_fk.publish(angles)
-        print "========================="
+            rospy.loginfo(angles)
+            publisher_fk.publish(angles)
+            print "========================="
+
+        else:
+            print "Enter angles in range 0 to 180"
         rate.sleep()
 
 if __name__ == '__main__':

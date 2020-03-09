@@ -43,7 +43,7 @@ def compute_angles(x, y, z):
 
 	else:
 
-		print "Point is not in range due to constrain in link length"
+		print "Point is not in range due to constraint in link length"
 		return [None, None, None]
 
 	result = [[math.degrees(theta_base), math.degrees(theta_shoulder), math.degrees(theta_elbow)], \
