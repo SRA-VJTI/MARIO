@@ -35,7 +35,7 @@ def inverse_kinematics_publisher():
 			index = 1
 
 		# Sending, if angles are in range of servos i.e -90 to 90
-		angles_found == False
+		angles_found = False
 		if -90.0 <= angle[index][0] <= 90.0 and -90.0 <= angle[index][1] <= 90.0 and -90.0 <= angle[index][2] <= 90.0:
 			angles_found = True
 
