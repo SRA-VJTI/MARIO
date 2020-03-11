@@ -60,12 +60,39 @@ uint32_t servo_per_degree_init(uint32_t degree_of_rotation)
     return cal_pulsewidth;
 }
 
+void send_servo_angle(float current_PWM, float last_PWM, mcpwm_timer_t mcpwm_timer, mcpwm_operator_t mcpwm_operator)
+{
+    if (current_PWM >= last_PWM)
+    {
+        for (int angle = last_PWM; angle <= current_PWM; angle++)
+        {
+            mcpwm_set_duty_in_us(MCPWM_UNIT_0, mcpwm_timer, mcpwm_operator, angle);
+            vTaskDelay(100);
+        }
+    }
+    else
+    {
+        for (int angle = last_PWM; angle >= current_PWM; angle--)
+        {
+            mcpwm_set_duty_in_us(MCPWM_UNIT_0, mcpwm_timer, mcpwm_operator, angle);
+            vTaskDelay(100);
+        }
+    }
+}
+
 void servo_control(int theta1, int theta2, int theta3)
 {
-    PWM1 = servo_per_degree_init(theta1);
-    PWM2 = micro_servo_per_degree_init(theta2);
-    PWM3 = micro_servo_per_degree_init(theta3);
-    mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, PWM1);
-    mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, PWM2);
-    mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM_OPR_A, PWM3);
+    PWM1 = servo_per_degree(theta1);
+    PWM2 = servo_per_degree(theta2);
+    PWM3 = servo_per_degree(theta3);
+
+    send_servo_angle(PWM1, LAST_PWM1, MCPWM_TIMER_0, MCPWM_OPR_A);
+    send_servo_angle(PWM2, LAST_PWM2, MCPWM_TIMER_1, MCPWM_OPR_B);
+    send_servo_angle(PWM3, LAST_PWM3, MCPWM_TIMER_1, MCPWM_OPR_B);
+
+    LAST_PWM1 = PWM1;
+    LAST_PWM2 = PWM2;
+    LAST_PWM3 = PWM3;
 }
+
+

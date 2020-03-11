@@ -64,6 +64,7 @@ int PWM1 , PWM2 , PWM3;
 void servo_gpio_initialize();
 uint32_t micro_servo_per_degree_init(uint32_t degree_of_rotation);
 uint32_t servo_per_degree_init(uint32_t degree_of_rotation);
+void send_servo_angle(float current_PWM, float last_PWM, mcpwm_timer_t mcpwm_timer, mcpwm_operator_t mcpwm_operator);
 void servo_control(int theta1, int theta2, int theta3);
 
 #endif
