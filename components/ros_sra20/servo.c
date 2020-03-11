@@ -65,7 +65,10 @@ void servo_control(int theta1, int theta2, int theta3)
     PWM1 = servo_per_degree_init(theta1);
     PWM2 = micro_servo_per_degree_init(theta2);
     PWM3 = micro_servo_per_degree_init(theta3);
+    
     mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, PWM1);
+    vTaskDelay(1000);
     mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, PWM2);
+    vTaskDelay(1000);
     mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM_OPR_A, PWM3);
 }
