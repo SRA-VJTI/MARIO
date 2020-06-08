@@ -35,10 +35,10 @@ idf.py flash
 rosrun sra20 Publisher_ForwardKinematics.py
 ```
 
-* Start the ROS Subscriber by executing the relevant python script, which would then connect to the ESP32 via the server
+* Start the ROS Subscriber by executing
 
 ```bash
-rosrun sra20 SubscriberSocketTCP.py
+rosrun rosserial_python serial_node.py tcp
 ```
 
 * Enter the angles on the publisher side and voila! See your manipulator moving!
