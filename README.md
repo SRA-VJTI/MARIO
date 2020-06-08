@@ -32,7 +32,7 @@ idf.py flash
 * Start the ROS Publisher by executing the relevant python script: (e.g. angle -> coordinates)
 
 ```bash
-rosrun sra20 Publisher_ForwardKinematics.py
+rosrun sra20 publisher_forward_kinematics.py
 ```
 
 * Start the ROS Subscriber by executing
