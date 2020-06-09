@@ -43,4 +43,4 @@ rosrun rosserial_python serial_node.py tcp
 
 * Enter the angles on the publisher side and voila! See your manipulator moving!
 
-![arm video](assets/arm_motion.mp4)
+![arm video](assets/arm.gif)
