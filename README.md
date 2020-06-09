@@ -42,3 +42,5 @@ rosrun sra SubscriberSocketTCP.py
 ```
 
 * Enter the angles on the publisher side and voila! See your manipulator moving!
+
+![arm video](assets/arm_motion.p4)
