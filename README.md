@@ -19,7 +19,7 @@ cd esp32_codes/ros_control/
 idf.py menuconfig
 ```
 
-* Inside `component config > rosserial`, Set Wifi ssid and password, Set the IP address roscore
+* Inside `component config > rosserial`, Set Wifi ssid and password, Set the IP address (can be found by `ifconfig` command)  
 
 * Flash the code `ros_control/`
 
@@ -32,13 +32,13 @@ idf.py flash
 * Start the ROS Publisher by executing the relevant python script: (e.g. angle -> coordinates)
 
 ```bash
-rosrun sra Publisher_ForwardKinematics.py
+rosrun sra20 publisher_forward_kinematics.py
 ```
 
-* Start the ROS Subscriber by executing the relevant python script, which would then connect to the ESP32 via the server
+* Start the ROS Subscriber by executing
 
 ```bash
-rosrun sra SubscriberSocketTCP.py
+rosrun rosserial_python serial_node.py tcp
 ```
 
 * Enter the angles on the publisher side and voila! See your manipulator moving!
