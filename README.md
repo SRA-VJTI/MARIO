@@ -1,4 +1,4 @@
-# ROS-Workshop-2.1
+# ROS-Workshop-2.2
 
 *Official Repository for ROS-based Manipulator, implemented with ESP32*
 
