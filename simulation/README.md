@@ -12,14 +12,14 @@ Repo with new URDF of manipulator to visualize in RViz and using command line as
   source devel/setup.bash
 ```
 
-*  <a name="clone"></a>Clone this repo
+*  Clone this repo
 ```
   cd ~/catkin_ws/src
   cp --remove-destination -r ~/ROS-Workshop-2.1/simulation/* . 
 ```
   
   
-*  <a name="rebuild"></a>Rebuild
+*  Rebuild
 ```
   cd ~/catkin_ws
   catkin_make
@@ -132,7 +132,7 @@ Similarly, you can test out the scripts for  `forward_kinematics.py` and `invers
 
 # talker and listener 
 Steps to talker ans listener scripts :
-* If you haven,t cloned the repo, clone it by follwing these [steps](*clone) and rebuild by following these [steps](*rebuild).
+* If you haven't cloned the repo, clone the repo and rebuild the catkin workspace by following the instructions specified in the beginning.
 * Start `roscore` in a terminal.
 ```
 source /opt/ros/noetic/setup.bash
