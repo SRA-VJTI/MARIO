@@ -148,3 +148,4 @@ rosrun manipulator_description talker.py
 source ~/catkin_ws/devel/setup.bash
 rosrun manipulator_description listener.py
 ```
+* To know more about it visit [this tutorial](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29)
