@@ -35,7 +35,6 @@ servo_config servo_c = {
 
 static void mcpwm_servo_control(void *arg)
 {
-    // servo_gpio_initialize();
 	enable_servo();
 
     while(1)
