@@ -25,10 +25,9 @@ sudo apt install ros-<your_version_of_ros>-joint-state-publisher-gui
 ```
 roslaunch manipulator_rviz new.launch    
 ```
-*  Now ,On a different terminal  
+*  Now ,On a different terminal, source ROS again and go to the simulation folder and write the following command
 
 ```
-cd/manipulator_rviz  
 rosrun simulation_rviz Testing.py  
 ```
 Then initially set all values to zero , to get the default position of the manipulator .  
