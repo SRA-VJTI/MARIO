@@ -4,17 +4,19 @@
 
 ## File Structure
     .
+    ├── assets                  #Contains all the images in the ReadME
     ├── simulation_gazebo       #package for running the Manipulator simulation in gazebo
         ├── launch              #folder containing the launch files
         ├── urdf                #folder containing the urdf files           
         ├── scripts             #folder containing the scripts
-        ├── config              #folder containing the config.yaml file
+        ├── meshes              #folder containing the CAD model files of the manipulator components
         └── config              #folder containing the config.yaml file
     └── simulation_rviz         #package for running the Manipulator simulation in rviz
         ├── launch              #folder containing the launch files
         ├── urdf                #folder containing the urdf files           
         ├── scripts             #folder containing the scripts
-        ├── config              #folder containing the config.yaml file
+        ├── rviz                #folder containing the file for defining the Rviz environment
+        ├── meshes              #folder containing the CAD model files of the manipulator components 
         └── config              #folder containing the config.yaml file
 
     .
