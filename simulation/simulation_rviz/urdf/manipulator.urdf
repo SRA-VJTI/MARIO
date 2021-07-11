@@ -16,7 +16,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_0.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_0.STL" />
 			</geometry>
 			<material name="">
 				<color rgba="0.79216 0.81961 0.93333 1" />
@@ -25,7 +25,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_0.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_0.STL" />
 			</geometry>
 		</collision>
 	</link>
@@ -42,7 +42,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_1.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_1.STL" />
 			</geometry>
 			<material name="">
 				<color rgba="0.79216 0.81961 0.93333 1" />
@@ -51,7 +51,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_1.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_1.STL" />
 			</geometry>
 		</collision>
 	</link>
@@ -71,7 +71,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_2.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_2.STL" />
 			</geometry>
 			<material name="">
 				<color rgba="0.64706 0.51765 0 1" />
@@ -80,7 +80,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_2.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_2.STL" />
 			</geometry>
 		</collision>
 	</link>
@@ -100,7 +100,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_3.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_3.STL" />
 			</geometry>
 			<material name="">
 				<color rgba="0.50196 0.50196 0.50196 1" />
@@ -109,7 +109,7 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<mesh filename="package://manipulator_description/meshes/link_3.STL" />
+				<mesh filename="package://simulation_rviz/meshes/link_3.STL" />
 			</geometry>
 		</collision>
 	</link>

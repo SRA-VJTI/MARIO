@@ -15,7 +15,7 @@ Repo with new URDF of manipulator to visualize in RViz and using command line as
 *  Clone this repo
 ```
   cd ~/catkin_ws/src
-  cp --remove-destination -r ~/ROS-Workshop-2.1/simulation/* . 
+  git clone https://github.com/MOLOCH-dev/manipulator_rviz.git 
 ```
   
   
