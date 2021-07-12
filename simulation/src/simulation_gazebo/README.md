@@ -12,7 +12,7 @@
 ```
 
 <p align="center">
-  <img src="./assets/gazebo.png" width="800"/>
+  <img src="../../../assets/gazebo.png" width="800"/>
 </p>
 
 ## Using RQT to send commands
@@ -30,7 +30,7 @@ On the 'Plugins' menu of RQT add the 'Topics->Message Publisher' plugin then cho
 /manipulator/joint_1_controller/command
 ```
 <p align="center">
-  <img src="./assets/Control_bot.gif"/>
+  <img src="../../../assets/Control_bot.gif"/>
 </p>
 
 Then press the green plus sign button at the top right.
@@ -60,7 +60,7 @@ Add another topic to the Plot plugin that tracks the actual position of the actu
 /manipulator/joint_1_controller/state/process_value
 ```
 <p align="center">
-  <img src="./assets/Sin_Wave.gif" width="800"/>
+  <img src="../../../assets/Sin_Wave.gif" width="800"/>
 </p>
 
 In the graph you can see that the controller is trying to follow the command we have provided it. We have already set the PID values for our bot, but if you want to tune it there is a plugin in RQT. To know more about it visit [this tutorial](http://gazebosim.org/tutorials/?tut=ros_control#TunethePIDgains). 
@@ -68,7 +68,7 @@ In the graph you can see that the controller is trying to follow the command we 
 **Note :** The process value doesn't go lesser than zero because of the limits we have set on the joints which is 0 to pi radians.
 
 ### Steps For Running the Scripts in Gazebo
-We will be testing out 3 scripts (Testing.py, forward_kinematics.py, inverse_kinematics.py).
+We will be testing out 3 scripts ( Testing.py, forward_kinematics.py, inverse_kinematics.py).
 
 For running the scripts on gazebo, firstly launch gazebo world using the command
 
