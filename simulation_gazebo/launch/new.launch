@@ -1,0 +1,11 @@
+<launch>
+  <arg name="model" />
+  <arg name="gui" default="True" />
+  <param name="robot_description" textfile="$(find simulation_gazebo)/urdf/manipulator.urdf" />
+  <param name="use_gui" value="$(arg gui)" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <arg name="oo_bhai" default="False"/>
+  <param name="publish_default_positions" value="False"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_gazebo)/rviz/ROS_workshop_manipulator.rviz"/>
+</launch>

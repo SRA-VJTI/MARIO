@@ -5,9 +5,8 @@ from sensor_msgs.msg import JointState
 from std_msgs.msg import Header
 
 def talker():
-    
-    rospy.init_node('joint_states_node' , anonymous=False)
-    pub = rospy.Publisher('/joint_states', JointState, queue_size=10)
+    pub = rospy.Publisher('joint_states', JointState, queue_size=10)
+    rospy.init_node('joint_state_bhau' , anonymous=False)
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():
         hello_str = JointState()

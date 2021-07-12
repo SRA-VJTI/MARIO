@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>manipulator_description</name>
+  <name>simulation_gazebo</name>
   <version>0.0.0</version>
-  <description>The manipulator_description package</description>
+  <description>The simulation_gazebo package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/manipulator_description</url> -->
+  <!-- <url type="website">http://wiki.ros.org/simulation_gazebo</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->

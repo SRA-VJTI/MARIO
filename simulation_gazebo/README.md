@@ -1,68 +1,21 @@
-# manipulator_rviz  
-Repo with new URDF of manipulator to visualize in RViz and using command line as well as gui to give input to RViz  
-### Steps to run the demo  
+# Table fo Contents
+* [Steps to run the demo in Gazebo](#steps-to-run-the-demo-in-gazebo) 
+* [Using RQT to send commands](#using-rqt-to-send-commands)
+* [Steps For Running the Scripts in Gazebo](#steps-for-running-the-scripts-in-gazebo)
 
-* Create a new catkin workspace
+## Steps to run the demo in Gazebo
+* Gazebo is the simulation tool that is used by ROS. It has a lot of Applications. In this workshop we will be using ROS to simulate the Manipulator. For the running the simulation just follow commands mentioned below.
 
-```
-  source /opt/ros/noetic/setup.bash
-  mkdir -p ~/catkin_ws/src
-  cd ~/catkin_ws/
-  catkin_make
-  source devel/setup.bash
-```
-
-*  Clone this repo
-```
-  cd ~/catkin_ws/src
-  cp --remove-destination -r ~/ROS-Workshop-2.1/simulation/* . 
-```
-  
-  
-*  Rebuild
-```
-  cd ~/catkin_ws
-  catkin_make
-```
 *  Run the launch file
 ```
-  roslaunch manipulator_description display.launch 
+  roslaunch simulation_gazebo gazebo.launch 
 ```
 
 <p align="center">
-  <img src="./assets/launch1.png" width="500"/>
+  <img src="../assets/gazebo.png" width="800"/>
 </p>
 
-
-   *  If you come across this error  
-Could not find the GUI, install the 'joint_state_publisher_gui' package  
-   *  Install  using  
-sudo apt install ros-<your_version_of_ros>-joint-state-publisher-gui 
-----------------------------------------------------------------------  
-  
-*  Once you are done with the visualisation with gui , Ctrl+ c to stop this .  
-  
-  
-*  For command line input    
-    *  roslaunch manipulator_rviz new.launch    
-    *  Now ,On a different terminal  
-    cd/manipulator_rviz  
-    *  python pub_try1.py  
-Then initially set all values to zero , to get the default position of the manipulator .  
-After this you can now check for different values.
-
-### Steps to run the demo in Gazebo
-* Follow the above steps to setup the workspace and clone the repository.
-*  Run the launch file
-```
-  roslaunch manipulator_description gazebo.launch 
-```
-
-<p align="center">
-  <img src="./assets/gazebo.png" width="800"/>
-</p>
-
-### Using RQT to send commands
+## Using RQT to send commands
 In this section we'll go over tools to help you visualize the performance of your controller and tune any gains/parameters the controller might have, particularly PID gains. We'll be using RQT, ROS's plugin-based user interface, so be sure you first have that installed.
 
 Start RQT:
@@ -70,14 +23,14 @@ Start RQT:
 ```
 rosrun rqt_gui rqt_gui
 ```
-#### Add a Command Publisher
+### Add a Command Publisher
 On the 'Plugins' menu of RQT add the 'Topics->Message Publisher' plugin then choose the topic from the drop down box that commands any particular controller that you want to publish to. For the RRBot, add the controller:
 
 ```
 /manipulator/joint_1_controller/command
 ```
 <p align="center">
-  <img src="./assets/Control_bot.gif"/>
+  <img src="../assets/Control_bot.gif"/>
 </p>
 
 Then press the green plus sign button at the top right.
@@ -92,7 +45,7 @@ Next, in that same expression box we'll have it automatically change values usin
 sin(i/10)
 ```
 
-#### Visualize the controller's performance
+### Visualize the controller's performance
 Add a Plot plugin to RQT and add the same topic as the one you chose above for the topic publisher:
 
 ```
@@ -107,7 +60,7 @@ Add another topic to the Plot plugin that tracks the actual position of the actu
 /manipulator/joint_1_controller/state/process_value
 ```
 <p align="center">
-  <img src="./assets/Sin_Wave.gif" width="800"/>
+  <img src="../assets/Sin_Wave.gif" width="800"/>
 </p>
 
 In the graph you can see that the controller is trying to follow the command we have provided it. We have already set the PID values for our bot, but if you want to tune it there is a plugin in RQT. To know more about it visit [this tutorial](http://gazebosim.org/tutorials/?tut=ros_control#TunethePIDgains). 
@@ -115,18 +68,17 @@ In the graph you can see that the controller is trying to follow the command we 
 **Note :** The process value doesn't go lesser than zero because of the limits we have set on the joints which is 0 to pi radians.
 
 ### Steps For Running the Scripts in Gazebo
-We will be testing out 3 scripts (Testing.py, forward_kinematics.py, inverse_kinematics.py).
+We will be testing out 3 scripts ( Testing.py, forward_kinematics.py, inverse_kinematics.py).
 
 For running the scripts on gazebo, firstly launch gazebo world using the command
 
 ```
-roslaunch manipulator_description gazebo.launch
+roslaunch simulation_gazebo gazebo.launch
 ```
 
 After starting gazebo we will be testing out `Testing.py`. The command for that is :
 
 ```
-rosrun manipulator_description Testing.py
+rosrun simulation_gazebo Testing.py
 ```
 Similarly, you can test out the scripts for  `forward_kinematics.py` and `inverse_kinematics.py`
-
