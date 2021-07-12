@@ -32,3 +32,4 @@ rosrun simulation_rviz Testing.py
 ```
 Then initially set all values to zero , to get the default position of the manipulator .  
 After this you can now check for different values.
+p.j.hote@schmalz.co.in
