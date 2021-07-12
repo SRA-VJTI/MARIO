@@ -1,4 +1,4 @@
-menu "rosserial"
+menu "MARIO-Rosserial"
 
 config ROSSERIAL_OVER_WIFI
     bool "rosserial over WiFi using TCP"
