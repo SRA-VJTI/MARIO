@@ -1,39 +1,40 @@
 # Manipulator Simulation
-* Here we will simulate the manipulator
+* We will be creating a workspace in the `simulation/` folder and Testing out the Manipulator codes
 
-
-## File Structure
+# File Structure
     .
-    ├── simulation_gazebo       #package for running the Manipulator simulation in gazebo
-        ├── launch              #folder containing the launch files
-        ├── urdf                #folder containing the urdf files           
-        ├── scripts             #folder containing the scripts
-        ├── config              #folder containing the config.yaml file
-        └── config              #folder containing the config.yaml file
-    └── simulation_rviz         #package for running the Manipulator simulation in rviz
-        ├── launch              #folder containing the launch files
-        ├── urdf                #folder containing the urdf files           
-        ├── scripts             #folder containing the scripts
-        ├── config              #folder containing the config.yaml file
-        └── config              #folder containing the config.yaml file
+    └──src
+        ├── simulation_gazebo       #package for running the Manipulator simulation in gazebo
+            ├── launch              #folder containing the launch files
+            ├── urdf                #folder containing the urdf files           
+            ├── scripts             #folder containing the scripts
+            ├── config              #folder containing the config.yaml file
+            └── config              #folder containing the config.yaml file
+        └── simulation_rviz         #package for running the Manipulator simulation in rviz
+            ├── launch              #folder containing the launch files
+            ├── urdf                #folder containing the urdf files           
+            ├── scripts             #folder containing the scripts
+            ├── config              #folder containing the config.yaml file
+            └── config              #folder containing the config.yaml file
 
-    .
-    |──simulation_gazebo #package for running the Manipulator simulation in gazebo
-      |--
-    |--simulation_rviz #package for running the Manipulator simulation in rviz
-      |--
-    |--simulation_DH #package for running the Simulation for calculating the DH parameters 
 
-## Steps for Setting up the workspace
-* First we will source ROS
+# Creating a Workspace
+* For running the simulation, we first need to create a catkin workspace. Go to the simulation folder and type the following commands to do the same
 
+1) Source ROS-Noetic and build the workspace 
 ```
-source ~/Ros_workshop/devel/setup.bash
+source /opt/ros/noetic/setup.bash
+catkin_make
+source devel/setup.bash
 ```
-
-* installing the drivers for ros-control
+2) Install the the drivers for ros-control
 
 ```
 sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers
 ```
+
 Now you can run the simulations in Gazebo and RViz.
+
+# Running the Simulation
+* Follow [these steps](https://github.com/SRA-VJTI/ROS-Workshop-2.1/tree/master/simulation/simulation_gazebo) for running the simulation in Gazebo
+* Follow [these steps](https://github.com/SRA-VJTI/ROS-Workshop-2.1/tree/master/simulation/simulation_rviz) for running the simulation in Rviz
