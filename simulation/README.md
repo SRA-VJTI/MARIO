@@ -17,6 +17,22 @@
             ├── config              #folder containing the config.yaml file
             └── config              #folder containing the config.yaml file
 
+## File Structure
+    .
+    ├── assets                  #Contains all the images in the ReadME
+    ├── simulation_gazebo       #package for running the Manipulator simulation in gazebo
+        ├── launch              #folder containing the launch files
+        ├── urdf                #folder containing the urdf files           
+        ├── scripts             #folder containing the scripts
+        ├── meshes              #folder containing the CAD model files of the manipulator components
+        └── config              #folder containing the config.yaml file
+    └── simulation_rviz         #package for running the Manipulator simulation in rviz
+        ├── launch              #folder containing the launch files
+        ├── urdf                #folder containing the urdf files           
+        ├── scripts             #folder containing the scripts
+        ├── rviz                #folder containing the file for defining the Rviz environment
+        ├── meshes              #folder containing the CAD model files of the manipulator components 
+        └── config              #folder containing the config.yaml file
 
 # Creating a Workspace
 * For running the simulation, we first need to create a catkin workspace. Go to the simulation folder and type the following commands to do the same
