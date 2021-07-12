@@ -999,6 +999,16 @@ CONFIG_WPA_MBEDTLS_CRYPTO=y
 # end of Supplicant
 
 #
+# MARIO-Rosserial
+#
+CONFIG_ROSSERIAL_OVER_WIFI=y
+CONFIG_ROSSERVER_AP="myssid"
+CONFIG_ROSSERVER_PASS="mypass"
+CONFIG_ROSSERVER_IP="192.168.0.1"
+CONFIG_ROSSERVER_PORT=11411
+# end of MARIO-Rosserial
+
+#
 # SRA Board Component Config
 #
 
