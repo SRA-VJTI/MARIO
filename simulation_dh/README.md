@@ -7,5 +7,5 @@ We will be running the visualization DH-parameters in RViz.
 ```
 
 <p align="center">
-  <img src="../assets/launch1.png" width="500"/>
+  <img src="../assets/simulation_dh.png" width="500"/>
 </p>
