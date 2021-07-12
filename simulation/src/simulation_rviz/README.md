@@ -7,7 +7,7 @@ Repo with new URDF of manipulator to visualize in RViz and using command line as
 ```
 
 <p align="center">
-  <img src="./assets/launch1.png" width="500"/>
+  <img src="../../../assets/launch1.png" width="500"/>
 </p>
 
 
