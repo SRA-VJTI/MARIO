@@ -1,5 +1,6 @@
 #include "ros.h"
-#include "geometry_msgs/Vector3.h"
+// #include "geometry_msgs/Vector3.h"
+#include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
 #include "esp_serial.h"
 #include "esp_system.h"
@@ -39,37 +40,41 @@ servo_config servo_c = {
 //////////////////////////////////////////////////////////////////////////////
 static const char* TAG_C = "ros_control";
 static const char* TAG_RVIZ = "ros_control_rviz";
-void message_callback(const geometry_msgs::Vector3 &msg);
+void message_callback1(const std_msgs::Float64 &msg);
+void message_callback2(const std_msgs::Float64 &msg);
+void message_callback3(const std_msgs::Float64 &msg);
 void message_callback_rviz(const sensor_msgs::JointState &msg);
 ros::NodeHandle nh;
-ros::Subscriber<geometry_msgs::Vector3> arm("ros_arm_control", &message_callback);
+// ros::Subscriber<geometry_msgs::Vector3> arm("ros_arm_control", &message_callback);
+ros::Subscriber<std_msgs::Float64> arm1("/manipulator/joint_1_controller/command", &message_callback1);
+ros::Subscriber<std_msgs::Float64> arm2("/manipulator/joint_2_controller/command", &message_callback2);
+ros::Subscriber<std_msgs::Float64> arm3("/manipulator/joint_3_controller/command", &message_callback3);
 ros::Subscriber<sensor_msgs::JointState> arm_rviz("joint_states", &message_callback_rviz);
 //////////////////////////////////////////////////////////////////////////////
 
-void debug_blink_led()
-{
-    gpio_set_direction(led_pin, GPIO_MODE_OUTPUT);
-
-    gpio_set_level(led_pin, 1);
-    vTaskDelay(50);
-
-    gpio_set_level(led_pin, 0);
-    vTaskDelay(50);
-}
-
-void message_callback(const geometry_msgs::Vector3 &msg)
+void message_callback1(const std_msgs::Float64 &msg)
 {
     ESP_LOGD(TAG_C, "%s", "new message from publisher");
 
-    debug_blink_led();
+    ESP_LOGD(TAG_C, "angle [BASE]:     %f", msg.data);
 
-    ESP_LOGD(TAG_C, "angle [BASE]:     %f", msg.x);
-    ESP_LOGD(TAG_C, "angle [SHOUDLER]: %f", msg.y);
-    ESP_LOGD(TAG_C, "angle [ELBOW]:    %f", msg.z);
+    set_angle_servo(&servo_c,msg.data*(180/3.14));
+}
+void message_callback2(const std_msgs::Float64 &msg)
+{
+    ESP_LOGD(TAG_C, "%s", "new message from publisher");
 
-    set_angle_servo(&servo_a,msg.x);
-	set_angle_servo(&servo_b,msg.y);
-	set_angle_servo(&servo_c,msg.z);
+    ESP_LOGD(TAG_C, "angle [SHOUDLER]: %f", msg.data);
+
+    set_angle_servo(&servo_b,msg.data *(180/3.14));
+}
+void message_callback3(const std_msgs::Float64 &msg)
+{
+    ESP_LOGD(TAG_C, "%s", "new message from publisher");
+
+    ESP_LOGD(TAG_C, "angle [ELBOW]:    %f", msg.data);
+
+    set_angle_servo(&servo_a,msg.data*(180/3.14));
 }
 
 void rosserial_setup()
@@ -77,7 +82,9 @@ void rosserial_setup()
     ESP_LOGD(TAG_C, "%s", "ros controlled arm through custom publisher\n\n");
     
     nh.initNode();                  // Initialize ROS
-    nh.subscribe(arm);              // subscribe to topic
+    nh.subscribe(arm1);              // subscribe to topic
+    nh.subscribe(arm2); 
+    nh.subscribe(arm3); 
 }
 
 void rosserial_spinonce()
