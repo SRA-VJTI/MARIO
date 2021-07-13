@@ -1,11 +1,37 @@
-ESP-IDF template app
-====================
+# ROS Control
 
-This is a template application to be used with [Espressif IoT Development Framework](https://github.com/espressif/esp-idf).
+This example describe how to establish the rosserial connection with ESP32
 
-Please check [ESP-IDF docs](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for getting started instructions.
+## Steps to follow
 
-*Code in this repository is in the Public Domain (or CC0 licensed, at your option.)
-Unless required by applicable law or agreed to in writing, this
-software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied.*
+* Configure the ros_control
+    * ``` cd firmware/ros_control ```
+    * ```idf.py menuconfig```
+    * Inside `component config > MARIO-Rosserial`, Set Wifi ssid and password, Set the IP address (can be found by `ifconfig` command)
+
+* Build and Flash the code 
+    * ```idf.py build```
+    * ```idf.py -p PORT flash```
+
+* Start the ROS Core service by running the following command
+    * ```roscore```
+
+* Start the ROS Publisher by executing the relevant python script: (e.g. angle -> coordinates)
+
+```bash
+rosrun rosserial publisher_forward_kinematics.py
+```
+In the same way publisher_inverse_kinematices.py can be run.
+
+**Note**:- If it shows the error that script is not executable, run the following command in the directory where the script is present.
+
+```bash
+sudo chmod +x publisher_forward_kinematics.py
+```
+* Start the ROS Subscriber by executing
+
+```bash
+rosrun rosserial_python serial_node.py tcp
+```
+
+* Demo 

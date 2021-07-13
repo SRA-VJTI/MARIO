@@ -1,68 +1,86 @@
-#/bin/sh
+#!/bin/bash
+# Run it as root first and then without
+# sudo chmod +x ros_installation.sh
+# sudo ./ros_installation.sh && ./ros_installation.sh
+# After the file runs successfully, try running roscore in a new terminal.go to catkin_ws present in home and try running catkin_make.
+set -e
 
-#### check if rosserial is installed ########################################
-dpkg -s "ros-kinetic-rosserial" &> /dev/null
-if [ $? -eq 0 ] 
-then
-    echo -e "\e[42mrosserial is INSTALLED!\e[49m"
-else
-    echo -e "\e[101mrosserial is NOT INSTALLED!\e[49m"
-    echo -e "\e[101mINSTALLING rosserial!\e[49m"
-    sudo apt install ros-kinetic-rosserial
-fi
-#############################################################################
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+pkg=ros-noetic-desktop-full
 
-### clone code repository ###################################################
-if [ -d "$HOME/ros20_workshop_codes" ]
-then
-    echo -e "\e[101mdirectory $HOME/ros20_workshop_codes/ already EXISTS.\e[49m" 
-    read -p "Press [Y]es to DELETE the folder, [N]o to EXIT the setup: " optionvar 	
-    
-    if [ "$optionvar" == "Yes" ] || [ "$optionvar" == "yes" ]
-    then
-        echo -e "\e[101mREMOVING $HOME/ros20_workshop_codes/\e[49m" 
-	    rm -rf $HOME/ros20_workshop_codes
+function install(){
+    apt-get update
+    apt-get install curl
+    echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
+    curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+    apt-get update
+    apt-get install ros-noetic-desktop-full python3-pip ros-noetic-effort-controllers
+    apt-get install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+    rosdep init
+}
+
+function configure(){
+    set +e
+    dpkg -s $pkg &> /dev/null
+    if  [ $? -eq 0 ]; then
+        echo "$green Successfully installed $pkg $reset"
     else
-	    exit 9999
+        echo "$red $pkg is not installed. Run this script as root $reset"
+        exit 1
     fi
-fi
+    /usr/bin/python3 -m pip install empy
+    echo "alias get_ros_noetic='source /opt/ros/noetic/setup.bash'" >> $HOME/.bash_aliases
+    source $HOME/.bashrc
+    source /opt/ros/noetic/setup.bash
+    rosdep update
+    cd $HOME
+    mkdir -p $HOME/catkin_ws/src
+    cd $HOME/catkin_ws/src
+    if [[ ! -d "ros_codes" ]]; then
+        git clone https://github.com/SRA-VJTI/ROS-Workshop-2.1.git /tmp/ros_ws
+        mv /tmp/ros_ws/ros_codes $HOME/catkin_ws/src
+        if [[ ! -d "$HOME/ros_ws_esp32_codes" ]]; then
+            mkdir -p $HOME/ros_ws_esp32_codes
+            mv /tmp/ros_ws/esp32_codes/* $HOME/ros_ws_esp32_codes
+            echo "${red}======================"
+            echo "$green Ros Repository cloned newly and processed : ESP32 Codes $reset"
+        else 
+            echo "${red}======================"
+            echo "$green Already processed : ESP32 Codes $reset"
+        fi
+        rm -rf /tmp/ros_ws
+        echo "${red}======================"
+        echo "$green Ros Repository newly cloned and processed$reset"
+    else
+        echo "${red}======================"
+        echo "$green Ros Repository already existed and processed $reset"
+    fi
+    cd ..
+    catkin_make
+    source $HOME/catkin_ws/devel/setup.bash
+}
 
-cd $HOME
-git clone https://github.com/SRA-VJTI/ROS-Workshop-2.1.git ros20_workshop_codes
-#############################################################################
-
-#### create ros20_ws ########################################################
-echo -e "\e[42mcreating directory $HOME/ros20_workshop_codes/ros20_ws/src\e[49m"
-mkdir -p $HOME/ros20_workshop_codes/ros20_ws/src
-#############################################################################
-
-#### catkin make ############################################################
-cd $HOME/ros20_workshop_codes/ros20_ws
-catkin_make
-#############################################################################
-
-#### copy ros codes in $ROS_WORKSPACE/src ##################################
-cp $HOME/ros20_workshop_codes/ros_codes $HOME/ros20_workshop_codes/ros20_ws/src -r
-mv $HOME/ros20_workshop_codes/ros20_ws/src/ros_codes $HOME/ros20_workshop_codes/ros20_ws/src/sra20 
-#############################################################################
-
-#### catkin make and add source command to bashrc ###########################
-cd $HOME/ros20_workshop_codes/ros20_ws
-catkin_make	
-
-source $HOME/ros20_workshop_codes/ros20_ws/devel/setup.bash
-echo "source $HOME/ros20_workshop_codes/ros20_ws/devel/setup.bash" >> $HOME/.bashrc
-
-cd $HOME
-############################################################################
-
-#### check if everything is installed correctly ############################	
-if [ -d "$HOME/ros20_workshop_codes" ] && [ -d "$HOME/ros20_workshop_codes/ros20_ws/src/sra20" ]
-then
-    clear 
-    echo -e "\e[42mall files INSTALLED correctly\e[49m"
+if [[ "$EUID" -eq 0 ]]; 
+then 
+    install
+    echo "${red}======================"
+    echo "${green}Please run without root once more" 1>&2 
+    echo "${red}======================"
+    exit
 else
-    
-    echo -e "\e[101mall files NOT INSTALLED correctly, rerun the script\e[49m"
+    configure
+    echo "${green}======================"
+    echo "${green}Installed & Configured"
+    echo "${green}======================"
+    exit
 fi
-############################################################################
+
+
+
+
+
+
+
+
