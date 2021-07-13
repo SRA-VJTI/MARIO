@@ -19,7 +19,7 @@ This example describe how to establish the rosserial connection with ESP32
 * Start the ROS Publisher by executing the relevant python script: (e.g. angle -> coordinates)
 
 ```bash
-rosrun rosserial publisher_forward_kinematics.py
+rosrun simulation_gazebo forward_kinematics.py
 ```
 In the same way publisher_inverse_kinematices.py can be run.
 
@@ -33,5 +33,6 @@ sudo chmod +x publisher_forward_kinematics.py
 ```bash
 rosrun rosserial_python serial_node.py tcp
 ```
+* Enter the angles on the publisher side and voila! See your manipulator moving!
 
 * Demo 
