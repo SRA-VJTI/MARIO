@@ -17,9 +17,6 @@ extern "C" {
 void rosserial_setup();          // setup rosserial
 void rosserial_spinonce();       // this function will keep on running and check for new messages on subscribed topics
 
-void rosserial_setup_rviz();     // setup rosserial for rviz
-void rosserial_spinonce_rviz();  // this function will keep on running and check for new messages on subscribed topics
-
 #ifdef __cplusplus
 }
 #endif

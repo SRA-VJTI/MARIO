@@ -6,11 +6,11 @@
 void app_main(void)
 {
     enable_servo();         // init gpio pwm
-    rosserial_setup_rviz(); // run rosserial setup
+    rosserial_setup(); // run rosserial setup
 
     while (1)
     {
-        rosserial_spinonce_rviz();
+        rosserial_spinonce();
         vTaskDelay(100);
     }
 }
