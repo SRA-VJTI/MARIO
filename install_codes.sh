@@ -12,9 +12,7 @@ ros_distro='noetic'
 if [[ $(lsb_release -rs) == "18.04" ]]; then
         ros_distro="melodic"
 fi
-
 echo $ros_distro
-exit
 pkg=ros-$ros_distro-desktop-full
 
 
