@@ -1,0 +1,39 @@
+menu "MARIO-Rosserial"
+
+config ROSSERIAL_OVER_WIFI
+    bool "rosserial over WiFi using TCP"
+    default n
+    help
+        Use rosserial over WiFi using TCP
+
+config ROSSERVER_AP
+    string "WiFi SSID"
+    default "myssid"
+    depends on ROSSERIAL_OVER_WIFI
+    help
+        SSID (Access point name) of WiFi to connect
+
+config ROSSERVER_PASS
+    string "WiFi Password"
+    default "mypass"
+    depends on ROSSERIAL_OVER_WIFI
+    help
+        Password of the WiFi
+
+config ROSSERVER_IP
+    string "IP address of ROS server (roscore)"
+    default "192.168.0.1"
+    depends on ROSSERIAL_OVER_WIFI
+    help
+        IP address of machine which is running rosserial server
+
+config ROSSERVER_PORT
+    int "Port number of ROS server"
+    default 11411
+    depends on ROSSERIAL_OVER_WIFI
+    help
+        Port number of rosserial server
+
+        Port number is printed on terminal running rosserial_python
+
+endmenu

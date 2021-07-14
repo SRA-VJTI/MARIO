@@ -1,0 +1,11 @@
+<launch>
+  <arg name="model" />
+  <arg name="gui" default="True" />
+  <param name="use_gui" value="$(arg gui)" />
+  <param name="robot_description" textfile="$(find simulation_rviz)/urdf/manipulator.urdf" />
+  <param name="use_gui" value="$(arg gui)" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen"/>
+  <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" output="screen"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_rviz)/rviz/ROS_workshop_manipulator.rviz"/>
+</launch>
