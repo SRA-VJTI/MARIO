@@ -44,10 +44,12 @@ function configure(){
     cd $HOME
     mkdir -p $HOME/catkin_ws/src
     cd $HOME/catkin_ws/src
-    if [[ ! -d "ros_codes" ]]; then
-        git clone https://github.com/SRA-VJTI/ROS-Workshop-2.1.git /tmp/ros_ws
-        mv /tmp/ros_ws/simulation_* $HOME/catkin_ws/src
-        mv /tmp/ros_ws/chatter_listener $HOME/catkin_ws/src
+    if [[ ! -d "1_chatter_listener" ]]; then
+        git clone --recursive https://github.com/SRA-VJTI/ROS-Workshop-2.1.git /tmp/ros_ws
+        mv /tmp/ros_ws/1_* $HOME/catkin_ws/src
+	mv /tmp/ros_ws/2_* $HOME/catkin_ws/src
+	mv /tmp/ros_ws/3_* $HOME/catkin_ws/src
+	mv /tmp/ros_ws/4_* $HOME/catkin_ws/src
         if [[ ! -d "$HOME/ros_ws_firmware" ]]; then
             mkdir -p $HOME/ros_ws_firmware
             mv /tmp/ros_ws/firmware/* $HOME/ros_ws_firmware
