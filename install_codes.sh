@@ -45,7 +45,7 @@ function configure(){
     mkdir -p $HOME/catkin_ws/src
     cd $HOME/catkin_ws/src
     if [[ ! -d "1_chatter_listener" ]]; then
-        git clone --recursive https://github.com/SRA-VJTI/ROS-Workshop-2.1.git /tmp/ros_ws
+        git clone --recursive https://github.com/SRA-VJTI/MARIO.git /tmp/ros_ws
         mv /tmp/ros_ws/1_* $HOME/catkin_ws/src
 	mv /tmp/ros_ws/2_* $HOME/catkin_ws/src
 	mv /tmp/ros_ws/3_* $HOME/catkin_ws/src
