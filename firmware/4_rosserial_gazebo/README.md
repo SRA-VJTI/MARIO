@@ -38,3 +38,6 @@ sudo chmod +x publisher_forward_kinematics.py
 * Enter the angles on the publisher side and voila! See your manipulator moving!
 
 * Demo 
+
+https://user-images.githubusercontent.com/64469823/125934413-7a97437e-f805-4380-8694-8e4b7380a031.mp4
+
