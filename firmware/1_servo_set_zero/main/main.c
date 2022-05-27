@@ -56,7 +56,7 @@ static void mcpwm_servo_control(void *arg)
 	vTaskDelay(100);
 	set_angle_servo(&servo_c,0);
 	vTaskDelay(100);
-    set_angle_servo(&servo_d,0);
+        set_angle_servo(&servo_d,0);
 	vTaskDelay(100);
 
     }
