@@ -51,19 +51,19 @@ static void mcpwm_servo_control(void *arg)
     {	
     	for(int i = 0 ; i < 180 ; i++)
     	{
-			set_angle_servo(&servo_a, i);
-			set_angle_servo(&servo_b, i);
-			set_angle_servo(&servo_c, i);
-			set_angle_servo(&servo_d, i);
+		set_angle_servo(&servo_a, i);
+		set_angle_servo(&servo_b, i);
+		set_angle_servo(&servo_c, i);
+		set_angle_servo(&servo_d, i);
         	vTaskDelay(5);   
     	}
     	
     	for(int i = 180 ; i > 0; i--)
     	{
-			set_angle_servo(&servo_a, i);
-			set_angle_servo(&servo_b, i);
-			set_angle_servo(&servo_c, i);
-			set_angle_servo(&servo_d, i);
+		set_angle_servo(&servo_a, i);
+		set_angle_servo(&servo_b, i);
+		set_angle_servo(&servo_c, i);
+		set_angle_servo(&servo_d, i);
         	vTaskDelay(5);    
     	}
           
