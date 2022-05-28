@@ -46,25 +46,22 @@ servo_config servo_d = {
 static void mcpwm_servo_control(void *arg)
 {
 	enable_servo();
-
-    while(1)
-    {	
-
-	set_angle_servo(&servo_a,0);
-	vTaskDelay(100);
-	set_angle_servo(&servo_b,0);
-	vTaskDelay(100);
-	set_angle_servo(&servo_c,0);
-	vTaskDelay(100);
-        set_angle_servo(&servo_d,0);
-	vTaskDelay(100);
-
-    }
+	while(1)
+	{
+		set_angle_servo(&servo_a,0);
+		vTaskDelay(100);
+		set_angle_servo(&servo_b,0);
+		vTaskDelay(100);
+		set_angle_servo(&servo_c,0);
+		vTaskDelay(100);
+		set_angle_servo(&servo_d,0);
+		vTaskDelay(100);
+	}
 }
 
 void app_main()
 {
 	ESP_LOGD(TAG,"Testing servo motors\n");
-    xTaskCreate(mcpwm_servo_control, "mcpwm_example_servo_control", 4096, NULL, 5, NULL);
+	xTaskCreate(mcpwm_servo_control, "mcpwm_example_servo_control", 4096, NULL, 5, NULL);
 }
 
