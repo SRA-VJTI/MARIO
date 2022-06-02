@@ -96,6 +96,12 @@
 				<input type="text" value="0.000" id="servo_c" />
 				<button>&gt;</button>
 			</div>
+			<div class="button-group">
+				<h3>Servo D</h3>
+				<button>&lt;</button>
+				<input type="text" value="0.000" id="servo_d" />
+				<button>&gt;</button>
+			</div>
 		</main>
 		<script>
 			let inpArray = document.querySelectorAll("input[type='text']");
@@ -104,6 +110,7 @@
 				data["servo_a"] = parseFloat(document.getElementById("servo_a").value);
 				data["servo_b"] = parseFloat(document.getElementById("servo_b").value);
 				data["servo_c"] = parseFloat(document.getElementById("servo_c").value);
+				data["servo_d"] = parseFloat(document.getElementById("servo_d").value);
 				let finaldata = JSON.stringify(data);
 				// console.log(finaldata);
 
