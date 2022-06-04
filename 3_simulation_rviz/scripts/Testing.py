@@ -13,16 +13,17 @@ def talker():
     rospy.init_node('joint_state_pub' , anonymous=False)
     joint = [0.0, 0.0, 0.0]
     rate = rospy.Rate(10) # 10hz
+    print("All the theta values to be entered in degrees")
+
+    theta_base = float(input("{:22s}".format("Enter theta_base: ")))
+    theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
+    theta_elbow =  float(input("{:22s}".format("Enter theta_elbow: ")))
 
     while not rospy.is_shutdown():
 
-        print("All the theta values to be entered in degrees")
+        
 
-        theta_base = float(input("{:22s}".format("Enter theta_base: ")))
-        theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
-        theta_elbow =  float(input("{:22s}".format("Enter theta_elbow: ")))
-
-        if 0.0 <= theta_base <= 180.0 and 0.0 <= theta_shoulder <= 180.0 and 0.0 <= theta_elbow <= 180.0: 
+        if -90.0 <= theta_base <= 90.0 and -72.0 <= theta_shoulder <= 72.0 and -107.0 <= theta_elbow <= 46.0: 
             joint[0] = (theta_base)*math.pi/180
             joint[1] = (theta_shoulder)*math.pi/180
             joint[2] = (theta_elbow)*math.pi/180
@@ -32,11 +33,14 @@ def talker():
             Joint_2.publish(joint[1])
             Joint_3.publish(joint[2])
         else:
-            print ("Enter angles in range 0 to 180")
+            print ("Enter angles in range -90 to 90")
         rate.sleep()
 
 if __name__ == '__main__':
     try:
         talker()
     except rospy.ROSInterruptException:
-        pass
+        rospy.signal_shutdown()
+    except KeyboardInterrupt:
+        rospy.signal_shutdown()
+        
