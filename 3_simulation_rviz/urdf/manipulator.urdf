@@ -54,17 +54,17 @@
     name="link_1">
     <inertial>
       <origin
-        xyz="0.00097841 -0.015906 0.017371"
+        xyz="-0.00017376 -0.015933 0.017371"
         rpy="0 0 0" />
       <mass
         value="0.024846" />
       <inertia
-        ixx="3.5165E-06"
-        ixy="-2.305E-07"
-        ixz="-7.8362E-10"
-        iyy="7.2755E-06"
-        iyz="-1.2738E-08"
-        izz="6.9877E-06" />
+        ixx="3.4858E-06"
+        ixy="2.3072E-08"
+        ixz="-6.6524E-10"
+        iyy="7.2894E-06"
+        iyz="-1.2663E-08"
+        izz="7.0045E-06" />
     </inertial>
     <visual>
       <origin
@@ -103,8 +103,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-1.57"
-      upper="1.57"
+      lower="0"
+      upper="3.14"
       effort="1.0"
       velocity="1.0" />
   </joint>
@@ -112,17 +112,17 @@
     name="link_2">
     <inertial>
       <origin
-        xyz="-0.00039992 -0.0021855 0.052975"
+        xyz="0.05189 -0.0024721 -0.0024701"
         rpy="0 0 0" />
       <mass
         value="0.01633" />
       <inertia
-        ixx="5.4124E-06"
-        ixy="-3.0048E-08"
-        ixz="-1.8798E-08"
-        iyy="5.9019E-06"
-        iyz="-1.3839E-08"
-        izz="6.375E-07" />
+        ixx="6.549E-07"
+        ixy="1.9218E-08"
+        ixz="2.8287E-07"
+        iyy="5.9038E-06"
+        iyz="-1.005E-09"
+        izz="5.3932E-06" />
     </inertial>
     <visual>
       <origin
@@ -152,35 +152,35 @@
     name="joint_2"
     type="revolute">
     <origin
-      xyz="0.0010394 -0.0095198 0.034407"
+      xyz="0.00031511 -0.0095653 0.034407"
       rpy="0 0 0" />
     <parent
       link="link_1" />
     <child
       link="link_2" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 -1 0" />
     <limit
-      lower="-1.26"
-      upper="1.26"
-      effort="1.0"
-      velocity="1.0" />
+      lower="0"
+      upper="3.14"
+      effort="1"
+      velocity="1" />
   </joint>
   <link
     name="link_3">
     <inertial>
       <origin
-        xyz="0.06228 0.002117 -0.019509"
+        xyz="0.0037357 -0.001707 -0.066045"
         rpy="0 0 0" />
       <mass
         value="0.019923" />
       <inertia
-        ixx="1.655E-06"
-        ixy="-2.7692E-07"
-        ixz="1.0523E-06"
-        iyy="5.1979E-06"
-        iyz="9.2887E-08"
-        izz="5.4044E-06" />
+        ixx="5.6378E-06"
+        ixy="3.6797E-09"
+        ixz="4.2574E-07"
+        iyy="5.2184E-06"
+        iyz="6.2841E-08"
+        izz="1.4011E-06" />
     </inertial>
     <visual>
       <origin
@@ -210,41 +210,40 @@
     name="joint_3"
     type="revolute">
     <origin
-      xyz="-0.00063851 0.011696 0.072593"
+      xyz="0.071531 0.011279 -0.0041348"
       rpy="0 0 0" />
     <parent
       link="link_2" />
     <child
       link="link_3" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 -1 0" />
     <limit
-      lower="-1.87"
-      upper="0.80"
-      effort="1.0"
-      velocity="1.0" />
+      lower="0"
+      upper="3.14"
+      effort="1"
+      velocity="1" />
   </joint>
   <link
     name="claw_right">
     <inertial>
       <origin
-        xyz="0.0078791 0.0033483 -0.0010726"
+        xyz="0.0018122 0.0028283 -0.0079472"
         rpy="0 0 0" />
       <mass
-        value="0.043225" />
-        <!-- value="0.013225" -->
+        value="0.013225" />
       <inertia
-        ixx="7.6987E-07"
-        ixy="-3.6907E-07"
-        ixz="6.5483E-07"
-        iyy="2.672E-06"
-        iyz="1.0553E-07"
-        izz="3.0884E-06" />
+        ixx="3.2338E-06"
+        ixy="-2.8172E-08"
+        ixz="2.6752E-07"
+        iyy="2.7116E-06"
+        iyz="2.4983E-07"
+        izz="5.8458E-07" />
     </inertial>
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="0 -0.2 0" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://simulation_rviz/meshes/claw_right.STL" />
@@ -258,7 +257,7 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0.2 0" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://simulation_rviz/meshes/claw_right.STL" />
@@ -268,40 +267,46 @@
   <joint
     name="joint_4"
     type="revolute">
-    <origin xyz="0.091729 -0.0080548 -0.011749"
-      rpy="0 0.2 0" />
+    <origin
+      xyz="0.020925 -0.013767 -0.090331"
+      rpy="0 0 0" />
     <parent
       link="link_3" />
     <child
       link="claw_right" />
     <axis
-      xyz="0 0 -1" />
+      xyz="-1 0 0" />
     <limit
       lower="0"
-      upper="0.9"
+      upper="0.8"
       effort="1.0"
       velocity="1.0" />
   </joint>
+  
+  <!-- y = 0.014
+  z = 0.0075
+  xyz="0.013771 0.012345 -0.01495" -->
+
   <link
     name="claw_left">
     <inertial>
       <origin
-        xyz="0.017988 0.013506 0.0076557"
+        xyz="0.013771 0.012345 -0.01495"
         rpy="0 0 0" />
       <mass
-        value="0.013642" />
+        value="0.013641" />
       <inertia
-        ixx="8.1401E-07"
-        ixy="-4.7952E-08"
-        ixz="6.8628E-07"
-        iyy="2.8195E-06"
-        iyz="2.246E-08"
-        izz="3.2661E-06" />
+        ixx="3.4175E-06"
+        ixy="3.0134E-09"
+        ixz="2.7613E-07"
+        iyy="2.8184E-06"
+        iyz="-6.8499E-08"
+        izz="6.6306E-07" />
     </inertial>
     <visual>
       <origin
-        xyz="0 -0.0131993 0"
-        rpy="0 -0.2 0" />
+        xyz="0 -0.014 0.0075"
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://simulation_rviz/meshes/claw_left.STL" />
@@ -315,28 +320,29 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0.2 0" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://simulation_rviz/meshes/claw_left.STL" />
       </geometry>
     </collision>
   </link>
+
   <joint
     name="joint_5"
     type="revolute">
     <origin
-      xyz="0.079643 0.0231993 -0.020398"
-      rpy="0 0.2 0" />
+      xyz="0.0091023 0.0182709 -0.090512"
+      rpy="0 0 0" />
     <parent
       link="link_3" />
     <child
       link="claw_left" />
     <axis
-      xyz="0 0 1" />
+      xyz="1 0 0" />
     <limit
       lower="0"
-      upper="0.9"
+      upper="0.8"
       effort="1.0"
       velocity="1.0" />
   </joint>
@@ -396,5 +402,4 @@
 				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
 			</actuator>
 	</transmission> 
-  
 </robot>
