@@ -257,8 +257,8 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0.02"
-        rpy="0 0 0" />
+        xyz="0 0 0"
+        rpy="0 0.2 0" />
       <geometry>
         <mesh
           filename="package://simulation_rviz/meshes/claw_right.STL" />
@@ -315,7 +315,7 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 0.2 0" />
       <geometry>
         <mesh
           filename="package://simulation_rviz/meshes/claw_left.STL" />
