@@ -12,6 +12,6 @@
 
 
   <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_rviz)/rviz/ROS_workshop_maipulator.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_rviz)/rviz/ROS_workshop_manipulator.rviz"/>
 
 </launch>

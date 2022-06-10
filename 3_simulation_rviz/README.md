@@ -25,12 +25,12 @@ sudo apt install ros-<your_version_of_ros>-joint-state-publisher-gui
 *  For command line input    
 
 ```
-roslaunch simulation_rviz new.launch    
+roslaunch simulation_rviz mario_rviz.launch    
 ```
 *  Now ,On a different terminal, source ROS again and go to the simulation folder and write the following command
 
 ```
-rosrun simulation_rviz Testing.py  
+rosrun simulation_rviz pub_try1.py  
 ```
 Then initially set all values to zero , to get the default position of the manipulator .  
 After this you can now check for different values.
