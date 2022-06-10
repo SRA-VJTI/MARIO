@@ -1,7 +1,7 @@
 ## Steps to run the demo in RViz 
 Repo with new URDF of manipulator to visualize in RViz and using command line as well as gui to give input to RViz  
 
-If you have not installed the joint_state_publishers and ros_control for ros-noetic, follow the commands given [here](https://github.com/hashmis79/MARIO/tree/master/2_simulation_dh)
+If you have not installed the joint_state_publishers and ros_control for ros-noetic, follow the commands given [here](https://github.com/SRA-VJTI/MARIO/tree/master/2_simulation_dh)
 
 *  Run the launch file
 ```
@@ -25,7 +25,7 @@ sudo apt install ros-<your_version_of_ros>-joint-state-publisher-gui
 *  For command line input    
 
 ```
-roslaunch manipulator_rviz new.launch    
+roslaunch simulation_rviz new.launch    
 ```
 *  Now ,On a different terminal, source ROS again and go to the simulation folder and write the following command
 
