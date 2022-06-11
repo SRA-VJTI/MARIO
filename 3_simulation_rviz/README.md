@@ -30,7 +30,7 @@ roslaunch simulation_rviz mario_rviz.launch
 *  Now ,On a different terminal, source ROS again and go to the simulation folder and write the following command
 
 ```
-rosrun simulation_rviz pub_try1.py  
+rosrun simulation_rviz pub_rviz.py  
 ```
 Then initially set all values to zero , to get the default position of the manipulator .  
 After this you can now check for different values.
