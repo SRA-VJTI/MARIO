@@ -1,7 +1,15 @@
 # MARIO WORKSHOP 2.2
 *MARIO* abbreviation for *Manipulator on ROS Based Input Output* is a bot with 3 Degree of Freedom. It consists of two SG90 micro servo and one MG995 metal gear servo motor. The servo motors are placed on base, elbow and shoulder enabling it with 3 Degrees of Freedom.
 
-![](assets/arm.gif)
+## Sneek Peek 
+
+![Bot pic](/assets/Bot.png)
+
+![Bot Pic](assets/bot2.png)
+
+
+
+
 
 ## File Structure 
     ├── 1_chatter_listener            # talker and listener script to understand the nodes and communications in ROS
