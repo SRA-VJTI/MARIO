@@ -14,6 +14,9 @@
 
 ![bot gif](assets/Gif2_AdobeExpress.gif)
 
+### Simulation !!!
+![simulation](assets/simulation.png)
+
 
 
 ## File Structure 
