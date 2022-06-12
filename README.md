@@ -3,18 +3,14 @@
 
 ## Sneek Peek 
 
-### First Look of the Mario Bot 
-![Bot pic](/assets/Bot.png)
-
 ![Bot Pic](assets/bot2.png)
 
-### Mario bot in Action !!!
-
-![bot gif](assets/Gif1_AdobeExpress.gif)
+### Working of the Mario Bot
 
 ![bot gif](assets/Gif2_AdobeExpress.gif)
 
-### Simulation !!!
+### Mario bot simulated using Gazebo 
+
 ![simulation](assets/simulation.png)
 
 
