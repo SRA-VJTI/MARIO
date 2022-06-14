@@ -3,15 +3,16 @@
 
 ## Sneek Peek 
 
-![Bot Pic](assets/bot2.png)
+
+<p align="center"><img src="assets/bot2.png"></p>
 
 ### Working of the Mario Bot
 
-![bot gif](assets/Gif2_AdobeExpress.gif)
+<p align="center"><img src="assets/Gif2_AdobeExpress.gif" width="500" height="500"></p>
 
 ### Mario bot simulated using Gazebo 
 
-![simulation](assets/simulation.png)
+<p align="center"><img src="assets/simulation.png"></p>
 
 
 
