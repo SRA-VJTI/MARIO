@@ -46,7 +46,6 @@ servo_config servo_d = {
 static void mcpwm_servo_control(void *arg)
 {
 	enable_servo();
-<<<<<<< HEAD
 	while(1)
 	{
 		for(int i = 0 ; i < 180 ; i++)
@@ -66,30 +65,6 @@ static void mcpwm_servo_control(void *arg)
 			vTaskDelay(5);
 		}
 	}
-=======
-
-    while(1)
-    {	
-    	for(int i = 0 ; i < 180 ; i++)
-    	{
-		set_angle_servo(&servo_a, i);
-		set_angle_servo(&servo_b, i);
-		set_angle_servo(&servo_c, i);
-		set_angle_servo(&servo_d, i);
-        	vTaskDelay(5);   
-    	}
-    	
-    	for(int i = 180 ; i > 0; i--)
-    	{
-		set_angle_servo(&servo_a, i);
-		set_angle_servo(&servo_b, i);
-		set_angle_servo(&servo_c, i);
-		set_angle_servo(&servo_d, i);
-        	vTaskDelay(5);    
-    	}
-          
-    }
->>>>>>> 11610e05246f07c808fb24b4799e92f5c3be7acb
 }
 
 void app_main()
