@@ -1,5 +1,6 @@
 #include "servo.h"
 #include "freertos/task.h"
+#include "sra_board.h"
 
 #define TAG "MCPWM_SERVO_CONTROL"
 
@@ -43,28 +44,38 @@ servo_config servo_d = {
 	.gen = MCPWM_OPR_B,
 };
 
+int servo_A = 0, servo_B = 0, servo_C = 0, servo_D = 0;
+
 static void mcpwm_servo_control(void *arg)
 {
 	enable_servo();
+#ifdef CONFIG_ENABLE_OLED
+	// Declaring the required OLED struct
+	u8g2_t oled_config;
 
-    while(1)
-    {	
+	// Initialising the OLED
+	ESP_ERROR_CHECK(init_oled_mario(&oled_config));
+#endif
 
-	set_angle_servo(&servo_a,0);
-	vTaskDelay(100);
-	set_angle_servo(&servo_b,0);
-	vTaskDelay(100);
-	set_angle_servo(&servo_c,0);
-	vTaskDelay(100);
-        set_angle_servo(&servo_d,0);
-	vTaskDelay(100);
-
-    }
+	while (1)
+	{
+		set_angle_servo(&servo_a, servo_A);
+		vTaskDelay(100);
+		set_angle_servo(&servo_b, servo_B);
+		vTaskDelay(100);
+		set_angle_servo(&servo_c, servo_C);
+		vTaskDelay(100);
+		set_angle_servo(&servo_d, servo_D);
+		vTaskDelay(100);
+#ifdef CONFIG_ENABLE_OLED
+		// Diplaying Servo A, Servo B, Servo C, Servo D values on OLED
+		display_servo_values(servo_A, servo_B, servo_C, servo_D, &oled_config);
+#endif
+	}
 }
 
 void app_main()
 {
-	ESP_LOGD(TAG,"Testing servo motors\n");
-    xTaskCreate(mcpwm_servo_control, "mcpwm_example_servo_control", 4096, NULL, 5, NULL);
+	ESP_LOGD(TAG, "Testing servo motors\n");
+	xTaskCreate(mcpwm_servo_control, "mcpwm_example_servo_control", 4096, NULL, 5, NULL);
 }
-
