@@ -3,15 +3,15 @@
     command="$(find xacro)/xacro --inorder '$(find simulation_rviz)/urdf/manipulator.urdf'" />
 
   <!-- send fake joint values -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="use_gui" value="TRUE"/>
-  </node>
+  </node> -->
 
   <!-- Combine joint values -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
 
   <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_rviz)/rviz/ROS_workshop_maipulator.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_rviz)/rviz/ROS_workshop_manipulator.rviz"/>
 
 </launch>

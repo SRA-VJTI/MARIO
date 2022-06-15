@@ -32,6 +32,7 @@ typedef struct pid_const
     float servo_a;
     float servo_b;
     float servo_c;
+    float servo_d;
 } servo_const_t;
 
 servo_const_t read_servo_const();
