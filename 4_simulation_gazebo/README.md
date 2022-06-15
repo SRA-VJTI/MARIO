@@ -1,4 +1,4 @@
-# Table fo Contents
+# Table of Contents
 * [Steps to run the demo in Gazebo](#steps-to-run-the-demo-in-gazebo) 
 * [Using RQT to send commands](#using-rqt-to-send-commands)
 * [Steps For Running the Scripts in Gazebo](#steps-for-running-the-scripts-in-gazebo)
@@ -22,10 +22,10 @@ In this section we'll go over tools to help you visualize the performance of you
 Start RQT:
 
 ```
-rosrun rqt_gui rqt_gui
+rqt
 ```
 ### Add a Command Publisher
-On the 'Plugins' menu of RQT add the 'Topics->Message Publisher' plugin then choose the topic from the drop down box that commands any particular controller that you want to publish to. For the RRBot, add the controller:
+On the 'Plugins' menu of RQT add the `Topics` --> `Message Publisher` plugin then choose the topic from the drop down box that commands any particular controller that you want to publish to. For the RRBot, add the controller:
 
 ```
 /manipulator/joint_1_controller/command

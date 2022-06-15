@@ -2,7 +2,7 @@
 
 static const char *TAG = "tuning_http_server";
 static char scratch[SCRATCH_BUFSIZE];
-static servo_const_t servo_constants = {.servo_a = 0.0, .servo_b = 0.0, .servo_c = 0.0};
+static servo_const_t servo_constants = {.servo_a = 0.0, .servo_b = 0.0, .servo_c = 0.0, .servo_d = 0.0};
 
 static void initialise_mdns(void)
 {
@@ -163,7 +163,8 @@ static esp_err_t tuning_servo_post_handler(httpd_req_t *req)
     servo_constants.servo_a = (float)cJSON_GetObjectItem(root, "servo_a")->valuedouble;
     servo_constants.servo_b = (float)cJSON_GetObjectItem(root, "servo_b")->valuedouble;
     servo_constants.servo_c = (float)cJSON_GetObjectItem(root, "servo_c")->valuedouble;
-    
+    servo_constants.servo_d = (float)cJSON_GetObjectItem(root, "servo_d")->valuedouble;
+
     cJSON_Delete(root);
     httpd_resp_sendstr(req, "Post control value successfully");
     return ESP_OK;
