@@ -27,6 +27,7 @@ def talker():
         theta_elbow = float(input("{:22s}".format("Enter theta_elbow: ")))
         theta_claw1 = float(input("{:22s}".format("Enter theta_claw 1: ")))
         theta_claw2 = float(input("{:22s}".format("Enter theta_claw 2: ")))
+        
         if 0 <= theta_base <= 180.0 and 0 <= theta_shoulder <= 180.0 and 0 <= theta_elbow <= 180.0 and 0.0 <= theta_claw1 <= 180.0 and 0.0 <= theta_claw2 <= 180.0 : 
             theta_base = (theta_base)*math.pi/180
             theta_shoulder = (theta_shoulder)*math.pi/180
