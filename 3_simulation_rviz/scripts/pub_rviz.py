@@ -25,13 +25,15 @@ def talker():
         theta_base = float(input("{:22s}".format("Enter theta_base: ")))
         theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
         theta_elbow = float(input("{:22s}".format("Enter theta_elbow: ")))
-        if 0 <= theta_base <= 180.0 and 0 <= theta_shoulder <= 180.0 and 0 <= theta_elbow <= 180.0: 
+        theta_claw = float(input("{:22s}".format("Enter theta_claw: ")))
+        if 0 <= theta_base <= 180.0 and 0 <= theta_shoulder <= 180.0 and 0 <= theta_elbow <= 180.0 and 0.0 <= theta_claw <= 180.0: 
             theta_base = (theta_base)*math.pi/180
             theta_shoulder = (theta_shoulder)*math.pi/180
             theta_elbow = (theta_elbow)*math.pi/180
+            theta_claw = (theta_claw)*math.pi/180
 
             hello_str.name = ['joint_1', 'joint_2', 'joint_3', 'joint_4', 'joint_5']
-            hello_str.position = [theta_base , theta_elbow , theta_shoulder, 0.0, 0.0]
+            hello_str.position = [theta_base , theta_elbow , theta_shoulder, theta_claw, 0.0]
             hello_str.velocity = []
             hello_str.effort = []
             pub.publish(hello_str)

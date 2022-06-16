@@ -17,11 +17,13 @@
 void message_callback1(const std_msgs::Float64 &msg);
 void message_callback2(const std_msgs::Float64 &msg);
 void message_callback3(const std_msgs::Float64 &msg);
+void message_callback4(const std_msgs::Float64 &msg);
 
 // Subscriber to the joint controller messages
 ros::Subscriber<std_msgs::Float64> arm1("/manipulator/joint_1_controller/command", &message_callback1);
 ros::Subscriber<std_msgs::Float64> arm2("/manipulator/joint_2_controller/command", &message_callback2);
 ros::Subscriber<std_msgs::Float64> arm3("/manipulator/joint_3_controller/command", &message_callback3);
+ros::Subscriber<std_msgs::Float64> arm4("/manipulator/joint_4_controller/command", &message_callback4);
 
 // Node handler to access nodes
 ros::NodeHandle nh;
@@ -59,6 +61,16 @@ static servo_config servo_c = {
 	.gen = MCPWM_OPR_A,
 };
 
+// configuration for Servo D
+static servo_config servo_d = {
+	.servo_pin = SERVO_D,
+	.min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
+	.max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
+	.max_degree = CONFIG_SERVO_D_MAX_DEGREE,
+	.mcpwm_num = MCPWM_UNIT_0,
+	.timer_num = MCPWM_TIMER_1,
+	.gen = MCPWM_OPR_B,
+};
 
 void rosserial_setup()
 {
@@ -68,6 +80,7 @@ void rosserial_setup()
     nh.subscribe(arm1);             // subscribe to topic
     nh.subscribe(arm2); 
     nh.subscribe(arm3); 
+    nh.subscribe(arm4); 
 }
 
 // this function will keep on running and check for new messages on subscribed topics
@@ -80,7 +93,7 @@ void message_callback1(const std_msgs::Float64 &msg)
 {
 
     ESP_LOGD(TAG_C, "angle [BASE]:     %f", msg.data);
-    set_angle_servo(&servo_c,msg.data*(180/pi));
+    set_angle_servo(&servo_a,msg.data*(180/pi));
 }
 
 void message_callback2(const std_msgs::Float64 &msg)
@@ -94,7 +107,14 @@ void message_callback3(const std_msgs::Float64 &msg)
 {
 
     ESP_LOGD(TAG_C, "angle [ELBOW]:    %f", msg.data);
-    set_angle_servo(&servo_a,msg.data*(180/pi));
+    set_angle_servo(&servo_c,msg.data*(180/pi));
+}
+
+void message_callback4(const std_msgs::Float64 &msg)
+{
+
+    ESP_LOGD(TAG_C, "angle [GRIPPER]:    %f", msg.data);
+    set_angle_servo(&servo_d,msg.data*(180/pi));
 }
 
 
