@@ -33,34 +33,43 @@ servo_config servo_c = {
 	.gen = MCPWM_OPR_A,
 };
 
+servo_config servo_d = {
+	.servo_pin = SERVO_D,
+	.min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
+	.max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
+	.max_degree = CONFIG_SERVO_D_MAX_DEGREE,
+	.mcpwm_num = MCPWM_UNIT_0,
+	.timer_num = MCPWM_TIMER_1,
+	.gen = MCPWM_OPR_B,
+};
+
 static void mcpwm_servo_control(void *arg)
 {
 	enable_servo();
-
-    while(1)
-    {	
-    	for(int i = 0 ; i < 180 ; i++)
-    	{
+	while(1)
+	{
+		for(int i = 0 ; i < 180 ; i++)
+		{
 			set_angle_servo(&servo_a, i);
 			set_angle_servo(&servo_b, i);
 			set_angle_servo(&servo_c, i);
-        	vTaskDelay(5);   
-    	}
-    	
-    	for(int i = 180 ; i > 0; i--)
-    	{
+			set_angle_servo(&servo_d, i);
+			vTaskDelay(5);
+		}
+		for(int i = 180 ; i > 0; i--)
+		{
 			set_angle_servo(&servo_a, i);
 			set_angle_servo(&servo_b, i);
 			set_angle_servo(&servo_c, i);
-        	vTaskDelay(5);    
-    	}
-          
-    }
+			set_angle_servo(&servo_d, i);
+			vTaskDelay(5);
+		}
+	}
 }
 
 void app_main()
 {
 	ESP_LOGD(TAG,"Testing servo motors\n");
-    xTaskCreate(mcpwm_servo_control, "mcpwm_example_servo_control", 4096, NULL, 5, NULL);
+	xTaskCreate(mcpwm_servo_control, "mcpwm_example_servo_control", 4096, NULL, 5, NULL);
 }
 
