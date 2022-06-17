@@ -1,4 +1,3 @@
-#include "freertos/task.h"
 #include "sra_board.h"
 
 #define TAG "MCPWM_SERVO_CONTROL"

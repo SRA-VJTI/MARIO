@@ -1,5 +1,3 @@
-#include "freertos/task.h"
-
 #include "sra_board.h"
 
 #include <stdio.h>
