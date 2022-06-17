@@ -29,13 +29,15 @@ theta = []      #Since it will be user input
 d = [2.5, 0, 0, 9.5]
 alpha = [math.pi/2,0, math.pi/2, 0]
 a = [0, 12, 0, 0]
-joint = [0.0, 0.0, 0.0]  
+joint = [0.0, 0.0, 0.0, 0.0, 0.0]  
 
 def forward_kinematics_publisher():
 
     Joint_1 = rospy.Publisher('/manipulator/joint_1_controller/command',Float64, queue_size=10)
     Joint_2 = rospy.Publisher('/manipulator/joint_2_controller/command',Float64, queue_size=10)
     Joint_3 = rospy.Publisher('/manipulator/joint_3_controller/command',Float64, queue_size=10)
+    Joint_4 = rospy.Publisher('/manipulator/joint_4_controller/command',Float64, queue_size=10)
+    Joint_5 = rospy.Publisher('/manipulator/joint_5_controller/command',Float64, queue_size=10)
     rospy.init_node('forward_kinematics_publisher', anonymous=True)
     rate = rospy.Rate(10)   #10hz
     while not rospy.is_shutdown():
@@ -43,6 +45,7 @@ def forward_kinematics_publisher():
         theta_base = float(input("{:22s}".format("Enter theta_base: ")))
         theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
         theta_elbow = float(input("{:22s}".format("Enter theta_elbow: ")))
+        gripper_open = float(input("{:22s}".format("Enter Gripper Position(0 - close/ 1 - open): ")))
         theta = [theta_base, theta_shoulder, theta_elbow, 0]
 
         final_transformation_matrix = forward_kinematics_module.compute_coordinates(theta, d, alpha, a)
@@ -57,16 +60,27 @@ def forward_kinematics_publisher():
             joint[0] = (theta_base)*math.pi/180
             joint[1] = (theta_shoulder)*math.pi/180
             joint[2] = (theta_elbow)*math.pi/180
+            if gripper_open:
+                joint[3] = 0.8
+                joint[4] = 0.8
+            else:
+                joint[3] = 0.0
+                joint[4] = 0.0
 
-            rospy.loginfo("\ntheta_base = %f\ntheta_shoulder = %f\ntheta_elbow = %f", joint[0], joint[1], joint[2])
+            rospy.loginfo("\ntheta_base = %f\ntheta_shoulder = %f\ntheta_elbow = %f\ngripper_open = %f", joint[0], joint[1], joint[2], gripper_open)
             Joint_1.publish(joint[0])
             Joint_2.publish(joint[1])
             Joint_3.publish(joint[2])
+            Joint_4.publish(joint[3])
+            Joint_5.publish(joint[4])
+
+
             print ("=========================\n")
 
         else:
             print ("Enter angles in range 0 to 180")
         rate.sleep()
+
 
 if __name__ == '__main__':
     try:

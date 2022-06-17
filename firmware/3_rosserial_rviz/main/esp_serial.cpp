@@ -55,6 +55,17 @@ static servo_config servo_c = {
 	.gen = MCPWM_OPR_A,
 };
 
+// configuration for Servo D
+static servo_config servo_d = {
+	.servo_pin = SERVO_D,
+	.min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
+	.max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
+	.max_degree = CONFIG_SERVO_D_MAX_DEGREE,
+	.mcpwm_num = MCPWM_UNIT_0,
+	.timer_num = MCPWM_TIMER_1,
+	.gen = MCPWM_OPR_B,
+};
+
 void message_callback(const sensor_msgs::JointState &msg)
 {
     ESP_LOGD(TAG_RVIZ, "%s", "new message from publisher");
@@ -63,10 +74,12 @@ void message_callback(const sensor_msgs::JointState &msg)
     ESP_LOGD(TAG_RVIZ, "angle [BASE}:     %f", msg.position[0]);
     ESP_LOGD(TAG_RVIZ, "angle [SHOUDLER]: %f", msg.position[1]);
     ESP_LOGD(TAG_RVIZ, "angle [ELBOW]:    %f", msg.position[2]);
+    ESP_LOGD(TAG_RVIZ, "angle [GRIPPER]:    %f", msg.position[3]);
 
-    set_angle_servo(&servo_c,msg.position[0]);
-    set_angle_servo(&servo_b,msg.position[1]);
-    set_angle_servo(&servo_a,msg.position[2]);
+    set_angle_servo(&servo_a,msg.position[0]*180/pi);
+    set_angle_servo(&servo_b,msg.position[1]*180/pi);
+    set_angle_servo(&servo_c,msg.position[2]*180/pi);
+    set_angle_servo(&servo_d,msg.position[3]*180/pi);
 }
 
 void rosserial_setup()
