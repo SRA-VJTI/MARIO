@@ -1,6 +1,0 @@
-  <launch>
-   <!-- Load the urdf into the parameter server. -->
-   <node name="tf2_broadcaster" pkg="simulation_dh" type="broadcaster.py" respawn="false" output="screen" />
-   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation_dh)/config/rviz_config.rviz"/>
-  </launch>
-
