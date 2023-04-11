@@ -1,25 +1,24 @@
-manipulator:
-    joint_state_controller:
-        type: joint_state_controller/JointStateController
-        publish_rate: 20
+controller_manager:
+    ros__parameters:
+        update_rate: 100  # Hz
 
-    joint_1_controller:
-        type: effort_controllers/JointPositionController
-        joint: joint_1
-        pid: {p: 90.0, i: 0.0, d: 0.1}
-    joint_2_controller:
-        type: effort_controllers/JointPositionController
-        joint: joint_2
-        pid: {p: 50.0, i: 0.0, d: 0.5}
-    joint_3_controller:
-        type: effort_controllers/JointPositionController
-        joint: joint_3
-        pid: {p: 9.5, i: 0.1, d: 0.01}
-    joint_4_controller:
-        type: effort_controllers/JointPositionController
-        joint: joint_4
-        pid: {p: 0.1, i: 0, d: 0}
-    joint_5_controller:
-        type: effort_controllers/JointPositionController
-        joint: joint_5
-        pid: {p: 0.1, i: 0, d: 0}
+        effort_controllers:
+            type: effort_controllers/JointGroupEffortController
+
+        joint_state_controller:
+            type: joint_state_broadcaster/JointStateBroadcaster
+
+effort_controllers:
+    ros__parameters:
+        joints:
+        - joint_1
+        - joint_2
+        - joint_3
+        - joint_4
+        - joint_5
+        command_interfaces:
+        - effort
+        state_interfaces:
+        - position
+        - velocity
+        - effort
