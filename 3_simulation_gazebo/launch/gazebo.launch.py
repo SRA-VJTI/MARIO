@@ -2,7 +2,7 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument,  ExecuteProcess
 from launch.substitutions import Command
 from launch_ros.actions import Node
 import random
@@ -24,7 +24,7 @@ def generate_launch_description():
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        name='robot_state_publisher_node',
+        name='robot_state_publisher',
         emulate_tty=True,
         parameters=[{'use_sim_time': True, 'robot_description': Command(['xacro ', robot_desc_path])}],
         output="screen"
@@ -36,7 +36,7 @@ def generate_launch_description():
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     # Base Name or robot
-    robot_base_name = "mario"
+    robot_base_name = "manipulator"
     # Spawn ROBOT Set Gazebo
     spawn_robot = Node(
         package='gazebo_ros',
@@ -51,17 +51,23 @@ def generate_launch_description():
                     '-topic', '/robot_description'
                     ]
     )
-    control = Node(
-        package='controller_manager',
-        name='manipulator',
-        executable='spawner',
-        arguments=[config]
+
+    load_joint_state_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
+                'joint_state_broadcaster'],
+        output='screen'
+    )
+
+    load_joint_trajectory_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'effort_controllers'],
+        output='screen'
     )
     # create and return launch description object
     return LaunchDescription(
         [            
             spawn_robot,
             robot_state_publisher_node,
-            control
+            load_joint_state_controller,
+            load_joint_trajectory_controller
         ]
     )
