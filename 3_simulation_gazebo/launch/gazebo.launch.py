@@ -5,13 +5,14 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument,  ExecuteProcess
 from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch_ros.descriptions import ParameterValue
 import random
 
 # this is the function launch  system will look for
 def generate_launch_description():
     ####### DATA INPUT ##########
     urdf_file = 'manipulator.urdf'
-    #xacro_file = "box_bot.xacro"
+    #xacro_file = "box_bot.xacro"robot_description
     package_description = "simulation_gazebo"
     ####### DATA INPUT END ##########
     config = os.path.join( get_package_share_directory('simulation_gazebo'),
@@ -26,7 +27,7 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher',
         emulate_tty=True,
-        parameters=[{'use_sim_time': True, 'robot_description': Command(['xacro ', robot_desc_path])}],
+        parameters=[{'use_sim_time': True, 'robot_description': ParameterValue(Command(['xacro ',robot_desc_path]), value_type=str)}],
         output="screen"
     )
 
@@ -36,7 +37,7 @@ def generate_launch_description():
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     # Base Name or robot
-    robot_base_name = "manipulator"
+    robot_base_name = "mario"
     # Spawn ROBOT Set Gazebo
     spawn_robot = Node(
         package='gazebo_ros',
