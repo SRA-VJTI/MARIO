@@ -48,6 +48,6 @@ def generate_launch_description():
             'world',
             default_value=[os.path.join(pkg_mario_bot, 'worlds', 'box_bot_empty.world'), ''],
             description='SDF world file'),
-        gazebo,
-        gazebo2
+        gazebo2,
+        gazebo
     ])
