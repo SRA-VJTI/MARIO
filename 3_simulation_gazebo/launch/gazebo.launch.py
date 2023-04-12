@@ -2,9 +2,10 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument,  ExecuteProcess
+from launch.actions import DeclareLaunchArgument,  ExecuteProcess, RegisterEventHandler
 from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch.event_handlers import (OnProcessStart, OnProcessExit)
 from launch_ros.descriptions import ParameterValue
 import random
 
@@ -54,21 +55,30 @@ def generate_launch_description():
     )
 
     load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
-                'joint_state_broadcaster'],
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+                'joint_state_controller'],
         output='screen'
     )
 
     load_joint_trajectory_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'effort_controllers'],
-        output='screen'
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'configured', 'joint_trajectory_controller'],
+    output='screen'
     )
     # create and return launch description object
-    return LaunchDescription(
-        [            
-            spawn_robot,
-            robot_state_publisher_node,
-            load_joint_state_controller,
-            load_joint_trajectory_controller
-        ]
-    )
+    return LaunchDescription([     
+            
+        RegisterEventHandler(
+            event_handler= OnProcessExit(
+                target_action=spawn_robot,
+                on_exit=[load_joint_state_controller],
+            )
+        ),           
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_controller,
+                on_exit=[load_joint_trajectory_controller],
+            )
+        ),
+        robot_state_publisher_node,
+        spawn_robot
+    ])
