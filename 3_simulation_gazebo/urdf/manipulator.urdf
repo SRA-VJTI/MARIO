@@ -33,15 +33,6 @@
           rgba="0.62745 0.62745 0.62745 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/base_link.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="dummy_joint" type="fixed">
      <parent link="world"/>
@@ -77,15 +68,6 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_1.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="joint_1"
@@ -135,15 +117,6 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_2.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="joint_2"
@@ -193,15 +166,6 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_3.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="joint_3"
@@ -251,15 +215,6 @@
           rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/claw_right.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="joint_4"
@@ -314,15 +269,6 @@
           rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/claw_left.STL" />
-      </geometry>
-    </collision>
   </link>
 
   <joint
@@ -349,31 +295,46 @@
     <plugin>gazebo_ros2_control/GazeboSystem</plugin>
   </hardware>
   <joint name="joint_1">
-    <command_interface name="position"/>
+    <command_interface name="position">
+      <param name="min">-6.2832</param>
+      <param name="max">6.2832</param>
+    </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
   </joint>
   <joint name="joint_2">
-    <command_interface name="position"/>
+    <command_interface name="position">
+      <param name="min">-6.2832</param>
+      <param name="max">6.2832</param>
+    </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
   </joint>
   <joint name="joint_3">
-    <command_interface name="position"/>
+    <command_interface name="position">
+      <param name="min">-6.2832</param>
+      <param name="max">6.2832</param>
+    </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
   </joint>
   <joint name="joint_4">
-    <command_interface name="position"/>
+    <command_interface name="position">
+      <param name="min">-2.7925</param>
+      <param name="max">2.7925</param>
+    </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
   </joint>
   <joint name="joint_5">
-    <command_interface name="position"/>
+    <command_interface name="position">
+      <param name="min">-2.7925</param>
+      <param name="max">2.7925</param>
+    </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
@@ -382,57 +343,9 @@
 
 <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
       <parameters>$(find simulation_gazebo)/config/manipulator.yaml</parameters>
     </plugin>
 </gazebo>
-	<!-- <transmission name="joint_1_trans">
-		<type>transmission_interface/SimpleTransmission</type>
-		<joint name="joint_1">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</joint>
-		<actuator name="joint_1_motor">
-			<mechanicalReduction>2</mechanicalReduction>
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</actuator>
-	</transmission>
-	<transmission name="joint_2_trans">
-		<type>transmission_interface/SimpleTransmission</type>
-		<joint name="joint_2">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</joint>
-		<actuator name="joint_2_motor">
-			<mechanicalReduction>2</mechanicalReduction>
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</actuator>
-	</transmission>
-	<transmission name="joint_3_trans">
-		<type>transmission_interface/SimpleTransmission</type>
-		<joint name="joint_3">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</joint>
-		<actuator name="joint_3_motor">
-			<mechanicalReduction>2</mechanicalReduction>
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</actuator>
-	</transmission>
-	<transmission name="joint_4_trans">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="joint_4">
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="joint_4_motor">
-				<mechanicalReduction>2</mechanicalReduction>
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</actuator>
-	</transmission> 
-  <transmission name="joint_5_trans">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="joint_5">
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="joint_5_motor">
-				<mechanicalReduction>2</mechanicalReduction>
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</actuator>
-	</transmission>  -->
+
 </robot>

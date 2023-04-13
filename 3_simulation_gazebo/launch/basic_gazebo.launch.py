@@ -44,10 +44,6 @@ def generate_launch_description():
         )
     )   
     return LaunchDescription([
-        DeclareLaunchArgument(
-            'world',
-            default_value=[os.path.join(pkg_mario_bot, 'worlds', 'box_bot_empty.world'), ''],
-            description='SDF world file'),
         gazebo2,
         gazebo
     ])

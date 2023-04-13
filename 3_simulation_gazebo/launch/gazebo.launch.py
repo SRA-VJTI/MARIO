@@ -55,30 +55,17 @@ def generate_launch_description():
     )
 
     load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-                'joint_state_controller'],
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
+                'joint_state_broadcaster'],
         output='screen'
     )
 
     load_joint_trajectory_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'configured', 'joint_trajectory_controller'],
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'start', 'joint_trajectory_controller'],
     output='screen'
     )
     # create and return launch description object
-    return LaunchDescription([     
-            
-        RegisterEventHandler(
-            event_handler= OnProcessExit(
-                target_action=spawn_robot,
-                on_exit=[load_joint_state_controller],
-            )
-        ),           
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=load_joint_state_controller,
-                on_exit=[load_joint_trajectory_controller],
-            )
-        ),
+    return LaunchDescription([    
         robot_state_publisher_node,
         spawn_robot
     ])
