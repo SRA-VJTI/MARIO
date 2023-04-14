@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <robot
   name="manipulator" xmlns:xacro="http://ros.org/wiki/xacro">
-  <link name="world">
-   </link>
+  <link name="world"/>
   <link
     name="base_link">
     <inertial>
@@ -33,6 +32,15 @@
           rgba="0.62745 0.62745 0.62745 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_gazebo/meshes/base_link.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint name="dummy_joint" type="fixed">
      <parent link="world"/>
@@ -68,6 +76,15 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_gazebo/meshes/link_1.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="joint_1"
@@ -83,7 +100,7 @@
       xyz="0 0 1" />
     <limit
       lower="0"
-      upper="3.14"
+      upper="6.28"
       effort="1.0"
       velocity="1.0" />
   </joint>
@@ -117,6 +134,15 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_gazebo/meshes/link_2.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="joint_2"
@@ -131,8 +157,8 @@
     <axis
       xyz="0 -1 0" />
     <limit
-      lower="0"
-      upper="3.14"
+      lower="-3"
+      upper="3"
       effort="1"
       velocity="1" />
   </joint>
@@ -166,6 +192,15 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_gazebo/meshes/link_3.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="joint_3"
@@ -215,13 +250,20 @@
           rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_gazebo/meshes/claw_right.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="joint_4"
     type="revolute">
-    <origin
-      xyz="0.020925 -0.013767 -0.090331"
-      rpy="0 0 0" />
+    <origin xyz="0.020925 -0.013767 -0.090331" rpy="0 0 0" />
     <parent
       link="link_3" />
     <child
@@ -229,7 +271,7 @@
     <axis
       xyz="-1 0 0" />
     <limit
-      lower="0"
+      lower="-0.8"
       upper="0.8"
       effort="1.0"
       velocity="1.0" />
@@ -257,7 +299,7 @@
     </inertial>
     <visual>
       <origin
-        xyz="0 -0.014 0.0075"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
         <mesh
@@ -269,6 +311,15 @@
           rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_gazebo/meshes/claw_left.STL" />
+      </geometry>
+    </collision> -->
   </link>
 
   <joint
@@ -284,7 +335,7 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="0"
+      lower="0.2"
       upper="0.8"
       effort="1.0"
       velocity="1.0" />
@@ -299,48 +350,72 @@
       <param name="min">-6.2832</param>
       <param name="max">6.2832</param>
     </command_interface>
+    <command_interface name="velocity">
+      <param name="min">-6.2832</param>
+      <param name="max">6.2832</param>
+    </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
+    <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_2">
     <command_interface name="position">
       <param name="min">-6.2832</param>
       <param name="max">6.2832</param>
     </command_interface>
-    <state_interface name="position"/>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-  <joint name="joint_3">
-    <command_interface name="position">
+    <command_interface name="velocity">
       <param name="min">-6.2832</param>
       <param name="max">6.2832</param>
     </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
+    <param name="initial_position">0.0</param> 
+  </joint>
+  <joint name="joint_3">
+    <command_interface name="position">
+      <param name="min">-6.2832</param>
+      <param name="max">6.2832</param>
+    </command_interface>
+    <command_interface name="velocity">
+      <param name="min">-6.2832</param>
+      <param name="max">6.2832</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+    <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_4">
     <command_interface name="position">
       <param name="min">-2.7925</param>
       <param name="max">2.7925</param>
     </command_interface>
-    <state_interface name="position"/>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-  <joint name="joint_5">
-    <command_interface name="position">
+    <command_interface name="velocity">
       <param name="min">-2.7925</param>
       <param name="max">2.7925</param>
     </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
+    <param name="initial_position">0.0</param> 
+  </joint>
+  <joint name="joint_5">
+    <command_interface name="position">
+      <param name="min">-2.7925</param>
+      <param name="max">2.7925</param>
+    </command_interface>
+    <command_interface name="velocity">
+      <param name="min">-2.7925</param>
+      <param name="max">2.7925</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+    <param name="initial_position">0.0</param> 
   </joint>
 </ros2_control>
-
 <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>

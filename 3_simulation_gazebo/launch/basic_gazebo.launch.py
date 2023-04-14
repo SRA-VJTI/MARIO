@@ -43,7 +43,7 @@ def generate_launch_description():
             os.path.join(pkg_mario_bot, 'launch', 'gazebo.launch.py'),
         )
     )   
-    return LaunchDescription([
+    return LaunchDescription([  
         gazebo2,
         gazebo
     ])
