@@ -376,8 +376,7 @@
     <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_5">
-    <command_interface name="effort">
-    </command_interface>
+    <command_interface name="effort"/>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
