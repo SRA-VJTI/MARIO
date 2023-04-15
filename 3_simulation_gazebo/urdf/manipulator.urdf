@@ -100,7 +100,7 @@
       xyz="0 0 1" />
     <limit
       lower="0"
-      upper="6.28"
+      upper="3.14"
       effort="1.0"
       velocity="1.0" />
   </joint>
@@ -157,8 +157,8 @@
     <axis
       xyz="0 -1 0" />
     <limit
-      lower="-3"
-      upper="3"
+      lower="0"
+      upper="3.14"
       effort="1"
       velocity="1" />
   </joint>
@@ -263,7 +263,9 @@
   <joint
     name="joint_4"
     type="revolute">
-    <origin xyz="0.020925 -0.013767 -0.090331" rpy="0 0 0" />
+    <origin
+      xyz="0.020925 -0.013767 -0.090331"
+      rpy="0 0 0" />
     <parent
       link="link_3" />
     <child
@@ -271,7 +273,7 @@
     <axis
       xyz="-1 0 0" />
     <limit
-      lower="-0.8"
+      lower="0"
       upper="0.8"
       effort="1.0"
       velocity="1.0" />
@@ -299,7 +301,7 @@
     </inertial>
     <visual>
       <origin
-        xyz="0 0 0"
+        xyz="0 -0.014 0.0075"
         rpy="0 0 0" />
       <geometry>
         <mesh
@@ -311,7 +313,7 @@
           rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
-    <!-- <collision>
+    <collision>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
@@ -319,7 +321,7 @@
         <mesh
           filename="package://simulation_gazebo/meshes/claw_left.STL" />
       </geometry>
-    </collision> -->
+    </collision>
   </link>
 
   <joint
@@ -335,7 +337,7 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="0.2"
+      lower="0"
       upper="0.8"
       effort="1.0"
       velocity="1.0" />
@@ -346,69 +348,35 @@
     <plugin>gazebo_ros2_control/GazeboSystem</plugin>
   </hardware>
   <joint name="joint_1">
-    <command_interface name="position">
-      <param name="min">-6.2832</param>
-      <param name="max">6.2832</param>
-    </command_interface>
-    <command_interface name="velocity">
-      <param name="min">-6.2832</param>
-      <param name="max">6.2832</param>
-    </command_interface>
+    <command_interface name="effort"/>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
     <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_2">
-    <command_interface name="position">
-      <param name="min">-6.2832</param>
-      <param name="max">6.2832</param>
-    </command_interface>
-    <command_interface name="velocity">
-      <param name="min">-6.2832</param>
-      <param name="max">6.2832</param>
-    </command_interface>
+    <command_interface name="effort"/>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
     <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_3">
-    <command_interface name="position">
-      <param name="min">-6.2832</param>
-      <param name="max">6.2832</param>
-    </command_interface>
-    <command_interface name="velocity">
-      <param name="min">-6.2832</param>
-      <param name="max">6.2832</param>
-    </command_interface>
+    <command_interface name="effort"/>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
     <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_4">
-    <command_interface name="position">
-      <param name="min">-2.7925</param>
-      <param name="max">2.7925</param>
-    </command_interface>
-    <command_interface name="velocity">
-      <param name="min">-2.7925</param>
-      <param name="max">2.7925</param>
-    </command_interface>
+    <command_interface name="effort"/>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
     <state_interface name="effort"/>
     <param name="initial_position">0.0</param> 
   </joint>
   <joint name="joint_5">
-    <command_interface name="position">
-      <param name="min">-2.7925</param>
-      <param name="max">2.7925</param>
-    </command_interface>
-    <command_interface name="velocity">
-      <param name="min">-2.7925</param>
-      <param name="max">2.7925</param>
+    <command_interface name="effort">
     </command_interface>
     <state_interface name="position"/>
     <state_interface name="velocity"/>
