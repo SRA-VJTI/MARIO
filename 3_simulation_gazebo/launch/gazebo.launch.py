@@ -54,20 +54,19 @@ def generate_launch_description():
                     ]
     )
 
-    load_controller_manager = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        parameters=[robot_desc_path, config]
-    )
-
     load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_state_controller'],
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_state_broadcaster'],
+    output='screen'
+    )
+    
+    load_joint_effort_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'effort_controllers'],
     output='screen'
     )
     # create and return launch description object
     return LaunchDescription([  
-        load_controller_manager,
         load_joint_state_controller,
+        load_joint_effort_controller,
         robot_state_publisher_node,
         spawn_robot
     ])
