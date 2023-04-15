@@ -38,12 +38,12 @@ def generate_launch_description():
         )
     )    
     # model launch
-    gazebo2 = IncludeLaunchDescription(
+    mario = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_mario_bot, 'launch', 'gazebo.launch.py'),
+            os.path.join(pkg_mario_bot, 'launch', 'mario.launch.py'),
         )
     )   
     return LaunchDescription([  
-        gazebo2,
+        mario,
         gazebo
     ])
