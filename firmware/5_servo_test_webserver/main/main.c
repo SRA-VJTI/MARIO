@@ -48,15 +48,13 @@ servo_config servo_d = {
 };
 
 #ifdef CONFIG_ENABLE_OLED
-// Declaring the required OLED struct
-u8g2_t oled_config;
 
 void update_oled()
 {
 	// Diplaying Servo A, Servo B, Servo C, Servo D values on OLED
 	while (1)
 	{
-		display_servo_values(read_servo(&servo_a), read_servo(&servo_b), read_servo(&servo_c), read_servo(&servo_d), &oled_config);
+		display_servo_values(read_servo(&servo_a), read_servo(&servo_b), read_servo(&servo_c), read_servo(&servo_d));
 	}
 }
 
@@ -84,8 +82,8 @@ void app_main()
 	ESP_LOGD(TAG, "Testing servo motors\n");
 
 #ifdef CONFIG_ENABLE_OLED
-	ESP_ERROR_CHECK(init_oled(&oled_config));
-	display_mario_logo(&oled_config);
+	ESP_ERROR_CHECK(init_oled());
+	display_logo(MARIO_LOGO);
 	vTaskDelay(100);
 	xTaskCreatePinnedToCore(update_oled, "update oled", 4096, NULL, 5, NULL, 0);
 #endif
