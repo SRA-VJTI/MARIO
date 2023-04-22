@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#Run this using bash -i install_codes.sh
 
 set -e
 
