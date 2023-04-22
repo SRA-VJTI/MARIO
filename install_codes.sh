@@ -28,7 +28,7 @@ function install_mambaforge() {
         export PATH="$HOME/mambaforge/bin:$PATH"
         # Initialize Mambaforge
         mamba init --all
-        echo "Mambaforge initialized. Please re-run the installation script for further configuration"
+        echo "$green Mambaforge initialized. ReOpen a new terminal, and Please re-run the installation script for further configuration"
         exit 0
     fi
 }
