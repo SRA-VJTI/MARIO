@@ -41,7 +41,7 @@ function install() {
     mamba create -n ros_env python=3.9 -c conda-forge
     conda activate ros_env && conda config --env --add channels conda-forge && conda config --env --add channels robostack-staging
     conda config -n ros_env --env --remove channels defaults
-    mamba install -n ros_env -y ros-noetic-desktop-full ros-noetic-rosserial-python compilers cmake pkg-config make ninja catkin_tools rosdep
+    mamba install -n ros_env -y ros-noetic-desktop-full ros-noetic-effort-controllers ros-noetic-rosserial-python compilers cmake pkg-config make ninja catkin_tools rosdep
     unset CONDA_ALWAYS_YES
     conda activate ros_env && rosdep init && rosdep update
 }
