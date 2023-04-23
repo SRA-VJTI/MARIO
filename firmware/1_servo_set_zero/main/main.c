@@ -46,12 +46,9 @@ static void mcpwm_servo_control(void *arg)
 {
 	enable_servo();
 #ifdef CONFIG_ENABLE_OLED
-	// Declaring the required OLED struct
-	u8g2_t oled_config;
-
 	// Initialising the OLED
-	ESP_ERROR_CHECK(init_oled(&oled_config));
-	display_mario_logo(&oled_config);
+	ESP_ERROR_CHECK(init_oled());
+	display_logo(MARIO_LOGO);
 	vTaskDelay(100);
 #endif
 
@@ -67,7 +64,7 @@ static void mcpwm_servo_control(void *arg)
 		vTaskDelay(100);
 #ifdef CONFIG_ENABLE_OLED
 		// Diplaying Servo A, Servo B, Servo C, Servo D values on OLED
-		display_servo_values(read_servo(&servo_a), read_servo(&servo_b), read_servo(&servo_c), read_servo(&servo_d), &oled_config);
+		display_servo_values(read_servo(&servo_a), read_servo(&servo_b), read_servo(&servo_c), read_servo(&servo_d));
 #endif
 	}
 }
