@@ -58,8 +58,7 @@ to code the ESP32. Examples included inside firmware directory has been written 
 ROS Serial is a point-to-point version of ROS communications over serial, primarily for integrating low-cost microcontrollers (Arduino) into ROS. 
 ROS serial consists of a general p2p protocol, libraries for use with Arduino, and nodes for the PC/Tablet side (currently in both Python and Java).
 
+## Installation of ROS
 
-
-
-
-
+ROS Noetic is now used by MARIO, and there are two ways to install it.
+Running `install_codes_jammy.sh` for 22.04 installs ROS Noetic via [Robostack](https://robostack.github.io/), whereas running `install_codes_focal.sh` for 20.04 installs ROS Noetic via the official ROS repository.
