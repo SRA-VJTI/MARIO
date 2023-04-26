@@ -62,3 +62,5 @@ ROS serial consists of a general p2p protocol, libraries for use with Arduino, a
 
 ROS Noetic is now used by MARIO, and there are two ways to install it.
 Running `install_codes_jammy.sh` for 22.04 installs ROS Noetic via [Robostack](https://robostack.github.io/), whereas running `install_codes_focal.sh` for 20.04 installs ROS Noetic via the official ROS repository.
+
+`install_codes_jammy.sh` requires itself to be run twice, and run using the command `bash -i install_codes_jammy.sh`. The first time it is run, it will install the Robostack repository, and the second time it is run, it will install ROS Noetic and all the required packages.
