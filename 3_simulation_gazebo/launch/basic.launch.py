@@ -1,5 +1,13 @@
 #!/usr/bin/python3
+
+# -*- coding: utf-8 -*-
 import os
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from ament_index_python.packages import get_package_prefix
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument,  ExecuteProcess, RegisterEventHandler
@@ -8,10 +16,7 @@ from launch_ros.actions import Node
 from launch.event_handlers import (OnProcessStart, OnProcessExit)
 from launch_ros.descriptions import ParameterValue
 import random
-
-# this is the function launch  system will look for
 def generate_launch_description():
-    ####### DATA INPUT ##########
     urdf_file = 'manipulator.urdf'
     #xacro_file = "box_bot.xacro"robot_description
     package_description = "simulation_gazebo"
@@ -20,30 +25,8 @@ def generate_launch_description():
     'config',
     'manipulator.yaml'
     )
-    robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file)
     print("Fetching URDF ==>")
-    robot_description_content = Command(['xacro ',robot_desc_path])
-    robot_description = {"robot_description": robot_description_content}
-    control_node = Node(
-        package="controller_manager",
-        executable="ros2_control_node",
-        parameters=[robot_description, config],
-        output="both",
-    )
-
-    joint_state_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
-    )
-
-    robot_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["forward_position_controller", "--controller-manager", "/controller_manager"],
-    )
-
-
+    robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file)
     # Robot State Publisher
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -75,28 +58,34 @@ def generate_launch_description():
                     '-topic', '/robot_description'
                     ]
     )
-    # load_joint_position_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'position_controllers'],
-    # output='screen'
-    # )
-    # create and return launch description object
-    delay_joint_state_broadcaster_spawner_after_spawn_robot = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=spawn_robot,
-            on_exit=[joint_state_broadcaster_spawner],
+    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+    pkg_mario_bot = get_package_share_directory('simulation_gazebo')
+    # We get the whole install dir
+    # We do this to avoid having to copy or softlink manually the packages so that gazebo can find them
+    description_package_name = "simulation_gazebo"
+    install_dir = get_package_prefix(description_package_name)
+    # Set the path to the WORLD model files. Is to find the models inside the models folder in my_box_bot_gazebo package
+    gazebo_models_path = os.path.join(pkg_mario_bot, 'models')
+    # os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
+    if 'GAZEBO_MODEL_PATH' in os.environ:
+        os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share' + ':' + gazebo_models_path
+    else:
+        os.environ['GAZEBO_MODEL_PATH'] =  install_dir + "/share" + ':' + gazebo_models_path
+    if 'GAZEBO_PLUGIN_PATH' in os.environ:
+        os.environ['GAZEBO_PLUGIN_PATH'] = os.environ['GAZEBO_PLUGIN_PATH'] + ':' + install_dir + '/lib'
+    else:
+        os.environ['GAZEBO_PLUGIN_PATH'] = install_dir + '/lib'
+
+    print("GAZEBO MODELS PATH=="+str(os.environ["GAZEBO_MODEL_PATH"]))
+    print("GAZEBO PLUGINS PATH=="+str(os.environ["GAZEBO_PLUGIN_PATH"]))
+    # Gazebo launch
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo_ros, 'launch', 'gazebo.launch.py'),
         )
-    )
-    delay_robot_controller_spawner_after_joint_state_broadcaster_spawner = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=joint_state_broadcaster_spawner,
-            on_exit=[robot_controller_spawner],
-        )
-    )
+    )    
     return LaunchDescription([  
-        # load_joint_position_controller,
-        control_node,
+        gazebo,
         robot_state_publisher_node,
-        spawn_robot,
-        delay_joint_state_broadcaster_spawner_after_spawn_robot,
-        delay_robot_controller_spawner_after_joint_state_broadcaster_spawner
+        spawn_robot
     ])
