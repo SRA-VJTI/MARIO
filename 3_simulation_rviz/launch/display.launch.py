@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# with GUI 
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -82,14 +83,9 @@ def generate_launch_description():
             executable='static_transform_publisher',
             arguments=["0.0091023", "0.0182709", "-0.090512", "0", "0", "0", "link_3", "claw_left"]
         )
-    # load_joint_position_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'position_controllers'],
-    # output='screen'
-    # )
-    # create and return launch description object
     print("==> Using Sim time\n")
     return LaunchDescription([  
-        # load_joint_position_controller,
+
         tf2_link1,tf2_link2,tf2_link3,tf2_claw_left,tf2_claw_right,
         robot_state_publisher_node,
         rviz_launch,
