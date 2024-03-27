@@ -16,14 +16,21 @@ find_package(geometry_msgs REQUIRED)
 find_package(ros2_control REQUIRED)
 find_package(joint_state_broadcaster REQUIRED)
 find_package(joint_trajectory_controller REQUIRED)
-# find_package(joint_state_publisher REQUIRED)
+# find_package(joint_state_publisher REQUIRED)  
 find_package(robot_state_publisher REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+# add_executable(publisher src/test.cpp)
+# ament_target_dependencies(publisher rclcpp std_msgs geometry_msgs sensor_msgs)
+
+# install(
+#   TARGETS publisher
+#   DESTINATION lib/${PROJECT_NAME}
+# )
 
 install(
-  DIRECTORY config launch meshes scripts urdf
+  DIRECTORY config launch meshes rviz scripts urdf
   DESTINATION share/${PROJECT_NAME}
 )
 

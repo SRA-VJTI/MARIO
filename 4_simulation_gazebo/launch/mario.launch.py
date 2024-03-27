@@ -20,9 +20,12 @@ def generate_launch_description():
     'config',
     'manipulator.yaml'
     )
+    
     robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file)
     print("Fetching URDF ==>")
+    
     robot_description_content = Command(['xacro ',robot_desc_path])
+    
     robot_description = {"robot_description": robot_description_content}
     control_node = Node(
         package="controller_manager",
@@ -42,7 +45,6 @@ def generate_launch_description():
         executable="spawner",
         arguments=["forward_position_controller", "-c", "/controller_manager"],
     )
-
 
     # Robot State Publisher
     robot_state_publisher_node = Node(
@@ -75,23 +77,21 @@ def generate_launch_description():
                     '-topic', '/robot_description'
                     ]
     )
-    # load_joint_position_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'position_controllers'],
-    # output='screen'
-    # )
-    # create and return launch description object
+    
     delay_joint_state_broadcaster_spawner_after_spawn_robot = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=spawn_robot,
             on_exit=[joint_state_broadcaster_spawner],
         )
     )
+    
     delay_robot_controller_spawner_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
             on_exit=[robot_controller_spawner],
         )
     )
+    
     return LaunchDescription([  
         # load_joint_position_controller,
         control_node,
