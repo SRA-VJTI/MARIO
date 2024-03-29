@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import rospy
-from std_msgs.msg import Float64
-import math
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import Float64MultiArray
 import forward_kinematics_module
+from rclpy import qos
+import math
+import sys
 
 '''
 +-----------------------+--------------+--------------+----------+--+
@@ -33,57 +36,50 @@ joint = [0.0, 0.0, 0.0, 0.0, 0.0]
 
 def forward_kinematics_publisher():
 
-    Joint_1 = rospy.Publisher('/manipulator/joint_1_controller/command',Float64, queue_size=10)
-    Joint_2 = rospy.Publisher('/manipulator/joint_2_controller/command',Float64, queue_size=10)
-    Joint_3 = rospy.Publisher('/manipulator/joint_3_controller/command',Float64, queue_size=10)
-    Joint_4 = rospy.Publisher('/manipulator/joint_4_controller/command',Float64, queue_size=10)
-    Joint_5 = rospy.Publisher('/manipulator/joint_5_controller/command',Float64, queue_size=10)
-    rospy.init_node('forward_kinematics_publisher', anonymous=True)
-    rate = rospy.Rate(10)   #10hz
-    while not rospy.is_shutdown():
-        #Input angles
-        theta_base = float(input("{:22s}".format("Enter theta_base: ")))
-        theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
-        theta_elbow = float(input("{:22s}".format("Enter theta_elbow: ")))
-        gripper_open = float(input("{:22s}".format("Enter Gripper Position(0 - close/ 1 - open): ")))
-        theta = [theta_base, theta_shoulder, theta_elbow, 0]
+    global node
 
-        final_transformation_matrix = forward_kinematics_module.compute_coordinates(theta, d, alpha, a)
-        
-        #Print End-effector's Coordinates
-        print ("*************************")
-        print ("{:21s}".format("x-coordinate"), "{0:.5f}".format(final_transformation_matrix[0, 3]))
-        print ("{:21s}".format("y-coordinate"), "{0:.5f}".format(final_transformation_matrix[1, 3]))
-        print ("{:21s}".format("z-coordinate"), "{0:.5f}".format(final_transformation_matrix[2, 3]))
+    Joints = node.create_publisher(Float64MultiArray, '/forward_position_controller/commands',qos_profile=qos.qos_profile_parameter_events)
+    #Input angles
+    theta_base = float(input("{:22s}".format("Enter theta_base: ")))
+    theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
+    theta_elbow = float(input("{:22s}".format("Enter theta_elbow: ")))
+    gripper_open = float(input("{:22s}".format("Enter Gripper Position(0 - close/ 1 - open): ")))
+    theta = [theta_base, theta_shoulder, theta_elbow, 0]
 
-        if 0.0 <= theta_base <= 180.0 and 0.0 <= theta_shoulder <= 180.0 and 0.0 <= theta_elbow <= 180.0: 
-            joint[0] = (theta_base)*math.pi/180
-            joint[1] = (theta_shoulder)*math.pi/180
-            joint[2] = (theta_elbow)*math.pi/180
-            if gripper_open:
-                joint[3] = 0.8
-                joint[4] = 0.8
-            else:
-                joint[3] = 0.0
-                joint[4] = 0.0
+    final_transformation_matrix = forward_kinematics_module.compute_coordinates(theta, d, alpha, a)
+    
+    #Print End-effector's Coordinates
+    print ("*************************")
+    print ("{:21s}".format("x-coordinate"), "{0:.5f}".format(final_transformation_matrix[0, 3]))
+    print ("{:21s}".format("y-coordinate"), "{0:.5f}".format(final_transformation_matrix[1, 3]))
+    print ("{:21s}".format("z-coordinate"), "{0:.5f}".format(final_transformation_matrix[2, 3]))
 
-            rospy.loginfo("\ntheta_base = %f\ntheta_shoulder = %f\ntheta_elbow = %f\ngripper_open = %f", joint[0], joint[1], joint[2], gripper_open)
-            Joint_1.publish(joint[0])
-            Joint_2.publish(joint[1])
-            Joint_3.publish(joint[2])
-            Joint_4.publish(joint[3])
-            Joint_5.publish(joint[4])
-
-
-            print ("=========================\n")
-
+    joint = Float64MultiArray()
+    joint.data = [0.0,0.0,0.0,0.0,0.0]
+    if 0.0 <= theta_base <= 180.0 and 0.0 <= theta_shoulder <= 180.0 and 0.0 <= theta_elbow <= 180.0: 
+        joint.data[0] =(theta_base)*math.pi/180
+        joint.data[1] = (theta_shoulder)*math.pi/180
+        joint.data[2] = (theta_elbow)*math.pi/180
+        if gripper_open:
+            joint.data[3] = 0.8
+            joint.data[4] = 0.8
         else:
-            print ("Enter angles in range 0 to 180")
-        rate.sleep()
+            joint.data[3] = 0.0
+            joint.data[4] = 0.0
 
+        print("\ntheta_base = ", joint.data[0], "\n", "theta_shoulder = " , joint.data[1], "\n", "theta_elbow = " , joint.data[2], "\n", "Gripper Open = " , gripper_open, "\n")
+
+        print ("=========================\n")
+
+    else:
+        print ("Enter angles in range 0 to 180")
+
+    Joints.publish(joint)
 
 if __name__ == '__main__':
-    try:
-        forward_kinematics_publisher()
-    except rospy.ROSInterruptException: 
-        pass
+    rclpy.init(args=sys.argv)
+    global node 
+    node = Node('forward_kinematics_publisher')
+    node.create_timer(0.2, forward_kinematics_publisher)
+    rclpy.spin(node)
+    rclpy.shutdown()

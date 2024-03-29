@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
-     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
-     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<?xml version="1.0"?>
 <robot
-  name="manipulator">
-  <link name="world">
-   </link>
+  name="manipulator" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="world"/>
   <link
     name="base_link">
     <inertial>
@@ -347,59 +343,60 @@
       velocity="1.0" />
   </joint>
 
-  <gazebo>
-    	<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      		<robotNamespace>/manipulator</robotNamespace>
-    	</plugin>
-  	</gazebo>
-	<transmission name="joint_1_trans">
-		<type>transmission_interface/SimpleTransmission</type>
-		<joint name="joint_1">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</joint>
-		<actuator name="joint_1_motor">
-			<mechanicalReduction>2</mechanicalReduction>
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</actuator>
-	</transmission>
-	<transmission name="joint_2_trans">
-		<type>transmission_interface/SimpleTransmission</type>
-		<joint name="joint_2">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</joint>
-		<actuator name="joint_2_motor">
-			<mechanicalReduction>2</mechanicalReduction>
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</actuator>
-	</transmission>
-	<transmission name="joint_3_trans">
-		<type>transmission_interface/SimpleTransmission</type>
-		<joint name="joint_3">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</joint>
-		<actuator name="joint_3_motor">
-			<mechanicalReduction>2</mechanicalReduction>
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		</actuator>
-	</transmission>
-	<transmission name="joint_4_trans">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="joint_4">
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="joint_4_motor">
-				<mechanicalReduction>2</mechanicalReduction>
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</actuator>
-	</transmission> 
-  <transmission name="joint_5_trans">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="joint_5">
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="joint_5_motor">
-				<mechanicalReduction>2</mechanicalReduction>
-				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-			</actuator>
-	</transmission> 
+<ros2_control name="GazeboSystem" type="system">
+  <hardware>
+    <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+  </hardware>
+  <joint name="joint_1">
+    <command_interface name="position"/>
+    <state_interface name="position">
+      <param name="initial_value">0.0</param>
+    </state_interface>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+  </joint>
+  <joint name="joint_2">
+    <command_interface name="position"/>
+    <state_interface name="position">
+      <param name="initial_value">0.3</param>
+    </state_interface>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+  </joint>
+  <joint name="joint_3">
+    <command_interface name="position"/>
+    <state_interface name="position">
+      <param name="initial_value">0.3</param>
+    </state_interface>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+  </joint>
+  <joint name="joint_4">
+    <command_interface name="position"/>
+    <state_interface name="position">
+      <param name="initial_value">0.0</param>
+    </state_interface>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+  </joint>
+  <joint name="joint_5">
+    <command_interface name="position"/>
+    <state_interface name="position">
+      <param name="initial_value">0.0</param>
+    </state_interface>
+    <state_interface name="velocity"/>
+    <state_interface name="effort"/>
+  </joint>
+</ros2_control>
+<gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control"> 
+    <!-- <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin"> -->
+      <!-- <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type> -->
+      <parameters>$(find simulation_gazebo)/config/manipulator.yaml</parameters>
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <controller_manager_name>controller_manager</controller_manager_name>
+    </plugin>
+</gazebo>
+
 </robot>
