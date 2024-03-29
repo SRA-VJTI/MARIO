@@ -28,7 +28,10 @@ find_package(robot_state_publisher REQUIRED)
 #   TARGETS publisher
 #   DESTINATION lib/${PROJECT_NAME}
 # )
-
+install(PROGRAMS
+  scripts/forward_kinematics.py scripts/inverse_kinematics.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 install(
   DIRECTORY config launch meshes rviz scripts urdf
   DESTINATION share/${PROJECT_NAME}
