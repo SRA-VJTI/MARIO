@@ -1,5 +1,15 @@
 # MARIO WORKSHOP 2.2
+
+[![Downloads](https://static.pepy.tech/badge/MARIO/month)](https://pepy.tech/project/MARIO)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub star chart](https://img.shields.io/github/stars/SRA-VJTI/MARIO?style=social)](https://star-history.com/#SRA-VJTI/MARIO)
+[![Dependency Status](https://img.shields.io/librariesio/github/SRA-VJTI/MARIO)](https://libraries.io/github/SRA-VJTI/MARIO)
+[![Open Issues](https://img.shields.io/github/issues-raw/SRA-VJTI/MARIO)](https://github.com/SRA-VJTI/MARIO/issues)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SRA-VJTI/MARIO)
+
 *MARIO* abbreviation for *Manipulator on ROS Based Input Output* is a bot with 3 Degree of Freedom. It consists of two SG90 micro servo and one MG995 metal gear servo motor. The servo motors are placed on base, elbow and shoulder enabling it with 3 Degrees of Freedom.
+
+Given below are instructions for ROS1-Noetic and Rosserial installations. For ROS2 and micro-ROS based MARIO, refer to the [following instructions](https://github.com/SRA-VJTI/MARIO/tree/humble).
 
 ## Sneek Peek 
 
