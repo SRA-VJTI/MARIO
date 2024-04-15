@@ -24,6 +24,7 @@
   <buildtool_depend>gazebo_ros2_control</buildtool_depend>
   <buildtool_depend>controller_manager</buildtool_depend>
   <buildtool_depend>robot_controllers</buildtool_depend>
+  <buildtool_depend>ros2_controllers</buildtool_depend>
   <buildtool_depend>control_toolbox</buildtool_depend>
   <buildtool_depend>ros2_control</buildtool_depend>
   <buildtool_depend>control_msgs</buildtool_depend>

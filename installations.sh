@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -9,7 +9,7 @@ reset=`tput sgr0`
 
 echo "Installing ESP IDF"
 
-_shell_="${0##*/}"
+_shell_="${SHELL#${SHELL%/*}/}"
 # Check whether esp-idf has already been installed
 if [ -d $HOME/esp/esp-idf ]; then
     echo "${red}======================$reset"
@@ -23,7 +23,7 @@ else
             sudo apt update && sudo apt upgrade -y
             sudo usermod -a -G dialout $USER
             sudo apt install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0 -y
-            sudo apt install python3-venv
+            sudo apt install python3-venv -y
             ;;
         Darwin*)
             if brew --version | grep -q 'Homebrew'; then
@@ -52,7 +52,7 @@ else
     # Clone ESP-IDF Repository
     git clone -b release/v5.1 --recursive https://github.com/espressif/esp-idf.git
     cd $HOME/esp/esp-idf
-    ./install.sh esp32
+    ./install.sh esp32 -y
 
     # Check if installation is successful
     . $HOME/esp/esp-idf/export.sh 
@@ -66,7 +66,7 @@ else
 fi
 echo "$reset"
 # Clone Mario repository if not already cloned
-if [ ! -d $HOME/MARIO ]; then
+if [ ! -d "$HOME/MARIO" ]; then
     echo "${blue}======================$reset"
     echo "Cloning Mario"
     echo "${red}======================$reset"
@@ -93,32 +93,32 @@ case "${unameOut}" in
             
             # Check for UTF-8 locale
             locale
-            sudo apt update && sudo apt install locales
+            sudo apt update && sudo apt install locales -y
             sudo locale-gen en_US en_US.UTF-8
             sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
             export LANG=en_US.UTF-8
             locale  # verify settings
             
             # Add ROS 2 repository
-            sudo apt install software-properties-common
-            sudo add-apt-repository universe
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository universe -y
             sudo apt update && sudo apt install curl -y
             sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
             echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-            sudo apt update
-            sudo apt upgrade
+            sudo apt update -y
+            sudo apt upgrade -y
             
             # Install ROS 2
-            sudo apt install ros-humble-desktop-full
+            sudo apt install ros-humble-desktop-full -y
             echo "source /opt/ros/humble/setup.bash" >> $HOME/."$_shell_"rc
 
             # Install additional ROS 2 packages 
             echo "Installing Additional Ros2 packages"
-            sudo apt install -y ros-humble-control-msgs ros-humble-control-toolbox ros-humble-joint-state-broadcaster ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui ros-humble-forward-command-controller ros-humble-robot-state-publisher ros-humble-gazebo-ros2-control ros-humble-robot-controllers ros-humble-robot-controllers-interface ros-humble-robot-controllers-msgs ros-humble-joint-trajectory-controller ros-humble-controller-manager ros-humble-controller-manager-msgs ros-humble-ros2-control ros-humble-gazebo-ros-pkgs ros-humble-gazebo-ros-dbgsym
+            sudo apt install -y ros-humble-control-msgs ros-humble-control-toolbox ros-humble-gazebo-ros2-control ros-humble-joint-state-broadcaster ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui ros-humble-forward-command-controller ros-humble-robot-state-publisher ros-humble-gazebo-ros2-control ros-humble-robot-controllers ros-humble-robot-controllers-interface ros-humble-robot-controllers-msgs ros-humble-joint-trajectory-controller ros-humble-controller-manager ros-humble-controller-manager-msgs ros-humble-ros2-control ros-humble-micro-ros-msgs
             echo "${red}======================$reset"
             echo "ROS 2 installed successfully."
             echo "${red}======================$reset"
-            source $HOME/."$_shell_"rc
+            source ~/.bashrc
         else
             echo "${red}======================$reset"
             echo "ROS 2 is already installed."
@@ -157,7 +157,7 @@ case "${unameOut}" in
             conda config --env --remove channels defaults || true
             # Install ROS packages
             mamba install ros-humble-desktop-full
-            mamba install -n ros_env -y ros-humble-control-msgs ros-humble-control-toolbox ros-humble-joint-state-broadcaster ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui ros-humble-forward-command-controller ros-humble-robot-state-publisher ros-humble-controller-manager ros-humble-controller-manager-msgs ros-humble-joint-trajectory-controller ros-humble-ros2-control 
+            mamba install -n ros_env -y ros-humble-control-msgs ros-humble-control-toolbox ros-humble-joint-state-broadcaster ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui ros-humble-forward-command-controller ros-humble-robot-state-publisher ros-humble-controller-manager ros-humble-controller-manager-msgs ros-humble-joint-trajectory-controller ros-humble-ros2-control ros-humble-micro-ros-msgs
             mamba install catkin_tools
             echo "${red}======================$reset"
             echo "ROS 2 installed successfully."
@@ -178,8 +178,8 @@ else
             echo "${red}======================$reset"
             echo "Creating a ros2_ws"
             echo "${red}======================$reset"
-            sudo apt update 
-            sudo apt install python3-colcon-common-extensions 
+            sudo apt update -y
+            sudo apt install python3-colcon-common-extensions -y
             echo "source  /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> $HOME/."$_shell_"rc
             mkdir $HOME/ros2_ws
             cd $HOME/ros2_ws
@@ -262,7 +262,6 @@ if [ "$unameOut" == "Darwin" ]; then
     source $HOME/mambaforge/etc/profile.d/conda.sh
     conda activate ros_env
 fi
-colcon build
 echo "${red}======================$reset"
 echo "Successfully copied mario's folders to ros2_ws"
 echo "${red}======================$reset"
@@ -272,10 +271,20 @@ case "${unameOut}" in
     Linux*)
         echo "Cloning microrosagent"
         cd $HOME/ros2_ws/src
-        git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
+        if [ ! -d $HOME/ros2_ws/src/micro-ROS-Agent ]; then
+        	git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
+        fi
         cd ..
-        pip3 install catkin_pkg lark-parser colcon-common-extensions 
+        pip3 install catkin_pkg lark-parser colcon-common-extensions
+        sudo apt install python3-rosdep2 -y
+        if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then  
+        	sudo rosdep init 
+        fi
+        set -e
+        rosdep update
         rosdep install --from-paths src --ignore-src -y
+	colcon build
+	source install/setup.bash
         echo "${red}======================$reset"
         echo "Done with cloning"
         echo "${red}======================$reset"
@@ -285,7 +294,7 @@ case "${unameOut}" in
         echo "Cloning microrosagent"
         echo "${red}======================$reset"
         cd $HOME/ros2_ws/src
-        pip3 install catkin_pkg lark-parser 
+        pip3 install catkin_pkg lark-parser
         git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
         echo "${red}======================$reset"
         echo "Done with cloning microrosagent"
