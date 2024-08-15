@@ -34,6 +34,7 @@ jobs:
           package-name: ${{ matrix.test_apps }}
           target-ros2-distro: ${{ matrix.ros_distribution }}
           run: |
+              ./installations.sh
               pip uninstall em && pip3 uninstall em
               cd ${{ matrix.test-apps }}
               source /opt/ros/humble/setup.bash
@@ -68,5 +69,6 @@ jobs:
       - name: Test ${{ matrix.test-apps }}
         run: |
           . $IDF_PATH/export.sh
+          ./installations.sh
           cd firmware/${{ matrix.test-apps }}
           idf.py build
