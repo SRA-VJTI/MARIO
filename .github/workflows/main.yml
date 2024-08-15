@@ -28,14 +28,21 @@ jobs:
         uses: ros-tooling/setup-ros@0.3.3
         with:
           required-ros-distributions: ${{ matrix.ros_distribution }}
+      - name: Setup Github Actions
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 2
       - name: Build and Test
         uses: ros-tooling/action-ros-ci@0.2.5
         with:
           package-name: ${{ matrix.test_apps }}
           target-ros2-distro: ${{ matrix.ros_distribution }}
           run: |
-              ./installations.sh
               pip uninstall em && pip3 uninstall em
+              apt install python3-colcon-common-extensions 
+              pip3 install catkin_pkg lark-parser colcon-common-extensions 
+              rosdep install --from-paths src --ignore-src -y
               cd ${{ matrix.test-apps }}
               source /opt/ros/humble/setup.bash
               colcon build
@@ -69,6 +76,7 @@ jobs:
       - name: Test ${{ matrix.test-apps }}
         run: |
           . $IDF_PATH/export.sh
-          ./installations.sh
+          pip3 install catkin_pkg lark-parser colcon-common-extensions 
+          rosdep install --from-paths src --ignore-src -y
           cd firmware/${{ matrix.test-apps }}
           idf.py build
