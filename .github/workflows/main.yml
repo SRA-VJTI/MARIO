@@ -39,7 +39,7 @@ jobs:
           package-name: ${{ matrix.test_apps }}
           target-ros2-distro: ${{ matrix.ros_distribution }}
           run: |
-              pip uninstall em && pip3 uninstall em
+              pip uninstall empy && pip3 uninstall empy
               apt install python3-colcon-common-extensions 
               pip3 install catkin_pkg lark-parser colcon-common-extensions 
               rosdep install --from-paths src --ignore-src -y
