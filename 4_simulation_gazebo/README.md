@@ -1,5 +1,5 @@
 # Table of Contents
-* [Steps to run the demo in Gazebo](#steps-to-run-the-demo-in-gazebo) 
+* [Steps to run the demo in Gazebo](#steps-to-run-the-demo-in-gazebo)
 * [Steps For Running the Scripts in Gazebo](#steps-for-running-the-scripts-in-gazebo)
 
 ## Steps to run the demo in Gazebo
@@ -15,7 +15,7 @@ Make sure you have sourced your workspace before running this command.
 
 To source your workspace follow the steps menstioned below.
 <p align="center">
-  <img src="../assets/gazebo.png" width="800"/>
+  <img src="../assets/simulation.png" width="800"/>
 </p>
 
 
@@ -25,7 +25,7 @@ We will be testing out 2 scripts (forward_kinematics.py, inverse_kinematics.py).
 Firstly copy the 4_simulation_gazebo folder to src folder in your workspace using command (in fresh terminal) :
 
 ```
-cp -r MARIO/4_simulation_gazebo Ros2_ws/src
+cp -r MARIO/4_simulation_gazebo ros2_ws/src
 ```
 Now source Ros2. Use following commands in your workspace :
 
@@ -48,7 +48,7 @@ ros2 launch simulation_gazebo basic_gazebo.launch.py
 ```
 
 After starting gazebo we will be testing out `forward kinematics.py`.
-Open a fresh terminal and navigate to your workspace. Now source the workspace and run forward_kinematics.py using following commands : 
+Open a fresh terminal and navigate to your workspace. Now source the workspace and run forward_kinematics.py using following commands :
 
 ```
 source install/setup.bash

@@ -1,402 +1,284 @@
-<?xml version="1.0"?>
-<robot
-  name="manipulator" xmlns:xacro="http://ros.org/wiki/xacro">
-  <link name="world"/>
-  <link
-    name="base_link">
+<?xml version="1.0" ?>
+<robot name="manipulator" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="world" />
+  <link name="base_link">
     <inertial>
-      <origin
-        xyz="0.0021253 0.047935 0.027764"
-        rpy="0 0 0" />
-      <mass
-        value="0.0896" />
+      <origin xyz="0.0021253 0.047935 0.027764" rpy="0 0 0" />
+      <mass value="0.0896" />
       <inertia
-        ixx="5.041E-05"
-        ixy="-8.5548E-08"
-        ixz="3.2278E-08"
-        iyy="6.5382E-05"
-        iyz="4.1605E-12"
-        izz="0.00010836" />
+                ixx="5.041E-05"
+                ixy="-8.5548E-08"
+                ixz="3.2278E-08"
+                iyy="6.5382E-05"
+                iyz="4.1605E-12"
+                izz="0.00010836"
+            />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/base_link.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/base_link.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.62745 0.62745 0.62745 1" />
+      <material name="">
+        <color rgba="0.62745 0.62745 0.62745 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/base_link.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint name="dummy_joint" type="fixed">
-     <parent link="world"/>
-     <child link="base_link"/>
+     <parent link="world" />
+     <child link="base_link" />
    </joint>
-  <link
-    name="link_1">
+  <link name="link_1">
     <inertial>
-      <origin
-        xyz="-0.00017376 -0.015933 0.017371"
-        rpy="0 0 0" />
-      <mass
-        value="0.024846" />
+      <origin xyz="-0.00017376 -0.015933 0.017371" rpy="0 0 0" />
+      <mass value="0.024846" />
       <inertia
-        ixx="3.4858E-06"
-        ixy="2.3072E-08"
-        ixz="-6.6524E-10"
-        iyy="7.2894E-06"
-        iyz="-1.2663E-08"
-        izz="7.0045E-06" />
+                ixx="3.4858E-06"
+                ixy="2.3072E-08"
+                ixz="-6.6524E-10"
+                iyy="7.2894E-06"
+                iyz="-1.2663E-08"
+                izz="7.0045E-06"
+            />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_1.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/link_1.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_1.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/link_1.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="joint_1"
-    type="revolute">
-    <origin
-      xyz="-0.0030196 0.046937 0.0635"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="link_1" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="0"
-      upper="3.14"
-      effort="1.0"
-      velocity="1.0" />
+  <joint name="joint_1" type="revolute">
+    <origin xyz="-0.0030196 0.046937 0.0635" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="link_1" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="3.14" effort="1.0" velocity="1.0" />
   </joint>
-  <link
-    name="link_2">
+  <link name="link_2">
     <inertial>
-      <origin
-        xyz="0.05189 -0.0024721 -0.0024701"
-        rpy="0 0 0" />
-      <mass
-        value="0.01633" />
+      <origin xyz="0.05189 -0.0024721 -0.0024701" rpy="0 0 0" />
+      <mass value="0.01633" />
       <inertia
-        ixx="6.549E-07"
-        ixy="1.9218E-08"
-        ixz="2.8287E-07"
-        iyy="5.9038E-06"
-        iyz="-1.005E-09"
-        izz="5.3932E-06" />
+                ixx="6.549E-07"
+                ixy="1.9218E-08"
+                ixz="2.8287E-07"
+                iyy="5.9038E-06"
+                iyz="-1.005E-09"
+                izz="5.3932E-06"
+            />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_2.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/link_2.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_2.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/link_2.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="joint_2"
-    type="revolute">
-    <origin
-      xyz="0.00031511 -0.0095653 0.034407"
-      rpy="0 0 0" />
-    <parent
-      link="link_1" />
-    <child
-      link="link_2" />
-    <axis
-      xyz="0 -1 0" />
-    <limit
-      lower="0"
-      upper="3.14"
-      effort="1"
-      velocity="1" />
+  <joint name="joint_2" type="revolute">
+    <origin xyz="0.00031511 -0.0095653 0.034407" rpy="0 0 0" />
+    <parent link="link_1" />
+    <child link="link_2" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="3.14" effort="1" velocity="1" />
   </joint>
-  <link
-    name="link_3">
+  <link name="link_3">
     <inertial>
-      <origin
-        xyz="0.0037357 -0.001707 -0.066045"
-        rpy="0 0 0" />
-      <mass
-        value="0.019923" />
+      <origin xyz="0.0037357 -0.001707 -0.066045" rpy="0 0 0" />
+      <mass value="0.019923" />
       <inertia
-        ixx="5.6378E-06"
-        ixy="3.6797E-09"
-        ixz="4.2574E-07"
-        iyy="5.2184E-06"
-        iyz="6.2841E-08"
-        izz="1.4011E-06" />
+                ixx="5.6378E-06"
+                ixy="3.6797E-09"
+                ixz="4.2574E-07"
+                iyy="5.2184E-06"
+                iyz="6.2841E-08"
+                izz="1.4011E-06"
+            />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_3.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/link_3.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/link_3.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/link_3.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="joint_3"
-    type="revolute">
-    <origin
-      xyz="0.071531 0.011279 -0.0041348"
-      rpy="0 0 0" />
-    <parent
-      link="link_2" />
-    <child
-      link="link_3" />
-    <axis
-      xyz="0 -1 0" />
-    <limit
-      lower="0"
-      upper="3.14"
-      effort="1"
-      velocity="1" />
+  <joint name="joint_3" type="revolute">
+    <origin xyz="0.071531 0.011279 -0.0041348" rpy="0 0 0" />
+    <parent link="link_2" />
+    <child link="link_3" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="3.14" effort="1" velocity="1" />
   </joint>
-  <link
-    name="claw_right">
+  <link name="claw_right">
     <inertial>
-      <origin
-        xyz="0.0018122 0.0028283 -0.0079472"
-        rpy="0 0 0" />
-      <mass
-        value="0.013225" />
+      <origin xyz="0.0018122 0.0028283 -0.0079472" rpy="0 0 0" />
+      <mass value="0.013225" />
       <inertia
-        ixx="3.2338E-06"
-        ixy="-2.8172E-08"
-        ixz="2.6752E-07"
-        iyy="2.7116E-06"
-        iyz="2.4983E-07"
-        izz="5.8458E-07" />
+                ixx="3.2338E-06"
+                ixy="-2.8172E-08"
+                ixz="2.6752E-07"
+                iyy="2.7116E-06"
+                iyz="2.4983E-07"
+                izz="5.8458E-07"
+            />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/claw_right.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/claw_right.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.77647 0.75686 0.73725 1" />
+      <material name="">
+        <color rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/claw_right.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/claw_right.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="joint_4"
-    type="revolute">
-    <origin
-      xyz="0.020925 -0.013767 -0.090331"
-      rpy="0 0 0" />
-    <parent
-      link="link_3" />
-    <child
-      link="claw_right" />
-    <axis
-      xyz="-1 0 0" />
-    <limit
-      lower="0"
-      upper="0.8"
-      effort="1.0"
-      velocity="1.0" />
+  <joint name="joint_4" type="revolute">
+    <origin xyz="0.020925 -0.013767 -0.090331" rpy="0 0 0" />
+    <parent link="link_3" />
+    <child link="claw_right" />
+    <axis xyz="-1 0 0" />
+    <limit lower="0" upper="0.8" effort="1.0" velocity="1.0" />
   </joint>
-  
+
   <!-- y = 0.014
   z = 0.0075
   xyz="0.013771 0.012345 -0.01495" -->
 
-  <link
-    name="claw_left">
+  <link name="claw_left">
     <inertial>
-      <origin
-        xyz="0.013771 0.012345 -0.01495"
-        rpy="0 0 0" />
-      <mass
-        value="0.013641" />
+      <origin xyz="0.013771 0.012345 -0.01495" rpy="0 0 0" />
+      <mass value="0.013641" />
       <inertia
-        ixx="3.4175E-06"
-        ixy="3.0134E-09"
-        ixz="2.7613E-07"
-        iyy="2.8184E-06"
-        iyz="-6.8499E-08"
-        izz="6.6306E-07" />
+                ixx="3.4175E-06"
+                ixy="3.0134E-09"
+                ixz="2.7613E-07"
+                iyy="2.8184E-06"
+                iyz="-6.8499E-08"
+                izz="6.6306E-07"
+            />
     </inertial>
     <visual>
-      <origin
-        xyz="0 -0.014 0.0075"
-        rpy="0 0 0" />
+      <origin xyz="0 -0.014 0.0075" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/claw_left.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/claw_left.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.77647 0.75686 0.73725 1" />
+      <material name="">
+        <color rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://simulation_gazebo/meshes/claw_left.STL" />
+        <mesh filename="package://simulation_gazebo/meshes/claw_left.STL" />
       </geometry>
     </collision>
   </link>
 
-  <joint
-    name="joint_5"
-    type="revolute">
-    <origin
-      xyz="0.0091023 0.0182709 -0.090512"
-      rpy="0 0 0" />
-    <parent
-      link="link_3" />
-    <child
-      link="claw_left" />
-    <axis
-      xyz="1 0 0" />
-    <limit
-      lower="0"
-      upper="0.8"
-      effort="1.0"
-      velocity="1.0" />
+  <joint name="joint_5" type="revolute">
+    <origin xyz="0.0091023 0.0182709 -0.090512" rpy="0 0 0" />
+    <parent link="link_3" />
+    <child link="claw_left" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="0.8" effort="1.0" velocity="1.0" />
   </joint>
 
-<ros2_control name="GazeboSystem" type="system">
-  <hardware>
-    <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-  </hardware>
-  <joint name="joint_1">
-    <command_interface name="position"/>
-    <state_interface name="position">
-      <param name="initial_value">0.0</param>
-    </state_interface>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-  <joint name="joint_2">
-    <command_interface name="position"/>
-    <state_interface name="position">
-      <param name="initial_value">0.3</param>
-    </state_interface>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-  <joint name="joint_3">
-    <command_interface name="position"/>
-    <state_interface name="position">
-      <param name="initial_value">0.3</param>
-    </state_interface>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-  <joint name="joint_4">
-    <command_interface name="position"/>
-    <state_interface name="position">
-      <param name="initial_value">0.0</param>
-    </state_interface>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-  <joint name="joint_5">
-    <command_interface name="position"/>
-    <state_interface name="position">
-      <param name="initial_value">0.0</param>
-    </state_interface>
-    <state_interface name="velocity"/>
-    <state_interface name="effort"/>
-  </joint>
-</ros2_control>
-<gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control"> 
-    <!-- <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin"> -->
-      <!-- <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type> -->
-      <parameters>$(find simulation_gazebo)/config/manipulator.yaml</parameters>
-      <robot_param>robot_description</robot_param>
-      <robot_param_node>robot_state_publisher</robot_param_node>
-      <controller_manager_name>controller_manager</controller_manager_name>
-    </plugin>
-</gazebo>
+  <ros2_control name="IgnitionSystem" type="system">
+      <hardware>
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </hardware>
+      <joint name="joint_1">
+        <command_interface name="position" />
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="joint_2">
+        <command_interface name="position" />
+        <state_interface name="position">
+          <param name="initial_value">0.3</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="joint_3">
+        <command_interface name="position" />
+        <state_interface name="position">
+          <param name="initial_value">0.3</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="joint_4">
+        <command_interface name="position" />
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="joint_5">
+        <command_interface name="position" />
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+    </ros2_control>
 
+    <!-- Update Gazebo plugin for Ignition -->
+    <gazebo>
+    <plugin
+            name="ign_ros2_control::IgnitionROS2ControlPlugin"
+            filename="libign_ros2_control-system.so"
+        >
+        <parameters>
+            $(find simulation_gazebo)/config/manipulator.yaml
+        </parameters>
+        <robot_param>robot_description</robot_param>
+        <robot_param_node>robot_state_publisher</robot_param_node>
+        <controller_manager_name>controller_manager</controller_manager_name>
+      </plugin>
+    </gazebo>
 </robot>

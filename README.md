@@ -14,11 +14,12 @@ Given below are instructions for ROS2-Humble and micro-ROS installations. For RO
 ## Sneak Peek 
 
 
-<p align="center"><img src="assets/bot2.png"></p>
+<p align="center"><img src="assets/bot2.png" style="width: 500px; height: auto;"></p>
+
 
 ### Working of the Mario Bot
 
-<p align="center"><img src="assets/simulation_mario_v2.3.gif" width="500" height="500"></p>
+<p align="center"><img src="assets/simulation_mario_v2.3.gif" width="480" height="848"></p>
 
 ### Mario bot simulated using Gazebo 
 

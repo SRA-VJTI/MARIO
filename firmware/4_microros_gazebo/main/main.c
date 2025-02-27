@@ -49,129 +49,176 @@ SOFTWARE.
 #define ARRAY_LEN 200
 #define JOINT_DOUBLE_LEN 5
 #define pi 3.141592653589
+#define SMOOTHING_STEPS 20  // Number of intermediate steps
+#define SMOOTHING_DELAY 20  // Delay between steps in milliseconds
+
+// Structure to track current positions
+typedef struct {
+    float current_a;
+    float current_b;
+    float current_c;
+    float current_d;
+} servo_positions;
+
+static servo_positions current_pos = {0, 0, 0, 0};
 
 rcl_subscription_t subscriber;
 std_msgs__msg__Float64MultiArray recv_msg;
 
 char test_array[ARRAY_LEN];
 
-// configuration for Servo A
+// Servo configurations
 static servo_config servo_a = {
-	.servo_pin = SERVO_A,
-	.min_pulse_width = CONFIG_SERVO_A_MIN_PULSEWIDTH,
-	.max_pulse_width = CONFIG_SERVO_A_MAX_PULSEWIDTH,
-	.max_degree = CONFIG_SERVO_A_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_0,
-	.gen = MCPWM_OPR_A,
+    .servo_pin = SERVO_A,
+    .min_pulse_width = CONFIG_SERVO_A_MIN_PULSEWIDTH,
+    .max_pulse_width = CONFIG_SERVO_A_MAX_PULSEWIDTH,
+    .max_degree = CONFIG_SERVO_A_MAX_DEGREE,
+    .mcpwm_num = MCPWM_UNIT_0,
+    .timer_num = MCPWM_TIMER_0,
+    .gen = MCPWM_OPR_A,
 };
 
-// configuration for Servo B
 static servo_config servo_b = {
-	.servo_pin = SERVO_B,
-	.min_pulse_width = CONFIG_SERVO_B_MIN_PULSEWIDTH,
-	.max_pulse_width = CONFIG_SERVO_B_MAX_PULSEWIDTH,
-	.max_degree = CONFIG_SERVO_B_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_0,
-	.gen = MCPWM_OPR_B,
+    .servo_pin = SERVO_B,
+    .min_pulse_width = CONFIG_SERVO_B_MIN_PULSEWIDTH,
+    .max_pulse_width = CONFIG_SERVO_B_MAX_PULSEWIDTH,
+    .max_degree = CONFIG_SERVO_B_MAX_DEGREE,
+    .mcpwm_num = MCPWM_UNIT_0,
+    .timer_num = MCPWM_TIMER_0,
+    .gen = MCPWM_OPR_B,
 };
 
-// configuration for Servo C
 static servo_config servo_c = {
-	.servo_pin = SERVO_C,
-	.min_pulse_width = CONFIG_SERVO_C_MIN_PULSEWIDTH,
-	.max_pulse_width = CONFIG_SERVO_C_MAX_PULSEWIDTH,
-	.max_degree = CONFIG_SERVO_C_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_1,
-	.gen = MCPWM_OPR_A,
+    .servo_pin = SERVO_C,
+    .min_pulse_width = CONFIG_SERVO_C_MIN_PULSEWIDTH,
+    .max_pulse_width = CONFIG_SERVO_C_MAX_PULSEWIDTH,
+    .max_degree = CONFIG_SERVO_C_MAX_DEGREE,
+    .mcpwm_num = MCPWM_UNIT_0,
+    .timer_num = MCPWM_TIMER_1,
+    .gen = MCPWM_OPR_A,
 };
 
-// configuration for Servo D
 static servo_config servo_d = {
-	.servo_pin = SERVO_D,
-	.min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
-	.max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
-	.max_degree = CONFIG_SERVO_D_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_1,
-	.gen = MCPWM_OPR_B,
+    .servo_pin = SERVO_D,
+    .min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
+    .max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
+    .max_degree = CONFIG_SERVO_D_MAX_DEGREE,
+    .mcpwm_num = MCPWM_UNIT_0,
+    .timer_num = MCPWM_TIMER_1,
+    .gen = MCPWM_OPR_B,
 };
+
+// Function to smoothly move servo from current to target position
+void smooth_servo_motion(servo_config *servo, float current_angle, float target_angle) {
+    float angle_diff = target_angle - current_angle;
+    float step = angle_diff / SMOOTHING_STEPS;
+
+    for(int i = 0; i < SMOOTHING_STEPS; i++) {
+        float intermediate_angle = current_angle + (step * (i + 1));
+        set_angle_servo(servo, intermediate_angle);
+        vTaskDelay(pdMS_TO_TICKS(SMOOTHING_DELAY));
+    }
+}
 
 void subscription_callback(const void * msgin)
 {
-	const std_msgs__msg__Float64MultiArray * msg = (const std_msgs__msg__Float64MultiArray *)msgin;
-	// printf("Received: %lf\n",  msg->data.data[0], msg->data.data[1], msg->data.data[2], msg->data.data[3]);
-    
-    set_angle_servo(&servo_a, msg->data.data[0]*(180/pi));  //setting angle for servo A
-    set_angle_servo(&servo_b, msg->data.data[1]*(180/pi));  //setting angle for servo B
-    set_angle_servo(&servo_c, msg->data.data[2]*(180/pi));  //setting angle for servo C
-    set_angle_servo(&servo_d, msg->data.data[3]*(180/pi));  //setting angle for servo D
+    const std_msgs__msg__Float64MultiArray * msg = (const std_msgs__msg__Float64MultiArray *)msgin;
 
+    // Convert radians to degrees and calculate servo D angle
+    float target_a = msg->data.data[0] * (180/pi);
+    float target_b = msg->data.data[1] * (180/pi);
+    float target_c = msg->data.data[2] * (180/pi);
+    float target_d = 45 - (msg->data.data[3] * (180/pi)); // Modified calculation for servo D
+
+    // Apply smooth motion to each servo if change is significant
+    if (fabs(target_a - current_pos.current_a) > 0.5) {
+        smooth_servo_motion(&servo_a, current_pos.current_a, target_a);
+        current_pos.current_a = target_a;
+    }
+
+    if (fabs(target_b - current_pos.current_b) > 0.5) {
+        smooth_servo_motion(&servo_b, current_pos.current_b, target_b);
+        current_pos.current_b = target_b;
+    }
+
+    if (fabs(target_c - current_pos.current_c) > 0.5) {
+        smooth_servo_motion(&servo_c, current_pos.current_c, target_c);
+        current_pos.current_c = target_c;
+    }
+
+    if (fabs(target_d - current_pos.current_d) > 0.5) {
+        smooth_servo_motion(&servo_d, current_pos.current_d, target_d);
+        current_pos.current_d = target_d;
+    }
 }
 
 void micro_ros_task(void * arg)
 {
-	
-  	memset(test_array,'z',ARRAY_LEN);
-	rcl_allocator_t allocator = rcl_get_default_allocator();
-	rclc_support_t support;
-	enable_servo();
-	// Create init_options.
-	rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
-	RCCHECK(rcl_init_options_init(&init_options, allocator));
+    printf("Starting micro-ROS task\n");
+    memset(test_array, 'z', ARRAY_LEN);
+    rcl_allocator_t allocator = rcl_get_default_allocator();
+    rclc_support_t support;
 
-#ifdef CONFIG_MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
-	rmw_init_options_t* rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
+    // Enable servo and initialize current positions
+    enable_servo();
+    current_pos.current_a = read_servo(&servo_a);
+    current_pos.current_b = read_servo(&servo_b);
+    current_pos.current_c = read_servo(&servo_c);
+    current_pos.current_d = read_servo(&servo_d);
 
-	// Static Agent IP and port can be used instead of autodisvery.
-	RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
-	//RCCHECK(rmw_uros_discover_agent(rmw_options));
-#endif
-	// Setup support structure.
-	RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
+    // Create init_options
+    rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
+    RCCHECK(rcl_init_options_init(&init_options, allocator));
 
-	// Create node.
-	rcl_node_t node = rcl_get_zero_initialized_node();
-	RCCHECK(rclc_node_init_default(&node, "Set_servo_angles", "", &support));
+    #ifdef CONFIG_MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
+    rmw_init_options_t* rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
+    RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
+    #endif
 
-	// Create subscriber.
-	RCCHECK(rclc_subscription_init_default(
-		&subscriber,
-		&node,
-		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Float64MultiArray),
-		"/forward_position_controller/commands"));
+    // Setup support structure
+    RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
 
+    // Create node
+    rcl_node_t node = rcl_get_zero_initialized_node();
+    RCCHECK(rclc_node_init_default(&node, "Set_servo_angles", "", &support));
 
-	// Create executor.
-	rclc_executor_t executor = rclc_executor_get_zero_initialized_executor();
-	RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
-	unsigned int rcl_wait_timeout = 1000;   // in ms
-	RCCHECK(rclc_executor_set_timeout(&executor, RCL_MS_TO_NS(rcl_wait_timeout)));
+    // Create subscriber
+    RCCHECK(rclc_subscription_init_default(
+        &subscriber,
+        &node,
+        ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Float64MultiArray),
+        "/forward_position_controller/commands"));
 
-	RCCHECK(rclc_executor_add_subscription(&executor, &subscriber, &recv_msg, &subscription_callback, ON_NEW_DATA));
+    // Create executor
+    rclc_executor_t executor = rclc_executor_get_zero_initialized_executor();
+    RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
 
-	// Spin forever.
-	recv_msg.data.data = (double*) malloc(ARRAY_LEN);
-	recv_msg.data.size = 0;
-	recv_msg.data.capacity = ARRAY_LEN;
-	rclc_executor_spin(&executor);
+    unsigned int rcl_wait_timeout = 1000;   // in ms
+    RCCHECK(rclc_executor_set_timeout(&executor, RCL_MS_TO_NS(rcl_wait_timeout)));
 
-	// Free resources.
-	RCCHECK(rcl_subscription_fini(&subscriber, &node));
-	RCCHECK(rcl_node_fini(&node));
+    RCCHECK(rclc_executor_add_subscription(&executor, &subscriber, &recv_msg, &subscription_callback, ON_NEW_DATA));
 
-  	vTaskDelete(NULL);
+    // Allocate memory for received message
+    recv_msg.data.data = (double*) malloc(ARRAY_LEN);
+    recv_msg.data.size = 0;
+    recv_msg.data.capacity = ARRAY_LEN;
+
+    // Spin forever
+    rclc_executor_spin(&executor);
+
+    // Cleanup
+    RCCHECK(rcl_subscription_fini(&subscriber, &node));
+    RCCHECK(rcl_node_fini(&node));
+
+    vTaskDelete(NULL);
 }
 
 void app_main(void)
 {
-#if defined(CONFIG_MICRO_ROS_ESP_NETIF_WLAN) || defined(CONFIG_MICRO_ROS_ESP_NETIF_ENET)
+    #if defined(CONFIG_MICRO_ROS_ESP_NETIF_WLAN) || defined(CONFIG_MICRO_ROS_ESP_NETIF_ENET)
     ESP_ERROR_CHECK(uros_network_interface_initialize());
-#endif
+    #endif
 
-    //pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
     xTaskCreate(micro_ros_task,
             "uros_task",
             CONFIG_MICRO_ROS_APP_STACK,

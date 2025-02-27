@@ -14,10 +14,10 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(ros2_control REQUIRED)
-find_package(gazebo_ros2_control REQUIRED)
+find_package(ign_ros2_control REQUIRED)
 find_package(joint_state_broadcaster REQUIRED)
 find_package(joint_trajectory_controller REQUIRED)
-# find_package(joint_state_publisher REQUIRED)  
+# find_package(joint_state_publisher REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -30,7 +30,7 @@ find_package(robot_state_publisher REQUIRED)
 #   DESTINATION lib/${PROJECT_NAME}
 # )
 
-install (PROGRAMS 
+install (PROGRAMS
    scripts/rviz.py
 DESTINATION lib/${PROJECT_NAME}
 )
