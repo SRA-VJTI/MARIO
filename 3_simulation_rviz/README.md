@@ -5,6 +5,21 @@ RViz 2 is a powerful 3D visualization tool provided by the Robot Operating Syste
 
 If you have not installed the joint_state_publishers and ros_control for ros-noetic, follow the commands given [here](https://github.com/SRA-VJTI/MARIO/tree/master/3_simulation_rviz)
 
+* Firstly switch to the ros2 workspace
+```
+cd $HOME/ros2_ws
+```
+
+* Next, remove previous build related folders
+```
+rm -rf build log install
+```
+
+* Build your workspace : 
+```
+colcon build
+```
+
 * Remember : Whenever you are using ros commands in another terminal , make sure you  source the ros commands:
 ```
 source install/setup.bash
@@ -13,7 +28,7 @@ source install/setup.bash
 
 *  Run the launch file
 ```
-  ros2 launch simulation_rviz display.launch 
+  ros2 launch simulation_rviz display.launch.py 
 ```
 
 
@@ -36,11 +51,11 @@ sudo apt install ros-<your_version_of_ros>-joint-state-publisher-gui
 *  For command line input    
 
 ```
-ros2 launch simulation_rviz mario_rviz.launch    
+ros2 launch simulation_rviz rviz.launch.py    
 ```
 * To give input angles from command line
 ```
-ros2 run simulation_rviz scripts/rviz.py
+ros2 run simulation_rviz rviz.py
 ```
 
 *you can use your this command to view the topics actively published . This will show if the values are published to the toppic we want to.

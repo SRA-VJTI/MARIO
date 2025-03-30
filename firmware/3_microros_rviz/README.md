@@ -5,7 +5,9 @@ This example describe how to establish the micro-ROS connection between RViz and
 ## Steps to follow
 
 * Navigate to micro-ROS workspace (for example:- `microros_ws`) 
-    * ```cd microros_ws/``` (or name of your workspace directory)
+    * ```
+mkdir -p $HOME/microros_ws
+cd microros_ws/``` (or name of your workspace directory)
 
 * Start and run the micro-ROS agent on your local system by executing following commands:
 
