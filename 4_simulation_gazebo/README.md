@@ -15,7 +15,7 @@ Make sure you have sourced your workspace before running this command.
 
 To source your workspace follow the steps menstioned below.
 <p align="center">
-  <img src="../assets/simulation.png" width="800"/>
+  <img src="../assets/gazebo.png" width="800"/>
 </p>
 
 

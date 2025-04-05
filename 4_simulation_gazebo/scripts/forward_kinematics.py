@@ -29,10 +29,10 @@ import sys
 
 #Transformation Matrix Calculated Parameters
 theta = []      #Since it will be user input
-d = [2.5, 0, 0, 9.5]
+d = [10, 0, 0, 13]
 alpha = [math.pi/2,0, math.pi/2, 0]
-a = [0, 12, 0, 0]
-joint = [0.0, 0.0, 0.0, 0.0, 0.0]  
+a = [0, 6, 0, 0]
+joint = [0.0, 0.0, 0.0, 0.0, 0.0]
 
 def forward_kinematics_publisher():
 
@@ -47,7 +47,7 @@ def forward_kinematics_publisher():
     theta = [theta_base, theta_shoulder, theta_elbow, 0]
 
     final_transformation_matrix = forward_kinematics_module.compute_coordinates(theta, d, alpha, a)
-    
+
     #Print End-effector's Coordinates
     print ("*************************")
     print ("{:21s}".format("x-coordinate"), "{0:.5f}".format(final_transformation_matrix[0, 3]))
@@ -56,7 +56,7 @@ def forward_kinematics_publisher():
 
     joint = Float64MultiArray()
     joint.data = [0.0,0.0,0.0,0.0,0.0]
-    if 0.0 <= theta_base <= 180.0 and 0.0 <= theta_shoulder <= 180.0 and 0.0 <= theta_elbow <= 180.0: 
+    if 0.0 <= theta_base <= 180.0 and 0.0 <= theta_shoulder <= 180.0 and 0.0 <= theta_elbow <= 180.0:
         joint.data[0] =(theta_base)*math.pi/180
         joint.data[1] = (theta_shoulder)*math.pi/180
         joint.data[2] = (theta_elbow)*math.pi/180
@@ -78,7 +78,7 @@ def forward_kinematics_publisher():
 
 if __name__ == '__main__':
     rclpy.init(args=sys.argv)
-    global node 
+    global node
     node = Node('forward_kinematics_publisher')
     node.create_timer(0.2, forward_kinematics_publisher)
     rclpy.spin(node)
