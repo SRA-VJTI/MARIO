@@ -310,34 +310,6 @@ echo "Building the workspace with colcon..."
 # Use --symlink-install for easier development iteration
 colcon build --symlink-install
 
-# -------------------------------------------
-# CH340 Driver Fix for Ubuntu 22.04
-# -------------------------------------------
-echo "${blue}======================${reset}"
-echo "Installing CH340 driver fix"
-echo "${blue}======================${reset}"
-
-# Clone the CH340 fix repository if not already present
-if [ ! -d "$HOME/ch340-ubuntu-22.04-fix" ]; then
-    git clone https://github.com/Vishal-Mutha/ch340-ubuntu-22.04-fix.git "$HOME/ch340-ubuntu-22.04-fix"
-fi
-
-# Navigate to the cloned repository
-cd "$HOME/ch340-ubuntu-22.04-fix"
-
-# Execute the installation script
-chmod +x install.sh
-sudo ./install.sh
-
-# Remove brltty to prevent conflicts with CH340 devices
-if dpkg -l | grep -q brltty; then
-    echo "${blue}Removing brltty to prevent conflicts with CH340 devices...${reset}"
-    sudo apt remove -y brltty
-fi
-
-# Prompt the user to reboot the system
-echo "${green}CH340 driver fix applied. Please reboot your system to apply the changes.${reset}"
-
 echo "${green}======================${reset}"
 echo "Installation and setup completed successfully!"
 # --- Kept original $rc_file logic ---
