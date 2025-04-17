@@ -1,18 +1,49 @@
 # Servo Set Zero
 
-This example illustrates how to set all three servos at a specific angle
+This example demonstrates how to set all three servos to a specific angle position.
 
-## Steps to follow
+## Prerequisites
 
-* Build and Flash the code
-    * Open the project directory using :
-      ``` cd firmware/servo_set_zero ```
-    * Ensure that ESP-IDF environment is sourced ( ``` get_idf ``` or ``` $IDF_PATH/export.sh ``` ) before proceeding further. Build using the command :
-      ``` idf.py build ```
-    * Flash the code onto the ESP32
-      ``` idf.py -p PORT flash ```
+- ESP-IDF development environment installed and configured
+- ESP32 development board
+- USB cable for flashing
 
-Note :- If it shows ``` cmake flash error ```. Run the following commands
-* ``` sudo chmod 777 PORT ```
-* ``` idf.py -p PORT flash ```
-*  ``` PORT ``` is the port name to which ESP32 is connected (example : ``` /dev/ttyUSB0 ```)
+## Building and Flashing
+
+1. Navigate to the project directory:
+   ```bash
+   cd firmware/servo_set_zero
+   ```
+
+2. Source the ESP-IDF environment (if not already done):
+   ```bash
+   # Option 1
+   get_idf
+
+   # Option 2
+   source . ./esp/esp-idf/export.sh
+   ```
+
+3. Build the project:
+   ```bash
+   idf.py build
+   ```
+
+4. Flash to ESP32:
+   ```bash
+   idf.py -p PORT flash
+   ```
+   Replace `PORT` with your ESP32's serial port (e.g., `/dev/ttyUSB0` on Linux or `COM3` on Windows)
+
+## Troubleshooting
+
+If you encounter a `cmake flash error`, try the following:
+
+1. Grant permissions to the serial port:
+   ```bash
+   sudo chmod 777 /dev/ttyUSB0   # Replace with your port
+   ```
+
+2. Flash again:
+   ```bash
+   idf.py -p PORT flash

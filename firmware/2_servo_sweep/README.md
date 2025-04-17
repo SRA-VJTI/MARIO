@@ -1,21 +1,71 @@
-# Servo Sweep
+# Servo Sweep Demo
 
-This example and code describes how to set all three servos at different angles & perform a complete "sweep" motion.
+## Overview
+This project demonstrates controlling three servos to perform synchronized sweep motions on an ESP32. Each servo moves through different angles in a coordinated pattern.
 
-## Steps to follow
+## Prerequisites
+- ESP32 development board
+- 3 servo motors connected
+- ESP-IDF development environment
+- USB cable for flashing
 
-* Build and Flash the code
-    * Open the project directory using :
-      ```cd firmware/servo_sweep```
-    * Ensure that ESP-IDF environment is sourced ( ``` get_idf ``` or ``` $IDF_PATH/export.sh ``` ) before proceeding further. Build using the command :
-      ```idf.py build```
-    * Flash the code onto the ESP32
-      ```idf.py -p PORT flash```
+## Hardware Setup
+- Ensure all three servos are properly connected to the ESP32
+- Check power supply is adequate for all servos
+- Verify servo signal pins are connected to correct GPIO pins
 
-Note :- If it shows ```cmake flash error```. Run the following commands
-* ```sudo chmod 777 PORT```
-* ```idf.py -p PORT flash```
-*  ``` PORT ``` is the port name to which ESP32 is connected (example : ``` /dev/ttyUSB0 ```)
+## Building and Flashing
 
-## Demo 
-![](../../assets/arm.gif)
+1. Navigate to the project directory:
+   ```bash
+   cd firmware/servo_sweep
+   ```
+
+2. Source the ESP-IDF environment:
+   ```bash
+   # Option 1
+   get_idf
+
+   # Option 2
+   source $IDF_PATH/export.sh
+   ```
+
+3. Build the project:
+   ```bash
+   idf.py build
+   ```
+
+4. Flash to ESP32:
+   ```bash
+   idf.py -p PORT flash
+   ```
+   Replace `PORT` with your ESP32's serial port (e.g., `/dev/ttyUSB0` on Linux or `COM3` on Windows)
+
+## Troubleshooting
+
+If you encounter a `cmake flash error`:
+
+1. Set port permissions:
+   ```bash
+   sudo chmod 777 /dev/ttyUSB0   # Replace with your port
+   ```
+
+2. Try flashing again:
+   ```bash
+   idf.py -p PORT flash
+   ```
+
+## Demo
+
+![Servo Sweep Demo](../../assets/simulation_mario_v2.3.gif)
+
+## Features
+- Synchronized movement of three servo motors
+- Smooth sweep motion implementation
+- Configurable angle ranges for each servo
+- Adjustable sweep speed
+
+## Safety Notes
+- Ensure servos are mounted securely
+- Keep movement area clear of obstacles
+- Monitor servo temperature during extended operation

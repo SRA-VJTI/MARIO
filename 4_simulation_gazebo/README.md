@@ -22,12 +22,8 @@ To source your workspace follow the steps menstioned below.
 ### Steps For Running the Scripts in Gazebo
 We will be testing out 2 scripts (forward_kinematics.py, inverse_kinematics.py).
 
-Firstly copy the 4_simulation_gazebo folder to src folder in your workspace using command (in fresh terminal) :
 
-```
-cp -r MARIO/4_simulation_gazebo ros2_ws/src
-```
-Now source Ros2. Use following commands in your workspace :
+Source Ros2. Use following commands in your workspace :
 
 ```
 source /opt/ros/humble/setup.bash

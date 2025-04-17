@@ -11,7 +11,7 @@
 
 Given below are instructions for ROS2-Humble and micro-ROS installations. For ROS1 and Rosserial based MARIO, refer to the [following instructions](https://github.com/SRA-VJTI/MARIO/tree/noetic).
 
-## Sneak Peek
+## Sneak Peek 
 
 
 <p align="center"><img src="assets/bot2.png" style="width: 500px; height: auto;"></p>
@@ -21,18 +21,18 @@ Given below are instructions for ROS2-Humble and micro-ROS installations. For RO
 
 <p align="center"><img src="assets/simulation_mario_v2.3.gif" width="480" height="848"></p>
 
-### Mario bot simulated using Gazebo
+### Mario bot simulated using Gazebo 
 
 <p align="center"><img src="assets/simulation.png"></p>
 
 
 
-## File Structure
+## File Structure 
     ├── 1_chatter_listener                        # talker and listener script to understand the nodes and communications in ROS
     ├── 2_simulation_dh                           # simulation of DH paramteres
     ├── 3_simulation_rviz                         # simulation of MARIO bot on rviz
     ├── 4_simulation_gazebo                       # simulation of MARIO bot on gazebo
-    ├── assets                                    # contains necessary gifs, images
+    ├── assets                                    # contains necessary gifs, images 
     ├── firmware                                  # contains ESP-IDF examples for controlling servo motors and micro-ROS
     │   ├── 1_servo_set_zero                      # example in ESP-IDF to set angles of all servo motor zero
     │   ├── 2_servo_sweep                         # example in ESP-IDF to set variable angles in servo motor
@@ -43,7 +43,7 @@ Given below are instructions for ROS2-Humble and micro-ROS installations. For RO
     │       ├── micro_ros_espidf_component        # library to interface between micro-ROS environment and ESP32
     │       └── sra-board-component               # library to interface with SRA board
     ├── LICENSE
-    └── README.md
+    └── README.md 
 
 ## Kinematics
 * MARIO workshop aims to provide the basic knowledge about the DH parameters, forward kinematics , inverse kinematics.
@@ -51,8 +51,8 @@ Given below are instructions for ROS2-Humble and micro-ROS installations. For RO
   * Forward Kinematics :- Forward kinematics refers to the use of the kinematic equations of a robot to compute the position of the end-effector from specified values for the joint parameters. The kinematics equations of the robot are used in robotics, computer games, and animation.
   * Inverse Kinematics :- inverse kinematics is the mathematical process of calculating the variable joint parameters needed to place the end of a kinematic chain, such as a robot manipulator or animation character's skeleton, in a given position and orientation relative to the start of the chain.
 
-## ROS-2
-ROS2 is the ultimate toolkit for robotics enthusiasts and professionals alike. Seamlessly integrating hardware and software, ROS2 streamlines development workflows, accelerates prototyping, and enables rapid iteration. With its modular architecture and extensive library of reusable components, ROS2 simplifies the creation of complex robotics projects, from autonomous drones to collaborative robot arms.
+## ROS-2 
+ROS2 is the ultimate toolkit for robotics enthusiasts and professionals alike. Seamlessly integrating hardware and software, ROS2 streamlines development workflows, accelerates prototyping, and enables rapid iteration. With its modular architecture and extensive library of reusable components, ROS2 simplifies the creation of complex robotics projects, from autonomous drones to collaborative robot arms. 
 
 
 ## Publisher and Subscriber
@@ -70,30 +70,24 @@ micro-ROS is a robotic framework targeting embedded and deep-embedded robot comp
 ESP-IDF is the development framework for Espressif SoCs.The [SRA Board](https://github.com/SRA-VJTI/sra-board-hardware-design) uses ESP32 as microcontroller, hence ESPIDF is required
 to code the ESP32. Examples included inside firmware directory has been written in ESPIDF version 5.1 .
 
-## Installation
+## Installation of ROS2 and other dependencies 
 
-Choose the installation method appropriate for your operating system.
+- Copy and execute the following command in your bash terminal 
+```bash
+wget -O - https://raw.githubusercontent.com/SRA-VJTI/MARIO/humble/linux_installations.sh | bash
+```
+- As an alternative, you can also install the required packages on your local machine by following the instructions below.
 
-### Linux (Ubuntu/Debian based)
-
-**Method 1: Quick Install (Recommended)**
-
-- Copy and execute the following command in your terminal:
-  ```bash
-  wget -O - https://raw.githubusercontent.com/SRA-VJTI/MARIO/humble/linux_install.sh | bash
-  ```
-
-**Method 2: Manual Install**
-
-- Clone SRA-VJTI's MARIO repository on your system:
-  ```bash
+  - Clone SRA-VJTI's MARIO repository on your system
+  ```bash 
   git clone --recursive https://github.com/SRA-VJTI/MARIO.git
   ```
-- Change terminal directory inside the cloned repository:
+  - Change terminal directory inside the cloned repository
   ```bash
   cd MARIO/
   ```
-- Run the Linux installation script:
-  ```bash
-  ./linux_install.sh
+  - Run the installation script
+  ```bash 
+  ./linux_installations.sh
   ```
+

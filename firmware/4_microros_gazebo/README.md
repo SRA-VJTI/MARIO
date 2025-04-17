@@ -1,58 +1,105 @@
-# MICRO-ROS GAZEBO
+# Micro-ROS with Gazebo Integration
 
-This example describe how to establish the micro-ROS connection between Gazebo and ESP32
+## Overview
+This project demonstrates how to establish communication between an ESP32 microcontroller and Gazebo simulation environment using micro-ROS, enabling real-time control and visualization of a robotic manipulator.
 
-## Steps to follow
+## Prerequisites
+- ROS 2 installed and configured
+- Gazebo simulator
+- micro-ROS workspace (`microros_ws`)
+- ESP-IDF development environment
+- WiFi connection
+- `net-tools` package
 
-* Navigate to micro-ROS workspace (for example:- `microros_ws`) 
-    * ```cd microros_ws/``` (or name of your workspace directory)
+## Setup Instructions
 
-* Start and run the micro-ROS agent on your local system by executing following commands:
+### 1. Launch Micro-ROS Agent
 
+Navigate to micro-ROS workspace and start the agent:
 ```bash
+cd ros2_ws
 colcon build
 source install/setup.bash
 ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
 ```
 
+### 2. Configure and Flash ESP32
 
+1. Navigate to project directory:
+   ```bash
+   cd MARIO/firmware/4_microros_gazebo
+   ```
 
-* Open another terminal and source the ESP-IDF environment
-    * ``` cd MARIO/firmware/4_microros_gazebo ```
-    * ```$IDF_PATH/export.sh``` (or ```get_idf``` if you have set up the alias in your `.bashrc` file)
-    
-* Configure the micro-ROS settings using ```idf.py menuconfig```
-    
-    * Inside micro-ROS Settings Set up WiFi configuration (SSID and Password)
-    * IP address of host PC in micro-ROS Agent IP (can be found by `ifconfig` command)
-    * Make sure micro_ros port is same as given to the agent in previous command.
+2. Source ESP-IDF:
+   ```bash
+   source $IDF_PATH/export.sh   # Or use 'get_idf' if aliased
+   ```
 
-**Note** If it shows the error `ifconfig: command not found`, install the package `net-tools` by following command:
+3. Configure micro-ROS settings:
+   ```bash
+   idf.py menuconfig
+   ```
+   In `micro-ROS Settings`:
+   - Configure WiFi SSID and Password
+   - Set micro-ROS Agent IP (Find using `ifconfig`)
+   - Verify port matches agent configuration (8888)
 
+4. Build and flash:
+   ```bash
+   idf.py build
+   idf.py -p PORT flash    # Replace PORT with your device (e.g., /dev/ttyUSB0)
+   ```
+
+### 3. Launch Gazebo Simulation
+
+1. Start Gazebo simulation:
+   ```bash
+   cd ros2_ws
+   source install/setup.bash
+   ros2 launch simulation_gazebo basic_gazebo.launch.py
+   ```
+
+2. Run kinematics node (in a new terminal):
+   ```bash
+   cd ros2_ws
+   source install/setup.bash
+   ros2 run simulation_gazebo forward_kinematics.py
+   ```
+
+## Network Configuration
+
+If `ifconfig` is not available, install net-tools:
 ```bash
 sudo apt install net-tools
 ```
 
-* Build and Flash the code 
-    * ```idf.py build```
-    * ```idf.py -p PORT flash``` (For example: ```idf.py -p /dev/ttyUSB0 flash``` )
-
-
-
-* In another terminal, Navigate to the ROS2 workspace and Start the Publisher by executing the relevant python script after sourcing ros2 in the environment
-(Make sure you have previously built the folder by executing `colcon build` command with 4_simulation_gazebo in the src folder):
-
-```bash
-cd ros2_ws
-source install/setup.bash
-ros2 launch simulation_gazebo basic_gazebo.launch.py
+## System Architecture
 ```
-This will open a gazebo simulation window.
-Now we run kinematics scripts on the bot. Open a new terminal and run following commands.
-```bash
-cd ros2_ws
-source install/setup.bash
-ros2 run simulation_gazebo forward_kinematics.py
+[ESP32] <---> [micro-ROS Agent] <---> [ROS 2] <---> [Gazebo]
+    |            (UDP/IP)           (ROS 2       (Physics
+    |                               Topics)       Simulation)
+ (Hardware
+  Control)
 ```
 
-* Enter the angles on the publisher side and voila! See your manipulator moving!
+## Troubleshooting
+
+### Common Issues
+- Verify WiFi connection is stable
+- Check IP address configuration
+- Ensure all terminals are properly sourced
+- Confirm micro-ROS agent is running
+- Verify Gazebo simulation launched successfully
+
+### Port Access Issues
+If you encounter permission issues:
+```bash
+sudo chmod 777 /dev/ttyUSB0   # Replace with your port
+```
+
+## Usage
+1. Launch micro-ROS agent
+2. Configure and flash ESP32
+3. Start Gazebo simulation
+4. Run kinematics node
+5. Input joint angles to control the manipulator
