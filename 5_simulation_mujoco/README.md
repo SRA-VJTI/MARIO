@@ -15,3 +15,9 @@
     source install/setup.bash
     ros2 run simulation_mujoco forward_kinematics.py
 ```
+
+### To run mario with box simulation:
+```
+    source install/setup.bash
+    ros2 launch simulation_mujoco mario_controller.py
+```
