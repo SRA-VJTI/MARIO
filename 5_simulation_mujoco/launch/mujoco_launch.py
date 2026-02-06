@@ -17,6 +17,6 @@ def generate_launch_description():
     # )
 
     return LaunchDescription([
-        mujoco_bridge,              # launches mujoco bridge (ros2 nodes can run) 
+        mujoco_bridge,             
         # forward_kinematics,       #auto launch kinematics node 
     ])

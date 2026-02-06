@@ -1,4 +1,4 @@
-<mujoco model="manipulator">
+<mujoco model="manipulator_with_box">
   <compiler angle="radian" meshdir="../meshes" autolimits="true"/>
   
   <option timestep="0.001" gravity="0 0 -9.81">
@@ -16,23 +16,22 @@
   <asset>
     <texture name="grid" type="2d" builtin="checker" width="512" height="512" 
              rgb1="0.1 0.2 0.3" rgb2="0.2 0.3 0.4"/>
-
-    <!-- Inc. texrepeat for smaller grid size  -->
-    <material name="grid" texture="grid" texrepeat="16 16" texuniform="true" reflectance="0.2"/>
-
+    <material name="grid" texture="grid" texrepeat="8 8" texuniform="true" reflectance="0.2"/>
+    
     <texture name="skybox" type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0.0 0.0 0.0" 
              width="512" height="3072"/>
-
+    
     <mesh name="base_link" file="base_link.STL" scale="1 1 1"/>
     <mesh name="link_1" file="link_1.STL" scale="1 1 1"/>
     <mesh name="link_2" file="link_2.STL" scale="1 1 1"/>
     <mesh name="link_3" file="link_3.STL" scale="1 1 1"/>
     <mesh name="claw_right" file="claw_right.STL" scale="1 1 1"/>
     <mesh name="claw_left" file="claw_left.STL" scale="1 1 1"/>
-
+    
     <material name="gray" rgba="0.627 0.627 0.627 1"/>
     <material name="blue" rgba="0.792 0.820 0.933 1"/>
     <material name="silver" rgba="0.776 0.757 0.737 1"/>
+    <material name="target_red" rgba="0.9 0.1 0.1 1"/>
   </asset>
   
   <worldbody>
@@ -41,16 +40,24 @@
            pos="0 0 4.0" dir="0 0 -1" castshadow="true"/>
     <light name="ambient" directional="true" diffuse="0.4 0.4 0.4" specular="0.1 0.1 0.1" 
            pos="0 0 3.0" dir="0 0 -1"/>
-
+    
     <geom name="floor" type="plane" size="2 2 0.1" material="grid" condim="3"/>
-
-    <body name="base_link" pos="0 0 0.0"> 
+    
+    <body name="target_box" pos="-0.125 0.05 0.025">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="0.05" diaginertia="0.0001 0.0001 0.0001"/>
+      <geom name="box_geom" type="box" size="0.025 0.025 0.025" 
+            material="target_red" condim="3" friction="1 0.005 0.0001"/>
+      <site name="box_center" pos="0 0 0" size="0.005" rgba="1 1 0 1"/>
+    </body>
+    
+    <body name="base_link" pos="0 0 0.0">
       <inertial pos="0.0021253 0.047935 0.027764" 
                 mass="0.0896"
                 diaginertia="0.00010836 6.5382E-05 5.041E-05"/>
       <geom type="mesh" mesh="base_link" material="gray" contype="0" conaffinity="0"/>
       <geom type="mesh" mesh="base_link" material="gray" group="1"/>
-
+      
       <body name="link_1" pos="-0.0030196 0.046937 0.0635">
         <inertial pos="-0.00017376 -0.015933 0.017371"
                   mass="0.024846"
@@ -59,7 +66,7 @@
                range="0 3.14" damping="0.1" armature="0.01"/>
         <geom type="mesh" mesh="link_1" material="blue" contype="0" conaffinity="0"/>
         <geom type="mesh" mesh="link_1" material="blue" group="1"/>
-
+        
         <body name="link_2" pos="0.00031511 -0.0095653 0.034407">
           <inertial pos="0.05189 -0.0024721 -0.0024701"
                     mass="0.01633"
@@ -104,11 +111,11 @@
   </worldbody>
   
   <actuator>
-    <position name="joint_1_actuator" joint="joint_1" kp="10" ctrlrange="0 3.14"/>
-    <position name="joint_2_actuator" joint="joint_2" kp="10" ctrlrange="0 3.14"/>
-    <position name="joint_3_actuator" joint="joint_3" kp="10" ctrlrange="0 3.14"/>
-    <position name="joint_4_actuator" joint="joint_4" kp="5" ctrlrange="0 0.8"/>
-    <position name="joint_5_actuator" joint="joint_5" kp="5" ctrlrange="0 0.8"/>
+    <position name="joint_1_actuator" joint="joint_1" kp="170" ctrlrange="0 3.14"/>
+    <position name="joint_2_actuator" joint="joint_2" kp="40" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_3_actuator" joint="joint_3" kp="30" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_4_actuator" joint="joint_4" kp="10" kv="1" ctrlrange="0 0.8"/>
+    <position name="joint_5_actuator" joint="joint_5" kp="10" kv="1" ctrlrange="0 0.8"/>
   </actuator>
   
   <sensor>
@@ -123,5 +130,7 @@
     <jointvel name="joint_3_vel" joint="joint_3"/>
     <jointvel name="joint_4_vel" joint="joint_4"/>
     <jointvel name="joint_5_vel" joint="joint_5"/>
+    
+    <framepos name="box_position" objtype="site" objname="box_center"/>
   </sensor>
 </mujoco>
