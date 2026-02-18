@@ -33,7 +33,7 @@ def talker():
         theta_claw2= (theta_claw2)*math.pi/180
 
         hello_str.name = ['joint_1', 'joint_2', 'joint_3', 'joint_4', 'joint_5']
-        hello_str.position = [theta_base , theta_elbow , theta_shoulder, theta_claw1, theta_claw2]
+        hello_str.position = [theta_base , theta_shoulder , theta_elbow, theta_claw1, theta_claw2]
         hello_str.velocity = []
         hello_str.effort = []
         pub.publish(hello_str)
