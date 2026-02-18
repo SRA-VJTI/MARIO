@@ -13,7 +13,7 @@ Make sure you have sourced your workspace before running this command.
   ros2 launch simulation_gazebo basic_gazebo.launch.py
 ```
 
-To source your workspace follow the steps menstioned below.
+To source your workspace follow the steps mentioned below.
 <p align="center">
   <img src="../assets/gazebo.png" width="800"/>
 </p>
