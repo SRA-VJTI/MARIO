@@ -21,24 +21,27 @@ def talker():
     theta_base = float(input("{:22s}".format("Enter theta_base: ")))
     theta_shoulder = float(input("{:22s}".format("Enter theta_shoulder: ")))
     theta_elbow = float(input("{:22s}".format("Enter theta_elbow: ")))
-    theta_claw1 = float(input("{:22s}".format("Enter theta_claw 1: ")))
-    theta_claw2 = float(input("{:22s}".format("Enter theta_claw 2: ")))
+    gripper_open = float(input("{:22s}".format("Enter Gripper Position(0 - close/ 1 - open): ")))
+    #theta_claw2 = float(input("{:22s}".format("Enter theta_claw 2: ")))
 
     # theta must be in the range of 0 to 180 degree.
-    if 0 <= theta_base <= 180.0 and 0 <= theta_shoulder <= 180.0 and 0 <= theta_elbow <= 180.0 and 0.0 <= theta_claw1 <= 180.0 and 0.0 <= theta_claw2 <= 180.0 : 
+    if 0 <= theta_base <= 180.0 and 0 <= theta_shoulder <= 180.0 and 0 <= theta_elbow <= 180.0  : 
         theta_base = (theta_base)*math.pi/180
         theta_shoulder = (theta_shoulder)*math.pi/180
         theta_elbow = (theta_elbow)*math.pi/180
-        theta_claw1= (theta_claw1)*math.pi/180
-        theta_claw2= (theta_claw2)*math.pi/180
+        if gripper_open:
+            theta_gripper= 0.8
+        else:
+            theta_gripper=0.0
+        #theta_claw2= (theta_claw2)*math.pi/180
 
         hello_str.name = ['joint_1', 'joint_2', 'joint_3', 'joint_4', 'joint_5']
-        hello_str.position = [theta_base , theta_shoulder , theta_elbow, theta_claw1, theta_claw2]
+        hello_str.position = [theta_base , theta_shoulder , theta_elbow, theta_gripper, theta_gripper]
         hello_str.velocity = []
         hello_str.effort = []
         pub.publish(hello_str)
     else:
-        print ("Enter angles in range 0 to 180")
+        print ("Enter angles in range!")
     
 
 if __name__ == '__main__':
