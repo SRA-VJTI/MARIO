@@ -57,8 +57,10 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-#build files test
+# Colcon build artifacts
 */build
+*/install
+*/log
 
 # End of https://www.gitignore.io/api/c
 

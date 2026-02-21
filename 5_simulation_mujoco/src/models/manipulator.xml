@@ -104,11 +104,11 @@
   </worldbody>
   
   <actuator>
-    <position name="joint_1_actuator" joint="joint_1" kp="10" ctrlrange="0 3.14"/>
-    <position name="joint_2_actuator" joint="joint_2" kp="10" ctrlrange="0 3.14"/>
-    <position name="joint_3_actuator" joint="joint_3" kp="10" ctrlrange="0 3.14"/>
-    <position name="joint_4_actuator" joint="joint_4" kp="5" ctrlrange="0 0.8"/>
-    <position name="joint_5_actuator" joint="joint_5" kp="5" ctrlrange="0 0.8"/>
+    <position name="joint_1_actuator" joint="joint_1" kp="170" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_2_actuator" joint="joint_2" kp="40" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_3_actuator" joint="joint_3" kp="30" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_4_actuator" joint="joint_4" kp="10" kv="1" ctrlrange="0 0.8"/>
+    <position name="joint_5_actuator" joint="joint_5" kp="10" kv="1" ctrlrange="0 0.8"/>
   </actuator>
   
   <sensor>
