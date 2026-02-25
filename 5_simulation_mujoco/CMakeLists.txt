@@ -16,12 +16,10 @@ find_package(robot_state_publisher REQUIRED)
 
 install(PROGRAMS
   scripts/mujoco_ros2_bridge.py
-  scripts/mujoco_ros2_bridge_box.py
   scripts/forward_kinematics.py
   scripts/inverse_kinematics.py
   scripts/forward_kinematics_module.py
   scripts/inverse_kinematics_module.py
-  scripts/pick_n_place.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -29,7 +27,6 @@ install(DIRECTORY
   launch
   models
   meshes
-  config
   DESTINATION share/${PROJECT_NAME}
 )
 
