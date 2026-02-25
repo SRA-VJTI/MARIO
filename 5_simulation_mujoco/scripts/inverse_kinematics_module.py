@@ -18,28 +18,16 @@ def compute_angles(x, y, z):
 		theta_elbow = round(math.asin(sin_theta_elbow), ROUNDING_ERROR)
 		theta_elbow_possible = round(math.pi - theta_elbow, ROUNDING_ERROR)
 
-		denominator = x * x + y * y + (z - d0) * (z - d0)
+		r = math.sqrt(x * x + y * y)
+		dz = z - d0
 
-		if theta_base != 90:
-			# Calculate x / cos(theta_base)
-			numerator_theta_shoulder = (z - d0) * (a1 + d3 * math.sin(theta_elbow)) \
-										+ d3 * math.cos(theta_elbow) * x / math.cos(theta_base)
+		def get_shoulder(theta_elbow_val):
+			A = d3 + a1 * math.sin(theta_elbow_val)
+			B = a1 * math.cos(theta_elbow_val)
+			return math.atan2(A * r + B * dz, B * r - A * dz) - theta_elbow_val
 
-			numerator_theta_shoulder_possible = (z - d0) * (a1 + d3 * math.sin(theta_elbow_possible)) + \
-												d3 * math.cos(theta_elbow_possible) * x / math.cos(theta_base)
-
-			theta_shoulder = round(math.asin(numerator_theta_shoulder / denominator), ROUNDING_ERROR)
-			theta_shoulder_possible = round(math.asin(numerator_theta_shoulder_possible / denominator), ROUNDING_ERROR)
-
-		elif theta_base != 0:
-			# Calculate y / sin(theta_base)
-			numerator_theta_shoulder = (z - d0) * (a1 + d3 * math.sin(theta_elbow)) \
-										+ d3 * math.cos(theta_elbow) * y / math.sin(theta_base)
-			numerator_theta_shoulder_possible = (z - d0) * (a1 + d3 * math.sin(theta_elbow_possible)) \
-												+ d3 * math.cos(theta_elbow_possible) * y / math.sin(theta_base)
-
-			theta_shoulder = round(math.asin(numerator_theta_shoulder / denominator), ROUNDING_ERROR)
-			theta_shoulder_possible = round(math.asin(numerator_theta_shoulder_possible / denominator), ROUNDING_ERROR)
+		theta_shoulder = round(get_shoulder(theta_elbow), ROUNDING_ERROR)
+		theta_shoulder_possible = round(get_shoulder(theta_elbow_possible), ROUNDING_ERROR)
 
 	else:
 
