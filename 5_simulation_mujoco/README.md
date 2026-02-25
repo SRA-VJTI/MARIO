@@ -1,24 +1,41 @@
 ## Steps to run the demo in Mujoco
 
-### Build the mujoco folder from 5_simulation_mujoco:
+### Build the package
+
+Make sure you have sourced ROS 2 before building:
 ```
-  cd 5_simulation_mujoco/
-  colcon build 
+source /opt/ros/humble/setup.bash
 ```
 
-### Now run launch file (make sure to source):
+Navigate to the mujoco folder and build:
 ```
-    source install/setup.bash
-    ros2 launch simulation_mujoco mujoco_launch.py
-```
-### In new terminal run forward_kinematics node:
-```
-    source install/setup.bash
-    ros2 run simulation_mujoco forward_kinematics.py
+cd 5_simulation_mujoco/
+colcon build
 ```
 
-### To run mario with box simulation:
+### Run the simulation
+
+Source the workspace and launch the Mujoco bridge:
 ```
-    source install/setup.bash
-    ros2 launch simulation_mujoco mario_controller.py
+source install/setup.bash
+ros2 launch simulation_mujoco mujoco_launch.py
+```
+
+With the simulation running, open a new terminal and source the workspace:
+```
+source install/setup.bash
+```
+
+### Forward Kinematics
+
+Enter joint angles and the arm moves to that position.
+```
+ros2 run simulation_mujoco forward_kinematics.py
+```
+
+### Inverse Kinematics
+
+Enter an XYZ coordinate and the arm moves to that position:
+```
+ros2 run simulation_mujoco inverse_kinematics.py
 ```
