@@ -215,4 +215,4 @@ colcon build
 echo "${green}======================${reset}"
 echo "Installation completed successfully!"
 echo "Please restart your terminal or run 'source ~/.bashrc' to apply changes"
-echo "${green}======================${reset}"e
+echo "${green}======================${reset}
