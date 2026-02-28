@@ -163,6 +163,7 @@ if [[ ! -d "1_chatter_listener" ]]; then
     cp -r $HOME/MARIO/2_* $HOME/ros2_ws/src
     cp -r $HOME/MARIO/3_* $HOME/ros2_ws/src
     cp -r $HOME/MARIO/4_* $HOME/ros2_ws/src
+    cp -r $HOME/MARIO/5_* $HOME/ros2_ws/src
     cp -r $HOME/MARIO/activities $HOME/ros2_ws/src
 
     if [[ ! -d "$HOME/ros2_ws_firmware" ]]; then
@@ -172,6 +173,7 @@ if [[ ! -d "1_chatter_listener" ]]; then
         cp -r $HOME/MARIO/firmware/2_* $HOME/ros2_ws_firmware
         cp -r $HOME/MARIO/firmware/3_* $HOME/ros2_ws_firmware
         cp -r $HOME/MARIO/firmware/4_* $HOME/ros2_ws_firmware
+        cp -r $HOME/MARIO/firmware/5_* $HOME/ros2_ws_firmware
         cp -r $HOME/MARIO/firmware/components/sra-board-component $HOME/ros2_ws_firmware/components/
         echo "${green}Firmware copied to ros2_ws_firmware${reset}"
     else
@@ -186,14 +188,20 @@ echo "${blue}======================${reset}"
 echo "Setting up microROS Agent"
 echo "${blue}======================${reset}"
 
-cd $HOME/ros2_ws/src
-git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
-cd ..
+if [ ! -d "$HOME/ros2_ws/src/micro-ROS-Agent" ]; then
+    cd $HOME/ros2_ws/src
+    git clone -b humble https://github.com/micro-ROS/micro-ROS-Agent.git
+    cd ..
+fi
+
 pip3 install catkin_pkg lark-parser colcon-common-extensions
 
-cd $HOME/ros2_ws_firmware/components
-git clone --recursive https://github.com/micro-ROS/micro_ros_espidf_component.git
-cd ../..
+if [ ! -d "$HOME/ros2_ws_firmware/components/micro_ros_espidf_component" ]; then
+    cd $HOME/ros2_ws_firmware/components
+    git clone --recursive https://github.com/micro-ROS/micro_ros_espidf_component.git
+    cd ../..
+
+fi
 
 sudo apt install terminator
 
