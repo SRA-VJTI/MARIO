@@ -61,9 +61,7 @@ servo_config servo_a = {
 	.min_pulse_width = CONFIG_SERVO_A_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_A_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_A_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_0,
-	.gen = MCPWM_OPR_A,
+
 };
 
 servo_config servo_b = {
@@ -71,9 +69,7 @@ servo_config servo_b = {
 	.min_pulse_width = CONFIG_SERVO_B_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_B_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_B_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_0,
-	.gen = MCPWM_OPR_B,
+
 };
 
 servo_config servo_c = {
@@ -81,9 +77,7 @@ servo_config servo_c = {
 	.min_pulse_width = CONFIG_SERVO_C_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_C_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_C_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_1,
-	.gen = MCPWM_OPR_A,
+
 };
 
 servo_config servo_d = {
@@ -91,9 +85,7 @@ servo_config servo_d = {
 	.min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_D_MAX_DEGREE,
-	.mcpwm_num = MCPWM_UNIT_0,
-	.timer_num = MCPWM_TIMER_1,
-	.gen = MCPWM_OPR_B,
+
 };
 
 
@@ -110,10 +102,10 @@ void subscription_callback(const void * msgin)
     printf("Received: %lf\n",  msg->position.data[3]);
 
     //To control motors according to the data
-    set_angle_servo(&servo_a,msg->position.data[0]*180/pi);
-    set_angle_servo(&servo_b,msg->position.data[1]*180/pi);
-    set_angle_servo(&servo_c,msg->position.data[2]*180/pi);
-    set_angle_servo(&servo_d,msg->position.data[3]*180/pi);
+    set_angle_servo(&servo_d,msg->position.data[0]*180/pi);
+    set_angle_servo(&servo_c,msg->position.data[1]*180/pi);
+    set_angle_servo(&servo_b,msg->position.data[2]*180/pi);
+    set_angle_servo(&servo_a,msg->position.data[3]*180/pi);
 }
 
 void micro_ros_task(void * arg)

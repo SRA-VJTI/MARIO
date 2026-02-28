@@ -54,10 +54,10 @@ SOFTWARE.
 
 // Structure to track current positions
 typedef struct {
-    float current_a;
-    float current_b;
-    float current_c;
-    float current_d;
+    float current_base;
+    float current_shoulder;
+    float current_elbow;
+    float current_gripper;
 } servo_positions;
 
 static servo_positions current_pos = {0, 0, 0, 0};
@@ -68,44 +68,36 @@ std_msgs__msg__Float64MultiArray recv_msg;
 char test_array[ARRAY_LEN];
 
 // Servo configurations
-static servo_config servo_a = {
+servo_config servo_a = {
     .servo_pin = SERVO_A,
     .min_pulse_width = CONFIG_SERVO_A_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_A_MAX_PULSEWIDTH,
     .max_degree = CONFIG_SERVO_A_MAX_DEGREE,
-    .mcpwm_num = MCPWM_UNIT_0,
-    .timer_num = MCPWM_TIMER_0,
-    .gen = MCPWM_OPR_A,
+
 };
 
-static servo_config servo_b = {
+servo_config servo_b = {
     .servo_pin = SERVO_B,
     .min_pulse_width = CONFIG_SERVO_B_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_B_MAX_PULSEWIDTH,
     .max_degree = CONFIG_SERVO_B_MAX_DEGREE,
-    .mcpwm_num = MCPWM_UNIT_0,
-    .timer_num = MCPWM_TIMER_0,
-    .gen = MCPWM_OPR_B,
+
 };
 
-static servo_config servo_c = {
+servo_config servo_c = {
     .servo_pin = SERVO_C,
     .min_pulse_width = CONFIG_SERVO_C_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_C_MAX_PULSEWIDTH,
     .max_degree = CONFIG_SERVO_C_MAX_DEGREE,
-    .mcpwm_num = MCPWM_UNIT_0,
-    .timer_num = MCPWM_TIMER_1,
-    .gen = MCPWM_OPR_A,
+
 };
 
-static servo_config servo_d = {
+servo_config servo_d = {
     .servo_pin = SERVO_D,
     .min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
     .max_degree = CONFIG_SERVO_D_MAX_DEGREE,
-    .mcpwm_num = MCPWM_UNIT_0,
-    .timer_num = MCPWM_TIMER_1,
-    .gen = MCPWM_OPR_B,
+
 };
 
 // Function to smoothly move servo from current to target position
@@ -125,30 +117,30 @@ void subscription_callback(const void * msgin)
     const std_msgs__msg__Float64MultiArray * msg = (const std_msgs__msg__Float64MultiArray *)msgin;
 
     // Convert radians to degrees and calculate servo D angle
-    float target_a = msg->data.data[0] * (180/pi);
-    float target_b = msg->data.data[1] * (180/pi);
-    float target_c = msg->data.data[2] * (180/pi);
-    float target_d = 45 - (msg->data.data[3] * (180/pi)); // Modified calculation for servo D
+    float target_base = msg->data.data[0] * (180/pi);
+    float target_shoulder = msg->data.data[1] * (180/pi);
+    float target_elbow = msg->data.data[2] * (180/pi);
+    float target_gripper = (msg->data.data[3] * (180/pi)); // Modified calculation for servo D
 
     // Apply smooth motion to each servo if change is significant
-    if (fabs(target_a - current_pos.current_a) > 0.5) {
-        smooth_servo_motion(&servo_a, current_pos.current_a, target_a);
-        current_pos.current_a = target_a;
+    if (fabs(target_base - current_pos.current_base) > 0.5) {
+        smooth_servo_motion(&servo_d, current_pos.current_base, target_base);
+        current_pos.current_base = target_base;
     }
 
-    if (fabs(target_b - current_pos.current_b) > 0.5) {
-        smooth_servo_motion(&servo_b, current_pos.current_b, target_b);
-        current_pos.current_b = target_b;
+    if (fabs(target_shoulder - current_pos.current_shoulder) > 0.5) {
+        smooth_servo_motion(&servo_c, current_pos.current_shoulder, target_shoulder);
+        current_pos.current_shoulder = target_shoulder;
     }
 
-    if (fabs(target_c - current_pos.current_c) > 0.5) {
-        smooth_servo_motion(&servo_c, current_pos.current_c, target_c);
-        current_pos.current_c = target_c;
+    if (fabs(target_elbow - current_pos.current_elbow) > 0.5) {
+        smooth_servo_motion(&servo_b, current_pos.current_elbow, target_elbow);
+        current_pos.current_elbow = target_elbow;
     }
 
-    if (fabs(target_d - current_pos.current_d) > 0.5) {
-        smooth_servo_motion(&servo_d, current_pos.current_d, target_d);
-        current_pos.current_d = target_d;
+    if (fabs(target_gripper - current_pos.current_gripper) > 0.5) {
+        smooth_servo_motion(&servo_a, current_pos.current_gripper, target_gripper);
+        current_pos.current_gripper = target_gripper;
     }
 }
 
@@ -161,10 +153,10 @@ void micro_ros_task(void * arg)
 
     // Enable servo and initialize current positions
     enable_servo();
-    current_pos.current_a = read_servo(&servo_a);
-    current_pos.current_b = read_servo(&servo_b);
-    current_pos.current_c = read_servo(&servo_c);
-    current_pos.current_d = read_servo(&servo_d);
+    current_pos.current_gripper = read_servo(&servo_a);
+    current_pos.current_elbow = read_servo(&servo_b);
+    current_pos.current_shoulder = read_servo(&servo_c);
+    current_pos.current_base = read_servo(&servo_d);
 
     // Create init_options
     rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
