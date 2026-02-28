@@ -4,8 +4,6 @@
 
 ## Steps to run the demo in Gazebo
 * Gazebo is the simulation tool that is used by ROS. It has a lot of Applications. In this workshop we will be using ROS to simulate the Manipulator. For the running the simulation just follow commands mentioned below.
-* If you have not installed the joint_state_publishers and ros_control for ros-noetic, follow the commands given [here](https://github.com/SRA-VJTI/MARIO/tree/master/4_simulation_gazebo)
-
 *  Run the launch file
 
 Make sure you have sourced your workspace before running this command.
