@@ -13,7 +13,7 @@ Make sure you have sourced your workspace before running this command.
   ros2 launch simulation_gazebo basic_gazebo.launch.py
 ```
 
-To source your workspace follow the steps menstioned below.
+To source your workspace follow the steps mentioned below.
 <p align="center">
   <img src="../assets/gazebo.png" width="800"/>
 </p>
@@ -43,7 +43,7 @@ For running the scripts on gazebo, firstly launch gazebo world using the command
 ros2 launch simulation_gazebo basic_gazebo.launch.py
 ```
 
-After starting gazebo we will be testing out `forward kinematics.py`.
+After starting gazebo we will be testing out `forward_kinematics.py`.
 Open a fresh terminal and navigate to your workspace. Now source the workspace and run forward_kinematics.py using following commands :
 
 ```

@@ -33,7 +33,7 @@ Then Run
 ```
 ros2 run circle draw_circle.py
 ```
-#Assingment
+# Assignment
 Move turtle in a way that it avoids hitting the wall(it takes a U-turn when it approache the wall)
 
 <p align="center">

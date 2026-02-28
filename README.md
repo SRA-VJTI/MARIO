@@ -21,18 +21,23 @@ Given below are instructions for ROS2-Humble and micro-ROS installations. For RO
 
 <p align="center"><img src="assets/simulation_mario_v2.3.gif" width="480" height="848"></p>
 
-### Mario bot simulated using Gazebo 
+### Mario bot simulated using Gazebo
 
 <p align="center"><img src="assets/simulation.png"></p>
+
+### Mario bot simulated using Mujoco
+
+<p align="center"><img src="assets/mujoco.png"></p>
 
 
 
 ## File Structure 
     ├── 1_chatter_listener                        # talker and listener script to understand the nodes and communications in ROS
-    ├── 2_simulation_dh                           # simulation of DH paramteres
+    ├── 2_simulation_dh                           # simulation of DH parameters
     ├── 3_simulation_rviz                         # simulation of MARIO bot on rviz
     ├── 4_simulation_gazebo                       # simulation of MARIO bot on gazebo
-    ├── assets                                    # contains necessary gifs, images 
+    ├── 5_simulation_mujoco                       # simulation of MARIO bot on mujoco
+    ├── assets                                    # contains necessary gifs, images
     ├── firmware                                  # contains ESP-IDF examples for controlling servo motors and micro-ROS
     │   ├── 1_servo_set_zero                      # example in ESP-IDF to set angles of all servo motor zero
     │   ├── 2_servo_sweep                         # example in ESP-IDF to set variable angles in servo motor

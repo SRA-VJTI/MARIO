@@ -43,7 +43,7 @@ ros2 launch simulation_rviz rviz.launch.py
 ros2 run simulation_rviz rviz.py
 ```
 
-*you can use your this command to view the topics actively published . This will show if the values are published to the toppic we want to.
+*you can use this command to view the topics actively published. This will show if the values are published to the topic we want to.
 ```
 ros2 topic list
 ```
