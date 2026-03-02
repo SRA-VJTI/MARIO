@@ -17,7 +17,6 @@ source /opt/ros/humble/setup.bash
 Now we build simulation_mujoco package using this command:
 
 ```
-cd 5_simulation_mujoco/
 colcon build
 ```
 Now we source the workspace using following command :

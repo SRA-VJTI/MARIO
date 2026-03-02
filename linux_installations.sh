@@ -205,6 +205,9 @@ fi
 
 sudo apt install terminator
 
+# mujoco installation 
+pip3 install mujoco
+
 # Build the workspace
 echo "${blue}======================${reset}"
 echo "Building the workspace"
