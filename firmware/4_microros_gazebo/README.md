@@ -27,7 +27,7 @@ ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
 
 1. Navigate to project directory:
    ```bash
-   cd MARIO/firmware/4_microros_gazebo
+   cd ros2_ws_firmware/4_microros_gazebo
    ```
 
 2. Source ESP-IDF:

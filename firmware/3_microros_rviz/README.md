@@ -27,7 +27,7 @@ ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
 
 1. Navigate to project directory:
    ```bash
-   cd MARIO/firmware/3_microros_rviz
+   cd ros2_ws_firmware/3_microros_rviz
    ```
 
 2. Source ESP-IDF:

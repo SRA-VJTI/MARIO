@@ -12,7 +12,7 @@ This example demonstrates how to set all three servos to a specific angle positi
 
 1. Navigate to the project directory:
    ```bash
-   cd firmware/servo_set_zero
+   cd ros2_ws_firmware/1_servo_set_zero
    ```
 
 2. Source the ESP-IDF environment (if not already done):
