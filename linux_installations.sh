@@ -194,6 +194,7 @@ if [ ! -d "$HOME/ros2_ws/src/micro-ROS-Agent" ]; then
     cd ..
 fi
 
+. $HOME/esp/esp-idf/export.sh
 pip3 install catkin_pkg lark-parser colcon-common-extensions
 
 if [ ! -d "$HOME/ros2_ws_firmware/components/micro_ros_espidf_component" ]; then
