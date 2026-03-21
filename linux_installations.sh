@@ -194,6 +194,9 @@ if [ ! -d "$HOME/ros2_ws/src/micro-ROS-Agent" ]; then
     cd ..
 fi
 
+# mujoco installation
+pip3 install mujoco
+
 . $HOME/esp/esp-idf/export.sh
 pip3 install catkin_pkg lark-parser colcon-common-extensions
 
@@ -205,9 +208,6 @@ if [ ! -d "$HOME/ros2_ws_firmware/components/micro_ros_espidf_component" ]; then
 fi
 
 sudo apt install terminator
-
-# mujoco installation 
-pip3 install mujoco
 
 # Build the workspace
 echo "${blue}======================${reset}"
