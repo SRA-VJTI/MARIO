@@ -65,13 +65,13 @@ static void mcpwm_servo_control(void *arg)
 
 	while (1)
 	{
-		set_angle_servo(&servo_a, 0);
+		set_angle_servo(&servo_a, 90);
 		vTaskDelay(100);
-		set_angle_servo(&servo_b, 0);
+		set_angle_servo(&servo_b, 90);
 		vTaskDelay(100);
-		set_angle_servo(&servo_c, 0);
+		set_angle_servo(&servo_c, 90);
 		vTaskDelay(100);
-		set_angle_servo(&servo_d, 0);
+		set_angle_servo(&servo_d, 90);
 		vTaskDelay(100);
 #ifdef CONFIG_ENABLE_OLED
 		// Diplaying Servo A, Servo B, Servo C, Servo D values on OLED
