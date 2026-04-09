@@ -68,7 +68,7 @@ std_msgs__msg__Float64MultiArray recv_msg;
 char test_array[ARRAY_LEN];
 
 // Servo configurations
-servo_config servo_a = {
+servo_config servo_a = {        //GRIPPER
     .servo_pin = SERVO_A,
     .min_pulse_width = CONFIG_SERVO_A_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_A_MAX_PULSEWIDTH,
@@ -76,7 +76,7 @@ servo_config servo_a = {
 
 };
 
-servo_config servo_b = {
+servo_config servo_b = {        //ELBOW
     .servo_pin = SERVO_B,
     .min_pulse_width = CONFIG_SERVO_B_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_B_MAX_PULSEWIDTH,
@@ -84,7 +84,7 @@ servo_config servo_b = {
 
 };
 
-servo_config servo_c = {
+servo_config servo_c = {        //ARM
     .servo_pin = SERVO_C,
     .min_pulse_width = CONFIG_SERVO_C_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_C_MAX_PULSEWIDTH,
@@ -92,7 +92,7 @@ servo_config servo_c = {
 
 };
 
-servo_config servo_d = {
+servo_config servo_d = {        //BASE
     .servo_pin = SERVO_D,
     .min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
     .max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
@@ -116,11 +116,11 @@ void subscription_callback(const void * msgin)
 {
     const std_msgs__msg__Float64MultiArray * msg = (const std_msgs__msg__Float64MultiArray *)msgin;
 
-    // Convert radians to degrees and calculate servo D angle
+    // Convert radians to degrees
     float target_base = msg->data.data[0] * (180/pi);
     float target_shoulder = msg->data.data[1] * (180/pi);
     float target_elbow = msg->data.data[2] * (180/pi);
-    float target_gripper = (msg->data.data[3] * (180/pi)); // Modified calculation for servo D
+    float target_gripper = ((1.57-msg->data.data[3]) * (180/pi)); // Modified calculation for gripper servo
 
     // Apply smooth motion to each servo if change is significant
     if (fabs(target_base - current_pos.current_base) > 0.5) {

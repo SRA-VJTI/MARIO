@@ -30,9 +30,9 @@ def talker():
         theta_shoulder = (theta_shoulder)*math.pi/180
         theta_elbow = (theta_elbow)*math.pi/180
         if gripper_open:
-            theta_gripper= 0.8
+            theta_gripper = 1.57
         else:
-            theta_gripper=0.0
+            theta_gripper = 0.0
         #theta_claw2= (theta_claw2)*math.pi/180
 
         hello_str.name = ['joint_1', 'joint_2', 'joint_3', 'joint_4', 'joint_5']

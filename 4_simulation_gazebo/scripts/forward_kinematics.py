@@ -61,8 +61,8 @@ def forward_kinematics_publisher():
         joint.data[1] = (theta_shoulder)*math.pi/180
         joint.data[2] = (theta_elbow)*math.pi/180
         if gripper_open:
-            joint.data[3] = 0.8
-            joint.data[4] = 0.8
+            joint.data[3] = 1.57
+            joint.data[4] = 1.57
         else:
             joint.data[3] = 0.0
             joint.data[4] = 0.0

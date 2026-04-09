@@ -25,28 +25,28 @@ SOFTWARE.
 
 #define TAG "MCPWM_SERVO_CONTROL"
 
-servo_config servo_a = {
+servo_config servo_a = {		//GRIPPER
 	.servo_pin = SERVO_A,
 	.min_pulse_width = CONFIG_SERVO_A_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_A_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_A_MAX_DEGREE,
 };
 
-servo_config servo_b = {
+servo_config servo_b = {		//ELBOW
 	.servo_pin = SERVO_B,
 	.min_pulse_width = CONFIG_SERVO_B_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_B_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_B_MAX_DEGREE,
 };
 
-servo_config servo_c = {
+servo_config servo_c = {		//ARM
 	.servo_pin = SERVO_C,
 	.min_pulse_width = CONFIG_SERVO_C_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_C_MAX_PULSEWIDTH,
 	.max_degree = CONFIG_SERVO_C_MAX_DEGREE,
 };
 
-servo_config servo_d = {
+servo_config servo_d = {		//BASE
 	.servo_pin = SERVO_D,
 	.min_pulse_width = CONFIG_SERVO_D_MIN_PULSEWIDTH,
 	.max_pulse_width = CONFIG_SERVO_D_MAX_PULSEWIDTH,
