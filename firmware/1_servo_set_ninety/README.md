@@ -1,6 +1,6 @@
-# Servo Set Zero
+# Servo Set Ninety
 
-This example demonstrates how to set all three servos to a specific angle position.
+This example demonstrates how to set all servos to 90 degrees for ease of assembly.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This example demonstrates how to set all three servos to a specific angle positi
 
 1. Navigate to the project directory:
    ```bash
-   cd ros2_ws_firmware/1_servo_set_zero
+   cd ros2_ws_firmware/1_servo_set_ninety
    ```
 
 2. Source the ESP-IDF environment (if not already done):

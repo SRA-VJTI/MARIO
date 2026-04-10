@@ -57,7 +57,7 @@ If you encounter a `cmake flash error`:
 
 ## Demo
 
-![Servo Sweep Demo](../../assets/simulation_mario_v2.3.gif)
+![Servo Sweep Demo](../../assets/servo_sweep_2026.gif)
 
 ## Features
 - Synchronized movement of three servo motors
