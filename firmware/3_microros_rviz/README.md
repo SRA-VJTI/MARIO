@@ -5,20 +5,19 @@ This project demonstrates the integration of ESP32 with RViz using micro-ROS, al
 
 ## Prerequisites
 - ROS 2 installed and configured
-- micro-ROS workspace set up (`microros_ws`)
+- ROS 2 workspace with micro-ROS agent built (`ros2_ws`)
 - ESP-IDF development environment
 - RViz
 - WiFi connection
 - `net-tools` package (for network configuration)
 
-## Setup Instructions
+## Option 1: WiFi Network
 
 ### 1. Start Micro-ROS Agent
 
-Navigate to micro-ROS workspace and start the agent:
+Start the micro-ROS agent:
 ```bash
-cd microros_ws
-colcon build
+cd ros2_ws
 source install/setup.bash
 ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
 ```
@@ -27,7 +26,7 @@ ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
 
 1. Navigate to project directory:
    ```bash
-   cd MARIO/firmware/3_microros_rviz
+   cd ros2_ws_firmware/3_microros_rviz
    ```
 
 2. Source ESP-IDF:
@@ -57,6 +56,65 @@ ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
    source install/setup.bash
    ros2 run simulation_rviz rviz.py
    ```
+
+## Option 2: PC Hotspot
+
+If you don't have access to a shared WiFi network, you can create a hotspot from your PC.
+
+### Terminal 1: Create PC Hotspot
+```bash
+nmcli device wifi hotspot ssid YOUR_HOTSPOT_NAME password "YOUR_PASSWORD" band bg
+```
+
+Check the PC's IP address:
+```bash
+ifconfig
+```
+The PC hotspot IP is typically `10.42.0.1`.
+
+### Terminal 2: Start Micro-ROS Agent
+```bash
+cd ros2_ws
+source install/setup.bash
+ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888 -v6
+```
+
+### Terminal 3: Configure and Flash ESP32
+
+1. Navigate to project directory:
+   ```bash
+   cd ros2_ws_firmware/3_microros_rviz
+   ```
+
+2. Source ESP-IDF:
+   ```bash
+   source $IDF_PATH/export.sh   # Or use 'get_idf' if aliased
+   ```
+
+3. Configure settings:
+   ```bash
+   idf.py menuconfig
+   ```
+   In `micro-ROS Settings`:
+   - WiFi SSID: `YOUR_HOTSPOT_NAME` (must match the hotspot name)
+   - WiFi Password: `YOUR_PASSWORD` (must match the hotspot password)
+   - Agent IP: `10.42.0.1` (verify with `ifconfig`)
+   - Agent Port: `8888`
+
+4. Build and flash:
+   ```bash
+   idf.py build
+   idf.py -p PORT flash
+   ```
+
+### Terminal 4: Launch RViz Visualization
+```bash
+cd ros2_ws
+source install/setup.bash
+ros2 run simulation_rviz rviz.py
+```
+
+> **Note:** If the ESP32 fails to connect, try pressing the reset button on the SRA board after the agent is running.
 
 ## Network Configuration
 

@@ -18,7 +18,7 @@ This project demonstrates controlling three servos to perform synchronized sweep
 
 1. Navigate to the project directory:
    ```bash
-   cd firmware/servo_sweep
+   cd ros2_ws_firmware/2_servo_sweep
    ```
 
 2. Source the ESP-IDF environment:
@@ -57,7 +57,7 @@ If you encounter a `cmake flash error`:
 
 ## Demo
 
-![Servo Sweep Demo](../../assets/simulation_mario_v2.3.gif)
+![Servo Sweep Demo](../../assets/servo_sweep_2026.gif)
 
 ## Features
 - Synchronized movement of three servo motors

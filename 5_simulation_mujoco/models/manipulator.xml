@@ -1,0 +1,127 @@
+<mujoco model="manipulator">
+  <compiler angle="radian" meshdir="../meshes" autolimits="true"/>
+  
+  <option timestep="0.001" gravity="0 0 -9.81">
+    <flag warmstart="enable"/>
+  </option>
+  
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+    <quality shadowsize="4096"/>
+    <map stiffness="700" shadowscale="0.5" fogstart="10" fogend="15" zfar="40"/>
+  </visual>
+  
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" 
+             rgb1="0.1 0.2 0.3" rgb2="0.2 0.3 0.4"/>
+
+    <!-- Inc. texrepeat for smaller grid size  -->
+    <material name="grid" texture="grid" texrepeat="16 16" texuniform="true" reflectance="0.2"/>
+
+    <texture name="skybox" type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0.0 0.0 0.0" 
+             width="512" height="3072"/>
+
+    <mesh name="base_link" file="base_link.STL" scale="1 1 1"/>
+    <mesh name="link_1" file="link_1.STL" scale="1 1 1"/>
+    <mesh name="link_2" file="link_2.STL" scale="1 1 1"/>
+    <mesh name="link_3" file="link_3.STL" scale="1 1 1"/>
+    <mesh name="claw_right" file="claw_right.STL" scale="1 1 1"/>
+    <mesh name="claw_left" file="claw_left.STL" scale="1 1 1"/>
+
+    <material name="gray" rgba="0.627 0.627 0.627 1"/>
+    <material name="blue" rgba="0.792 0.820 0.933 1"/>
+    <material name="silver" rgba="0.776 0.757 0.737 1"/>
+  </asset>
+  
+  <worldbody>
+    <light name="spotlight" mode="targetbodycom" target="base_link" 
+           directional="false" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" 
+           pos="0 0 4.0" dir="0 0 -1" castshadow="true"/>
+    <light name="ambient" directional="true" diffuse="0.4 0.4 0.4" specular="0.1 0.1 0.1" 
+           pos="0 0 3.0" dir="0 0 -1"/>
+
+    <geom name="floor" type="plane" size="2 2 0.1" material="grid" condim="3"/>
+
+    <body name="base_link" pos="0 0 0.0"> 
+      <inertial pos="0.0021253 0.047935 0.027764" 
+                mass="0.0896"
+                diaginertia="0.00010836 6.5382E-05 5.041E-05"/>
+      <geom type="mesh" mesh="base_link" material="gray" contype="0" conaffinity="0"/>
+      <geom type="mesh" mesh="base_link" material="gray" group="1"/>
+
+      <body name="link_1" pos="-0.0030196 0.046937 0.0635">
+        <inertial pos="-0.00017376 -0.015933 0.017371"
+                  mass="0.024846"
+                  diaginertia="7.0045E-06 7.2894E-06 3.4858E-06"/>
+        <joint name="joint_1" type="hinge" axis="0 0 1" 
+               range="0 3.14" damping="0.1" armature="0.01"/>
+        <geom type="mesh" mesh="link_1" material="blue" contype="0" conaffinity="0"/>
+        <geom type="mesh" mesh="link_1" material="blue" group="1"/>
+
+        <body name="link_2" pos="0.00031511 -0.0095653 0.034407">
+          <inertial pos="0.05189 -0.0024721 -0.0024701"
+                    mass="0.01633"
+                    diaginertia="5.3932E-06 5.9038E-06 6.549E-07"/>
+          <joint name="joint_2" type="hinge" axis="0 -1 0" 
+                 range="0 3.14" damping="0.1" armature="0.01"/>
+          <geom type="mesh" mesh="link_2" material="blue" contype="0" conaffinity="0"/>
+          <geom type="mesh" mesh="link_2" material="blue" group="1"/>
+          
+          <body name="link_3" pos="0.071531 0.011279 -0.0041348">
+            <inertial pos="0.0037357 -0.001707 -0.066045"
+                      mass="0.019923"
+                      diaginertia="1.4011E-06 5.2184E-06 5.6378E-06"/>
+            <joint name="joint_3" type="hinge" axis="0 -1 0" 
+                   range="0 3.14" damping="0.1" armature="0.01"/>
+            <geom type="mesh" mesh="link_3" material="blue" contype="0" conaffinity="0"/>
+            <geom type="mesh" mesh="link_3" material="blue" group="1"/>
+            
+            <body name="claw_right" pos="0.020925 -0.013767 -0.090331">
+              <inertial pos="0.0018122 0.0028283 -0.0079472"
+                        mass="0.013225"
+                        diaginertia="5.8458E-07 2.7116E-06 3.2338E-06"/>
+              <joint name="joint_4" type="hinge" axis="-1 0 0" 
+                     range="0 0.8" damping="0.05" armature="0.005"/>
+              <geom type="mesh" mesh="claw_right" material="silver" contype="0" conaffinity="0"/>
+              <geom type="mesh" mesh="claw_right" material="silver" group="1"/>
+            </body>
+            
+            <body name="claw_left" pos="0.0091023 0.0182709 -0.090512">
+              <inertial pos="0.013771 0.012345 -0.01495"
+                        mass="0.013641"
+                        diaginertia="6.6306E-07 2.8184E-06 3.4175E-06"/>
+              <joint name="joint_5" type="hinge" axis="1 0 0" 
+                     range="0 0.8" damping="0.05" armature="0.005"/>
+              <geom type="mesh" mesh="claw_left" pos="0 -0.014 0.0075" material="silver" contype="0" conaffinity="0"/>
+              <geom type="mesh" mesh="claw_left" pos="0 -0.014 0.0075" material="silver" group="1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  
+  <actuator>
+    <position name="joint_1_actuator" joint="joint_1" kp="170" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_2_actuator" joint="joint_2" kp="40" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_3_actuator" joint="joint_3" kp="30" kv="1" ctrlrange="0 3.14"/>
+    <position name="joint_4_actuator" joint="joint_4" kp="10" kv="1" ctrlrange="0 0.8"/>
+    <position name="joint_5_actuator" joint="joint_5" kp="10" kv="1" ctrlrange="0 0.8"/>
+  </actuator>
+  
+  <sensor>
+    <jointpos name="joint_1_pos" joint="joint_1"/>
+    <jointpos name="joint_2_pos" joint="joint_2"/>
+    <jointpos name="joint_3_pos" joint="joint_3"/>
+    <jointpos name="joint_4_pos" joint="joint_4"/>
+    <jointpos name="joint_5_pos" joint="joint_5"/>
+    
+    <jointvel name="joint_1_vel" joint="joint_1"/>
+    <jointvel name="joint_2_vel" joint="joint_2"/>
+    <jointvel name="joint_3_vel" joint="joint_3"/>
+    <jointvel name="joint_4_vel" joint="joint_4"/>
+    <jointvel name="joint_5_vel" joint="joint_5"/>
+  </sensor>
+</mujoco>

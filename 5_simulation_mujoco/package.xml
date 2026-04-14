@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>simulation_mujoco</name>
+  <version>0.0.1</version>
+  <description>Mujoco simulation for MARIO</description>
+  <maintainer email="vmmalkar_b24@et.vjti.ac.in">Vedant Malkar</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>robot_state_publisher</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

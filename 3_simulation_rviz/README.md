@@ -3,8 +3,6 @@ Introduction to RViz 2:
 
 RViz 2 is a powerful 3D visualization tool provided by the Robot Operating System (ROS) 2 ecosystem. It serves as an essential component for roboticists, engineers, and researchers to visualize and interact with robot models, sensor data, and other important information in a simulated or real-world environment. RViz 2 offers a user-friendly interface with a wide range of features tailored to support the development, debugging, and testing of robotic systems.Here , along we can visualize the URDF of manipulator on Rviz using command line as well as GUI to give input.
 
-If you have not installed the joint_state_publishers and ros_control for ros-noetic, follow the commands given [here](https://github.com/SRA-VJTI/MARIO/tree/master/3_simulation_rviz)
-
 * Remember : Whenever you are using ros commands in another terminal , make sure you  source the ros commands:
 ```
 source install/setup.bash
@@ -43,7 +41,7 @@ ros2 launch simulation_rviz rviz.launch.py
 ros2 run simulation_rviz rviz.py
 ```
 
-*you can use your this command to view the topics actively published . This will show if the values are published to the toppic we want to.
+*you can use this command to view the topics actively published. This will show if the values are published to the topic we want to.
 ```
 ros2 topic list
 ```
