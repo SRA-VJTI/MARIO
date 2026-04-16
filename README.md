@@ -1,4 +1,4 @@
-# MARIO WORKSHOP 2.3
+# MARIO WORKSHOP 2.4
 
 [![Downloads](https://static.pepy.tech/badge/MARIO/month)](https://pepy.tech/project/MARIO)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -39,10 +39,10 @@ Given below are instructions for ROS2-Humble and micro-ROS installations. For RO
     ├── 5_simulation_mujoco                       # simulation of MARIO bot on mujoco
     ├── assets                                    # contains necessary gifs, images
     ├── firmware                                  # contains ESP-IDF examples for controlling servo motors and micro-ROS
-    │   ├── 1_servo_set_zero                      # example in ESP-IDF to set angles of all servo motor zero
+    │   ├── 1_servo_set_ninety                       # example in ESP-IDF to set angles of all servo motor zero
     │   ├── 2_servo_sweep                         # example in ESP-IDF to set variable angles in servo motor
     │   ├── 3_microros_rviz                       # example in ESP-IDF to interface with rviz environment as well as ESP32
-    │   ├── 4_microros_gazebo                     # example in ESP-IDF to interface with gazebo environment as well as ESP32
+    │   ├── 4_microros_gazebo_mujoco                     # example in ESP-IDF to interface with gazebo environment as well as ESP32
     │   ├── 5_servo_test_webserver                # example in ESP-IDF to set angles of servo over the webserver interface
     │   └── components                            # contains all the dependencies required for the above examples
     │       ├── micro_ros_espidf_component        # library to interface between micro-ROS environment and ESP32
