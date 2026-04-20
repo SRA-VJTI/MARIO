@@ -1,0 +1,82 @@
+name: Test Build of MARIO
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  ros2-devel-ci:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ros_distribution:
+          - humble
+        include:
+            # Humble
+          - docker_image: ubuntu:jammy
+            ros_distribution: humble
+            ros_version: 2
+        test_apps: [1_chatter_listener, 2_simulation_dh, 3_simulation_rviz, 4_simulation_gazebo]
+    container:
+      image: ${{ matrix.docker_image }}
+    steps:
+      # - name: Setup directories
+      #   run: mkdir -p ros_ws/src
+      # - name: checkout
+      #   uses: actions/checkout@v3
+      #   with:
+      #     path: ros_ws/src
+      - name: Setup ROS environment
+        uses: ros-tooling/setup-ros@0.3.3
+        with:
+          required-ros-distributions: ${{ matrix.ros_distribution }}
+      - name: Setup Github Actions
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 2
+      - name: Build and Test
+        uses: ros-tooling/action-ros-ci@0.2.5
+        with:
+          package-name: ${{ matrix.test_apps }}
+          target-ros2-distro: ${{ matrix.ros_distribution }}
+          run: |
+              pip uninstall empy && pip3 uninstall empy
+              apt install python3-colcon-common-extensions 
+              pip3 install catkin_pkg lark-parser colcon-common-extensions 
+              rosdep install --from-paths src --ignore-src -y
+              cd ${{ matrix.test-apps }}
+              source /opt/ros/humble/setup.bash
+              colcon build
+  
+  build-test:
+    name: Test Build of MARIO
+    runs-on: ubuntu-latest
+    container:
+      image: espressif/idf:release-v5.1
+    strategy:
+      matrix:
+        test-apps: [1_servo_set_zero, 2_servo_sweep, 3_microros_rviz, 4_microros_gazebo, 5_servo_test_webserver]
+    steps:
+      - name: Force Install GIT latest
+        run: |
+          apt-get update \
+          && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common \
+          && apt-get update \
+          && add-apt-repository -y ppa:git-core/ppa \
+          && apt-get update \
+          && DEBIAN_FRONTEND=noninteractive apt-get install -y git
+      - name: Setup Github Actions
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+      - name: Setup ROS environment
+        uses: ros-tooling/setup-ros@0.3.3
+        with:
+          required-ros-distributions: ${{ matrix.ros_distribution }}
+      - name: Test ${{ matrix.test-apps }}
+        run: |
+          . $IDF_PATH/export.sh
+          pip3 install catkin_pkg lark-parser colcon-common-extensions 
+          rosdep install --from-paths src --ignore-src -y
+          cd firmware/${{ matrix.test-apps }}
+          idf.py build
